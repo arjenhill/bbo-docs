@@ -1,5 +1,5 @@
 ## uuid
-### uuid用法:  `bbo.uuid()`
+### uuid:  `bbo.uuid()`
 
 **example:** 
 ```
@@ -10,7 +10,7 @@ bbo.uuid();
 
 
 ## hash
-### hash用法:  `bbo.hash(str)`
+### hash:  `bbo.hash(str)`
 
 **example:** 
 ```
@@ -21,7 +21,7 @@ bbo.hash("str");
 
 
 ## judge
-### judge用法:  `bbo.judge(v, vals, strict)`
+### judge:  `bbo.judge(v, vals, strict)`
 
 **example:** 
 ```
@@ -32,7 +32,7 @@ bbo.judge("123", "321", 1);
 
 
 ## isTypeof
-### isTypeof用法:  `bbo.isTypeof(val, type)`    
+### isTypeof:  `bbo.isTypeof(val, type)`    
 
 **example:** 
 ```
@@ -43,14 +43,14 @@ bbo.isTypeof('123', Number);
 
 
 ## construct
-### construct用法:  `bbo.construct()`
+### construct:  `bbo.construct()`
 
 `bbo.construct()`
 
 
 
 ## paramsName
-### paramsName用法:  `bbo.paramsName(fn)`
+### paramsName:  `bbo.paramsName(fn)`
 Gets all the formal parameter names of a function
 
 `bbo.paramsName(fn)`

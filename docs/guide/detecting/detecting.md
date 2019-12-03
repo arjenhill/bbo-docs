@@ -1,5 +1,5 @@
 ## isIOS
-### isIOS用法:  `bbo.isIOS() or bbo.isIos()`
+### isIOS:  `bbo.isIOS() or bbo.isIos()`
 Check whether the mobile device is an IOS device.
 
 **example:** 
@@ -11,7 +11,7 @@ if(bbo.isIOS()) { console.log('this is ios'); }
 
 
 ## isAndroid 
-### isAndroid用法:  `bbo.isAndroid()`
+### isAndroid:  `bbo.isAndroid()`
 Check whether the mobile device is an Android device.
 
 **example:** 
@@ -23,7 +23,7 @@ if(bbo.isAndroid()) { console.log('this is android'); }
 
 
 ## isiPhone  
-### isiPhone 用法:  `bbo.isiPhone()`
+### isiPhone :  `bbo.isiPhone()`
 Check whether the mobile device is an iphone.
 
 **example:** 
@@ -35,7 +35,7 @@ if(bbo.isiPhone()) { console.log('this is iphone'); }
 
 
 ## isIPad   
-### isIPad 用法:  `bbo.isIPad()`
+### isIPad :  `bbo.isIPad()`
 Check whether the mobile device is an IPad.
 
 **example:** 
@@ -47,7 +47,7 @@ if(bbo.isIPad()) { console.log('this is ipad'); }
 
 
 ## isMobile 
-### isMobile 用法:  `bbo.isMobile()`
+### isMobile :  `bbo.isMobile()`
 Check if the current device is a mobile device.
 
 **example:** 
@@ -59,7 +59,7 @@ if(bbo.isMobile()) { document.querySelector('.title').style.color = '#fff'; }
 
 
 ## isPC 
-### isPC 用法:  `bbo.isPC()`
+### isPC :  `bbo.isPC()`
 Check if the current device is a PC device.
 
 **example:** 
@@ -71,7 +71,7 @@ if(bbo.isPC()) { document.querySelector('.title').style.color = '#fff'; }
 
 
 ## isWeixin 
-### isWeixin 用法:  `bbo.isWeixin()`
+### isWeixin :  `bbo.isWeixin()`
 Check if the current device is Weixin device.
 
 **example:** 
@@ -83,7 +83,7 @@ if(bbo.isWeixin()) { document.querySelector('.title').style.color = '#fff'; }
 
 
 ## isNewsApp 
-### isNewsApp 用法:  `bbo.isNewsApp()`
+### isNewsApp :  `bbo.isNewsApp()`
 Check if the current device is NewsApp device.
 
 **example:** 
@@ -95,7 +95,7 @@ if(bbo.isNewsApp()) { document.querySelector('.title').style.color = '#fff'; }
 
 
 ## isQQ 
-### isQQ 用法:  `bbo.isQQ()`
+### isQQ :  `bbo.isQQ()`
 Check if the current device is QQ device.
 
 **example:** 
@@ -107,7 +107,7 @@ if(bbo.isQQ()) { document.querySelector('.title').style.color = '#fff'; }
 
 
 ## isTenvideo 
-### isTenvideo 用法:  `bbo.isTenvideo()`
+### isTenvideo :  `bbo.isTenvideo()`
 Check if the current device is Tenvideo device.
 
 **example:** 
@@ -119,7 +119,7 @@ if(bbo.isTenvideo()) { document.querySelector('.title').style.color = '#fff'; }
 
 
 ## isIphoneXmodel 
-### isIphoneXmodel 用法:  `bbo.isIphoneXmodel()`
+### isIphoneXmodel :  `bbo.isIphoneXmodel()`
 Check if the current device is IphoneXmodel device.
 
 **example:** 
@@ -131,7 +131,7 @@ if(bbo.isIphoneXmodel()) { document.querySelector('.title').style.color = '#fff'
 
 
 ## mqqbrowser 
-### mqqbrowser 用法:  `bbo.mqqbrowser()`
+### mqqbrowser :  `bbo.mqqbrowser()`
 Check if the current device is mqqbrowser device.
 
 **example:** 
@@ -143,7 +143,7 @@ if(bbo.mqqbrowser()) { document.querySelector('.title').style.color = '#fff'; }
 
 
 ## isIE  
-### isIE  用法:  `bbo.isIE()`
+### isIE  :  `bbo.isIE()`
 Detect the current browser is Microsoft IE.
 
 **example:** 
@@ -155,7 +155,7 @@ if(bbo.isIE()) { document.querySelector('.title').style.color = '#fff'; }
 
 
 ## ieVersion  
-### ieVersion  用法:  `bbo.ieVersion() or bbo.ieVer()`
+### ieVersion  :  `bbo.ieVersion() or bbo.ieVer()`
 Check the IE browser version.
 
 ```
@@ -166,7 +166,7 @@ document.getElementById('info').innerText = bbo.ieVersion();
 
 
 ## ua   
-### ua   用法:  `bbo.ua(lower?)`
+### ua   :  `bbo.ua(lower?)`
 return navigator.userAgent.
 
 **example:** 

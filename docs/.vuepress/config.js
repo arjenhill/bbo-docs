@@ -1,11 +1,11 @@
 module.exports = {
-  title: 'BBO Document description',
+  title: 'bbo Document',
   description: 'Just playing around',
 
   themeConfig: {
     sidebar: [
       {
-        title: 'Usage reference',
+        title: 'Usage ',
         collapsable: false, //是否展开
       },
       ['./guide/log/log','LOG'],

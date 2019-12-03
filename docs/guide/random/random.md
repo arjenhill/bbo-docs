@@ -1,5 +1,5 @@
 ## randomColor 
-### randomColor用法:  `bbo.randomColor()`
+### randomColor:  `bbo.randomColor()`
 Returns the hex format random color.
 
 ```
@@ -11,7 +11,7 @@ bbo.randomColor()
 
 
 ## randomFromArray 
-### randomFromArray用法:  `bbo.randomFromArray(arr)`
+### randomFromArray:  `bbo.randomFromArray(arr)`
 Returns a random item in the array.
 
 **example:** 
@@ -24,7 +24,7 @@ bbo.randomFromArray([1, 3, 9, 20])
 
 
 ## randomA2B 
-### randomA2B用法:  `bbo.randomA2B(min, max, int?)`
+### randomA2B:  `bbo.randomA2B(min, max, int?)`
 Returns the random number between two numbers.
 
 **example:** 
@@ -38,7 +38,7 @@ bbo.randomA2B(1, 20, true)
 
 
 ## randomKey 
-### randomKey用法:  `bbo.randomKey(length?)`
+### randomKey:  `bbo.randomKey(length?)`
 Returns a random string containing uppercase and lowercase letters and numbers.
 
 **example:** 
@@ -50,7 +50,7 @@ bbo.randomKey(12)
 
 
 ## floor 
-### floor用法:  `bbo.floor(a, b?)`
+### floor:  `bbo.floor(a, b?)`
 Keep a few decimal places. Default is 0
 
 **example:** 

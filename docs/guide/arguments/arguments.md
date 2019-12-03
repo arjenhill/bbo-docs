@@ -1,5 +1,5 @@
 ## args
-### args用法:  `bbo.args(arguments, first?)`
+### args:  `bbo.args(arguments, first?)`
 Converts the arguments object to an array object and slice it. first defalult is 0.
 
 ```
@@ -9,14 +9,14 @@ var args = bbo.args(arguments, 3);
 
 
 ## noop
-### noop用法:  `bbo.noop`
+### noop:  `bbo.noop`
 A noop function
 
 `var func = bbo.noop; `
 
 
 ## trash
-### trash用法:  `bbo.trash`
+### trash:  `bbo.trash`
 A trash cache object, used to store the development of the need to use a variety of temporary variables
 
 ```
@@ -30,7 +30,7 @@ bbo.trash.log();    // All stored data will be printed
 
 
 ## merge
-### merge用法:  `bbo.merge(...objs)`
+### merge:  `bbo.merge(...objs)`
 
 ```
 bbo.merge({a:1},{b:2})

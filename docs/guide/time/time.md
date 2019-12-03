@@ -1,5 +1,5 @@
 ## setTimesout 
-### setTimesout 用法:  `bbo.setTimesout(func, delay, times, ...args)`
+### setTimesout :  `bbo.setTimesout(func, delay, times, ...args)`
 Similar to window.setTimeout, but you can repeat a fixed number of times a function. The function of this is pointing to {"index":index ,"times":times, "over":over}.
 
 **example:** 
@@ -14,7 +14,7 @@ var id = bbo.setTimesout(function(word){
 
 
 ## clearTimesout 
-### clearTimesout  用法:  `bbo.clearTimesout(id)`
+### clearTimesout  :  `bbo.clearTimesout(id)`
 clear bbo.setTimesout.
 
 **example:** 
@@ -24,7 +24,7 @@ bbo.clearTimesout(id)
 
 
 ## getDate 
-### getDate  用法:  `bbo.getDate(d1,d2)`
+### getDate  :  `bbo.getDate(d1,d2)`
 
 **example:** 
 ```
@@ -35,7 +35,7 @@ bbo.getDate("/",":")
 
 
 ## formatPassTime 
-### formatPassTime  用法:  `bbo.formatPassTime(startTime)`
+### formatPassTime  :  `bbo.formatPassTime(startTime)`
 Format the elapsed time from starttime
 
 **example:** 
@@ -47,7 +47,7 @@ bbo.formatPassTime(startTime);
 
 
 ## formatRemainTime 
-### formatRemainTime  用法:  `bbo.formatRemainTime(endTime)`
+### formatRemainTime  :  `bbo.formatRemainTime(endTime)`
 Format the elapsed time from endTime
 
 **example:** 
@@ -60,7 +60,7 @@ bbo.formatRemainTime(endTime);
 
 
 ## formatDuration 
-### formatDuration  用法:  `bbo.formatDuration(ms)`
+### formatDuration  :  `bbo.formatDuration(ms)`
 
 **example:** 
 ```

@@ -1,5 +1,5 @@
 ## cookie
-### cookie用法:  `bbo.cookie()`
+### cookie:  `bbo.cookie()`
 Check whether the mobile device is an IOS device.
 
 **example:** 
@@ -10,7 +10,7 @@ var cookie = bbo.cookie()
 
 
 ## setCookie  
-### setCookie 用法:  `bbo.setCookie(name, value, option?)`
+### setCookie :  `bbo.setCookie(name, value, option?)`
 Set the browser cookie. The option param can set the following parameters: days, hour, path, domain, secure, raw.
 
 **example:** 
@@ -23,7 +23,7 @@ bbo.setCookie('code', '%3Ca%3E%20sd', { raw: true }); //do not encode
 
 
 ## getCookie  
-### getCookie 用法:  `bbo.getCookie(name)`
+### getCookie :  `bbo.getCookie(name)`
 Get the browser cookie.
 
 **example:** 
@@ -33,7 +33,7 @@ bbo.getCookie('username');
 
 
 ## deleteCookie   
-### deleteCookie  用法:  `bbo.deleteCookie(name) or bbo.delCookie(name)`
+### deleteCookie  :  `bbo.deleteCookie(name) or bbo.delCookie(name)`
 delete the browser cookie.
 
 **example:** 
@@ -43,7 +43,7 @@ bbo.delCookie('username');
 
 
 ## parseCookie   
-### parseCookie  用法:  `bbo.parseCookie(str)`
+### parseCookie  :  `bbo.parseCookie(str)`
 
 **example:** 
 ```

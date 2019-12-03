@@ -1,5 +1,5 @@
 ## log
-#### log用法:  `bbo.log(msg, styles?)`
+#### log:  `bbo.log(msg, styles?)`
 the tool that display log information on your phone device.
 
 **example:** 
@@ -10,7 +10,7 @@ bbo.log(cookie, {color:'#fff', 'background':'#ff0000'});
 ```
 
 ## logs
-#### logs用法: `bbo.logs(onlyid&time, arg1, arg2, ...)`
+#### logs: `bbo.logs(onlyid&time, arg1, arg2, ...)`
 In setInterval or requestAnimationFrame functions, a fixed number of log is performed only.
 
 **example:** 
@@ -22,7 +22,7 @@ setInterval(function(){
 ```
 
 ## removeConsole
-#### removeConsole 用法 : `bbo.removeConsole(clear?)`
+#### removeConsole  : `bbo.removeConsole(clear?)`
 Clear the console information to make the console cleaner and just keep the console.error
 
 **example:** 

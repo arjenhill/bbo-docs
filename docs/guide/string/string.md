@@ -1,5 +1,5 @@
 ## trim
-#### trim用法:  `bbo.string.trim(str)`
+#### trim:  `bbo.string.trim(str)`
 Remove spaces after removing previous string
 
 **example:** 
@@ -12,7 +12,7 @@ bbo.string.trim(str);
 
 
 ## fillZero
-#### fillZero用法:  `bbo.string.fillZero(target, n)`
+#### fillZero:  `bbo.string.fillZero(target, n)`
 Increase by 0 based on string length before string
 
 **example:** 
@@ -24,7 +24,7 @@ bbo.string.fillZero("str",4)
 
 
 ## longUnique
-#### longUnique用法:  `bbo.string.longUnique(target)`
+#### longUnique:  `bbo.string.longUnique(target)`
 Long string unique
 
 **example:** 
@@ -36,13 +36,13 @@ bbo.string.longUnique("strstring")
 
 
 ## stripTags
-#### stripTags用法:  `bbo.string.stripTags(target)`
+#### stripTags:  `bbo.string.stripTags(target)`
 Remove the html tags inside the script
 
 
 
 ## capitalize
-#### capitalize用法:  `bbo.string.capitalize(target)`
+#### capitalize:  `bbo.string.capitalize(target)`
 Long string unique
 
 **example:** 
@@ -54,7 +54,7 @@ bbo.string.capitalize("strstring")
 
 
 ## deCapitalize
-#### deCapitalize用法:  `bbo.string.deCapitalize([first, ...rest], upperRest = false)`
+#### deCapitalize:  `bbo.string.deCapitalize([first, ...rest], upperRest = false)`
 DeCapitalizes the first letter of a string.
 
 <!-- **example:** 
@@ -66,7 +66,7 @@ bbo.string.deCapitalize(["string"])
 
 
 ## isAbsoluteURL
-#### isAbsoluteURL用法:  `bbo.string.isAbsoluteURL(str)`
+#### isAbsoluteURL:  `bbo.string.isAbsoluteURL(str)`
 Returns true if the given string is an absolute URL, false otherwise.
 
 **example:** 
@@ -78,7 +78,7 @@ bbo.string.isAbsoluteURL("strstring")
 
 
 ## mapString
-#### mapString用法:  `bbo.string.mapString(str, fn)`
+#### mapString:  `bbo.string.mapString(str, fn)`
 Creates a new string with the results of calling a provided function
 
 <!-- **example:** 
@@ -91,7 +91,7 @@ bbo.string.isAbsoluteURL("strstring")
 
 
 ## mask
-#### mask用法:  `bbo.string.mask(cc, num = 4, mask = '*')`
+#### mask:  `bbo.string.mask(cc, num = 4, mask = '*')`
 Replaces all but the last num of characters with the specified mask character.
 
 **example:** 
@@ -103,7 +103,7 @@ bbo.string.mask("strstring",num = 7, mask = '*')
 
 
 ## splitLines
-#### splitLines用法:  `bbo.string.splitLines(str)`
+#### splitLines:  `bbo.string.splitLines(str)`
 
 **example:** 
 ```
@@ -113,7 +113,7 @@ bbo.string.splitLines("'This\nis a\nmultiline\nstring.\n'")
 
 
 ## camelize
-#### camelize用法:  `bbo.string.camelize(target)`
+#### camelize:  `bbo.string.camelize(target)`
 _ or - to CamelCase
 
 **example:** 
@@ -125,7 +125,7 @@ bbo.string.camelize("strst-ring")
 
 
 ## underscored
-#### underscored用法:  `bbo.string.underscored(target)`
+#### underscored:  `bbo.string.underscored(target)`
 Turn CamelCase to '_'
 
 **example:** 
@@ -136,7 +136,7 @@ bbo.string.underscored("strstRing")
 
 
 ## dasherize
-#### dasherize用法:  `bbo.string.dasherize(target)`
+#### dasherize:  `bbo.string.dasherize(target)`
 Turn '_' in a string into '-'
 
 **example:** 
@@ -149,7 +149,7 @@ bbo.string.dasherize("strst_Ring")
 
 
 ## truncate
-#### truncate用法:  `bbo.string.truncate(str, num)`
+#### truncate:  `bbo.string.truncate(str, num)`
 Truncates a string up to a specified length.
 
 **example:** 
@@ -161,7 +161,7 @@ bbo.string.truncate("strstring",3)
 
 
 ## byteSize
-#### byteSize用法:  `bbo.string.byteSize(str)`
+#### byteSize:  `bbo.string.byteSize(str)`
 Returns the length of a string in bytes.
 
 **example:** 
@@ -174,7 +174,7 @@ bbo.string.byteSize("strstring")
 
 
 ## byteLen
-#### byteLen用法:  `bbo.string.byteLen(str, charset)`
+#### byteLen:  `bbo.string.byteLen(str, charset)`
 Returns the length of a string in bytes by Unicode (utf-8 utf8 utf-16 utf16)
 
 <!-- **example:** 
@@ -186,7 +186,7 @@ bbo.string.byteSize("strstring")
 
 
 ## repeat
-#### repeat用法:  `bbo.string.repeat(item, times)`
+#### repeat:  `bbo.string.repeat(item, times)`
 Repeat item, times times
 
 **example:** 
@@ -198,7 +198,7 @@ bbo.string.repeat("strstring",3)
 
 
 ## endsWith
-#### endsWith用法:  `bbo.string.endsWith(target, item, ignore)`
+#### endsWith:  `bbo.string.endsWith(target, item, ignore)`
 Item is the end of the target
 
 <!-- **example:** 
@@ -209,7 +209,7 @@ bbo.string.endsWith("strstring",3)
 
 
 ## startsWith
-#### startsWith用法:  `bbo.string.startsWith(target, item, ignore)`
+#### startsWith:  `bbo.string.startsWith(target, item, ignore)`
 Item is the beginning of the target
 
 <!-- **example:** 
@@ -221,7 +221,7 @@ bbo.string.repeat("strstring",3)
 
 
 ## contains
-#### contains用法:  `bbo.string.contains(target, item)`
+#### contains:  `bbo.string.contains(target, item)`
 Whether a string contains another string
 
 **example:** 
@@ -233,7 +233,7 @@ bbo.string.contains("strstring","str")
 
 
 ## xssFilter
-#### xssFilter用法:  `bbo.string.xssFilter(str)`
+#### xssFilter:  `bbo.string.xssFilter(str)`
 XSS string filtering
 
 **example:** 
@@ -245,7 +245,7 @@ bbo.string.xssFilter("strstring<<")
 
 
 ## index
-#### index用法:  `bbo.string.index(s, sep)`
+#### index:  `bbo.string.index(s, sep)`
 
 **example:** 
 ```
@@ -256,7 +256,7 @@ bbo.string.index("strstring","i")
 
 
 ## capwords
-#### capwords用法:  `bbo.string.capwords(str)`
+#### capwords:  `bbo.string.capwords(str)`
 
 **example:** 
 ```
