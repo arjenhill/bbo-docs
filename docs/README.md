@@ -30,7 +30,6 @@ In setInterval or requestAnimationFrame functions, a fixed number of log is perf
 
 ```js
 setInterval(function(){
-  //Onlyid is myid, print only 15 times
   bbo.logs(myid + '&15', r, 'show id: '+myid, ' index:', ++index);
 }, 20);
 ```
@@ -59,37 +58,45 @@ Get ID label
 **example:**
 
 ```js
-bbo.g("id")
+bbo.g("id");
 ```
 
 ### gc
 
 `bbo.gc(cn)`
+
 Get class class name label
 
 **example:**
 
 ```js
-bbo.gc("className")
+bbo.gc("className");
 ```
 
 ### c
+
+Create DOM nodes and add attributes
 
 `bbo.c(t, cn, i, id)`
 
 **example:**
 
 ```js
-bbo.c(t, cn, i, id)
+bbo.c("div", "box", "内容", "contain");
 ```
+
+**result:** `<div class="box" id="contain">内容</div>`
 
 ### query
 
-`bbo.query(i)`
+Find DOM node
 
-document.querySelector(i)
+```js
+<div class = "box"></div>
+bbo.query(".box");
+```
 
-**example:**
+**result:** `<div class = "box"></div>`
 
 ### show
 
@@ -100,25 +107,27 @@ DOM display
 **example:**
 
 ```js
-bbo.show(...el)
+var node = document.getElementById("d1");
+bbo.show(node);
 ```
 
 ### hide
 
 `bbo.hide(...el)`
+
 DOM display none
 
 **example:**
 
-`bbo.hide(...el)`
-
 ```js
-bbo.query(".name")
+var node = document.getElementById("d1");
+bbo.hide(node);
 ```
 
 ### getStyle
 
 `bbo.getStyle(el, ruleName)`
+
 Get style
 
 **example:**
@@ -130,13 +139,17 @@ bbo.getStyle(el, ruleName)
 ### setStyle
 
 `bbo.setStyle(el, ruleName, val)`
-Set style
+
+Setting properties for DOM nodes
 
 **example:**
 
 ```js
-bbo.setStyle(el, ruleName, val)
+var el = ocument.getElementById("box");
+bbo.setStyle(el, "width", "100px")
 ```
+
+**result:** `<div id = "box" style="width:100px">内容</div>`
 
 ### open
 
@@ -147,7 +160,7 @@ Open the specified link
 **example:**
 
 ```js
-bbo.open("https://news.qq.com/zt2019/html/XXX.htm")
+bbo.open("https://www.google.cn/")
 ```
 
 ### stopPropagation
@@ -185,7 +198,7 @@ bbo.trigger(element, event, eventType)
 `bbo.lockTouch()`
 
 Mobile web development often binds the touch event and sets e.preventDefault().
-like code: document.addEventListener("touchmove", function (e) { e.preventDefault(); }, false);
+like code: `document.addEventListener("touchmove", function (e) { e.preventDefault(); }, false);`
 
 **example:**
 
@@ -205,7 +218,7 @@ get the url parameter of the current page(or custom).
 bbo.getUrlParam('a' ,'http://xxx.com?a=3&b=sd23s');
 ```
 
-**result:** 3
+**result:** `3`
 
 ### setUrlParam
 
@@ -216,11 +229,10 @@ Set the current page (or custom) url parameters, return the modified url.
 **example:**
 
 ```js
-console.log(bbo.setUrlParam('abc', 'helloworld'));
 bbo.setUrlParam('a', 1, 'http://xxx.com?a=3&b=sd23s');
 ```
 
-**result:**  <http://xxx.com?a=1&b=sd23s>
+**result:**  `<http://xxx.com?a=1&b=sd23s>`
 
 ### deleteUrlParam
 
@@ -231,15 +243,16 @@ delete the current page (or custom) url parameter, return the modified url.
 **example:**
 
 ```js
-console.log(bbo.delUrlParam('uid'));
 bbo.delUrlParam('a', 'http://xxx.com?a=3&b=sd23s');
 ```
 
-**result:**  <http://xxx.com?b=sd23s>
+**result:** `<http://xxx.com?b=sd23s>`
 
 ### objectParam
 
 `bbo.objectParam(arr)`
+
+Match the incoming object key value pair
 
 **example:**
 
@@ -247,15 +260,34 @@ bbo.delUrlParam('a', 'http://xxx.com?a=3&b=sd23s');
 bbo.objectParam([{name:"张三",value:"18"}]);
 ```
 
-**result:**  张三=18
+**result:** `张三=18`
 
 ### httpGet
 
 `bbo.httpGet(url, callback, err = console.error)`
 
+Send a get request
+
+```js
+bbo.httpGet("https://www.baidu.com/", callback, err = console.error);
+function callback(res){
+  console.log(res)
+}
+```
+
 ### httpPost
 
 `bbo.httpGet(url, data, callback, err = console.error)`
+
+Send a post request
+
+```js
+var data = {name:"张三"}
+bbo.httpPost("https://www.baidu.com/", data, callback, err = console.error);
+function callback(res){
+  console.log(res)
+}
+```
 
 ### setTimesout
 
@@ -268,8 +300,8 @@ Similar to window.setTimeout, but you can repeat a fixed number of times a funct
 ```js
 var id = bbo.setTimesout(function(word){
   console.log(word);
-  console.log(this);  // log {index: 3 ,times: 8, over: false}
-
+  console.log(this);  
+  // log {index: 3 ,times: 8, over: false}
   if(this.over) ...
 }, 50, 8, 'helloworld')
 ```
@@ -297,10 +329,10 @@ Check whether the mobile device is an IOS device.
 **example:**
 
 ```js
-if(bbo.isIOS()) { console.log('this is ios'); }
+console.log(bbo.isIOS());
 ```
 
-**result:** detecting is ios - false
+**result:** `true`
 
 ### isAndroid
 
@@ -311,10 +343,10 @@ Check whether the mobile device is an Android device.
 **example:**
 
 ```js
-if(bbo.isAndroid()) { console.log('this is android'); }
+console.log(bbo.isAndroid());
 ```
 
-**result:** detecting is android - false
+**result:** `true`
 
 ### isiPhone
 
@@ -325,10 +357,10 @@ Check whether the mobile device is an iphone.
 **example:**
 
 ```js
-if(bbo.isiPhone()) { console.log('this is iphone'); }
+console.log(bbo.isiPhone());
 ```
 
-**result:** detecting is iphone - false
+**result:** `true`
 
 ### isIPad
 
@@ -339,10 +371,10 @@ Check whether the mobile device is an IPad.
 **example:**
 
 ```js
-if(bbo.isIPad()) { console.log('this is ipad'); }
+console.log(bbo.isIPad());
 ```
 
-**result:** detecting is ipad - false
+**result:** `true`
 
 ### isMobile
 
@@ -353,10 +385,10 @@ Check if the current device is a mobile device.
 **example:**
 
 ```js
-if(bbo.isMobile()) { document.querySelector('.title').style.color = '#fff'; }
+console.log(bbo.isMobile());
 ```
 
-**result:** detecting is Mobile - false
+**result:** `true`
 
 ### isPC
 
@@ -367,10 +399,10 @@ Check if the current device is a PC device.
 **example:**
 
 ```js
-if(bbo.isPC()) { document.querySelector('.title').style.color = '#fff'; }
+console.log(bbo.isPC());
 ```
 
-**result:** detecting is isPC - false
+**result:** `true`
 
 ### isWeixin
 
@@ -381,23 +413,24 @@ Check if the current device is Weixin device.
 **example:**
 
 ```js
-if(bbo.isWeixin()) { document.querySelector('.title').style.color = '#fff'; }
+console.log(bbo.isWeixin());
 ```
 
-**result:** detecting is Weixin - false
+**result:** `true`
 
 ### isNewsApp
 
 `bbo.isNewsApp()`
+
 Check if the current device is NewsApp device.
 
 **example:**
 
 ```js
-if(bbo.isNewsApp()) { document.querySelector('.title').style.color = '#fff'; }
+console.log(bbo.isNewsApp());
 ```
 
-**result:** detecting is isNewsApp - false
+**result:** `true`
 
 ### isQQ
 
@@ -407,10 +440,10 @@ Check if the current device is QQ device.
 **example:**
 
 ```js
-if(bbo.isQQ()) { document.querySelector('.title').style.color = '#fff'; }
+console.log(bbo.isQQ());
 ```
 
-**result:** detecting is isQQ - false
+**result:** `true`
 
 ### isTenvideo
 
@@ -421,10 +454,10 @@ Check if the current device is Tenvideo device.
 **example:**
 
 ```js
-if(bbo.isTenvideo()) { document.querySelector('.title').style.color = '#fff'; }
+console.log(bbo.isTenvideo());
 ```
 
-**result:** detecting is isTenvideo - false
+**result:** `true`
 
 ### isIphoneXmodel
 
@@ -434,10 +467,10 @@ Check if the current device is IphoneXmodel device.
 **example:**
 
 ```js
-if(bbo.isIphoneXmodel()) { document.querySelector('.title').style.color = '#fff'; }
+console.log(bbo.isIphoneXmodel());
 ```
 
-**result:** detecting is isIphoneXmodel - false
+**result:** `true`
 
 ### mqqbrowser
 
@@ -448,10 +481,10 @@ Check if the current device is mqqbrowser device.
 **example:**
 
 ```js
-if(bbo.mqqbrowser()) { document.querySelector('.title').style.color = '#fff'; }
+console.log(bbo.mqqbrowser());
 ```
 
-**result:** detecting is mqqbrowser - false
+**result:** `true`
 
 ### isIE
 
@@ -461,10 +494,10 @@ Detect the current browser is Microsoft IE.
 **example:**
 
 ```js
-if(bbo.isIE()) { document.querySelector('.title').style.color = '#fff'; }
+console.log(bbo.isIE());
 ```
 
-**result:** detecting is IE browser - false
+**result:** `true`
 
 ### ieVersion
 
@@ -472,10 +505,10 @@ if(bbo.isIE()) { document.querySelector('.title').style.color = '#fff'; }
 Check the IE browser version.
 
 ```js
-document.getElementById('info').innerText = bbo.ieVersion();
+console.log(bbo.ieVersion());
 ```
 
-**result:** IE browser version - 11.1.1
+**result:** `IE browser version - 11.1.1`
 
 ### ua
 
@@ -491,7 +524,7 @@ console.log(bbo.ua('l'));
 console.log(bbo.ua('lower'));
 ```
 
-**result:** Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+**result:** `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36`
 
 ## cookie
 
@@ -507,7 +540,7 @@ Set the browser cookie. The option param can set the following parameters: days,
 bbo.setCookie('username', 'small');
 bbo.setCookie('time', 123, { hour: 12 });
 bbo.setCookie('a', 'helloworld', { domain: '.github.com' });
-bbo.setCookie('code', '%3Ca%3E%20sd', { raw: true }); //do not encode
+bbo.setCookie('code', '%3Ca%3E%20sd', { raw: true });
 ```
 
 ### getCookie
@@ -591,13 +624,14 @@ ppo.cookie().remove("name", { path: "" });
 ### randomColor
 
 `bbo.randomColor()`
+
 Returns the hex format random color.
 
 ```js
 bbo.randomColor()
 ```
 
-**example:** #6ca911
+**result:** `#6ca911`
 
 ### randomFromArray
 
@@ -611,7 +645,7 @@ Returns a random item in the array.
 bbo.randomFromArray([1, 3, 9, 20])
 ```
 
-**result:** 3
+**result:** `3`
 
 ### randomA2B
 
@@ -626,7 +660,7 @@ bbo.randomA2B(1, 20)
 bbo.randomA2B(1, 20, true)
 ```
 
-**result:** 17
+**result:** `17`
 
 ### randomKey
 
@@ -654,6 +688,8 @@ Keep a few decimal places. Default is 0
 bbo.floor(Math.random()*100, 5);
 ```
 
+**example:** `57.14555`
+
 ## Time
 
 ### getDate
@@ -666,7 +702,7 @@ bbo.floor(Math.random()*100, 5);
 bbo.getDate("/",":")
 ```
 
-**result:** 2019/12/02 17:00:30
+**result:** `2019/12/02 17:00:30`
 
 ### formatPassTime
 
@@ -681,7 +717,7 @@ var startTime = Date.parse("2019/12/01");
 bbo.formatPassTime(startTime);
 ```
 
-**result:** 2天前
+**result:** `2天前`
 
 ### formatRemainTime
 
@@ -696,7 +732,7 @@ var endTime = Date.parse("2019/12/04");
 bbo.formatRemainTime(endTime);
 ```
 
-**result:** 0天 12小时 28分钟 45秒
+**result:** `0天 12小时 28分钟 45秒`
 
 ### formatDuration
 
@@ -718,17 +754,20 @@ bbo.formatDuration(34325055574);
 ### checkImageSize
 
 `bbo.checkImageSize(image, options, deviation = 0)`
+
 Check image size
 
-`bbo.checkImageSize(image, options, deviation = 0)`
+```js
+bbo.checkImageSize(image, options, deviation = 0)
+```
 
 ### imageOptimization
 
 Image optimization
 
-`bbo.imageOptimization(image, quality = 0.9, { maxWidth = 1920, mimeType } = {})`
-
-**result:** 5.20805
+```js
+bbo.imageOptimization(image, quality = 0.9, { maxWidth = 1920, mimeType } = {})
+```
 
 ## Assets and Data
 
@@ -812,13 +851,17 @@ var args = bbo.args(arguments, 3);
 ### noop
 
 `bbo.noop`
+
 A noop function
 
-`var func = bbo.noop;`
+```js
+var func = bbo.noop;
+```
 
 ### trash
 
-bbo.trash`
+`bbo.trash`
+
 A trash cache object, used to store the development of the need to use a variety of temporary variables
 
 ```js
@@ -834,11 +877,40 @@ bbo.trash.log();    // All stored data will be printed
 
 `bbo.merge(...objs)`
 
+Merge multiple objects
+
 ```js
 bbo.merge({a:1},{b:2})
 ```
 
-**result:** {a: 1, b: 2}
+**result:** `{a: 1, b: 2}`
+
+## Math
+
+### numberFormat
+
+`bbo.math.numberFormat(number, decimals, decPoint, thousandsSep)`
+
+Process data as specified
+
+**example:**
+
+```js
+bbo.math.numberFormat(1234.56);
+bbo.math.numberFormat(1234.56, 2, ',', ' ');
+bbo.math.numberFormat(1234.5678, 2, '.', '');
+bbo.math.numberFormat(67000, 5, ',', '.');
+```
+
+**result:**
+
+`1,235`
+
+`1 234,56`
+
+`1234.57`
+
+`67.000,00000`
 
 ## Lodash
 
@@ -846,9 +918,19 @@ bbo.merge({a:1},{b:2})
 
 `bbo.getTag(src)`
 
+**example:**
+
+```js
+var getTag = bbo.getTag(func)
+```  
+
+**result:** `[object Function]`
+
 ### hasOwnProperty
 
 `bbo.hasOwnProperty(obj, keyName)`
+
+Determine whether there is a specified attribute value
 
 **example:**
 
@@ -862,6 +944,8 @@ var hasOwn = bbo.hasOwnProperty({a:"1"},"a")
 
 `bbo.isObject(obj)`
 
+Judge whether it is an object
+
 **example:**
 
 ```js
@@ -873,6 +957,8 @@ var obj = bbo.isObject({a:"1"})
 ### isArray
 
 `bbo.isArray(arr)`
+
+Determine whether it is an array type
 
 **example:**
 
@@ -886,6 +972,8 @@ var arr = bbo.isArray([1,2,3])
 
 `bbo.isString(str)`
 
+Determine whether it is a string type
+
 **example:**
 
 ```js
@@ -897,6 +985,8 @@ var str = bbo.isString('str')
 ### isBoolean
 
 `bbo.isBoolean(bool)`
+
+Determine whether it is a boolean type
 
 **example:**
 
@@ -910,6 +1000,8 @@ var bol = bbo.isBoolean(1)
 
 `bbo.isNumber(number)`
 
+Judge whether it is number type
+
 **example:**
 
 ```js
@@ -922,19 +1014,41 @@ var num = bbo.isNumber(1)
 
 `bbo.isMap(map)`
 
+Determine whether it is a map type
+
+**example:**
+
+```js
+var num = bbo.isMap([["name", "张三"], ["age", 25]])
+```  
+
+**result:** `false`
+
 ### isSet
 
 `bbo.isSet(set)`
 
+Determine whether it is a set type
+
+**example:**
+
+```js
+var num = bbo.isSet([["name", "张三"], ["age", 25]])
+```  
+
+**result:** `false`
+
 ### isFunction
 
-`bbo.isFunctiont(func)`
+`bbo.isFunction(func)`
+
+Judge whether it is a function type
 
 **example:**
 
 ```js
 var fun = function () {};
-var func = bbo.isFunctiont(fun)
+var func = bbo.isFunction(fun);
 ```  
 
 **result:** `true`
@@ -942,6 +1056,8 @@ var func = bbo.isFunctiont(fun)
 ### isEmpty
 
 `bbo.isEmpty(value)`
+
+Judge whether the value is empty
 
 **example:**
 
@@ -955,6 +1071,8 @@ var empty = bbo.isEmpty('')
 
 `bbo.isShallowEqual(objA, objB)`
 
+Judge whether the values are equal
+
 **example:**
 
 ```js
@@ -966,6 +1084,8 @@ var eq = bbo.isShallowEqual({}, {});
 ### has
 
 `bbo.has(obj, keyName)`
+
+Judge whether the object has the specified property
 
 **example:**
 
@@ -979,6 +1099,20 @@ var isHas = bbo.has({name:"张三"}, "name");
 
 `bbo.reduce(src, func)`
 
+Data processing of arrays or objects according to specified methods
+
+**example:**
+
+```js
+var arr = [1,2,3];
+var func = function(src[i], i, src){
+  return src[i] + i;
+}
+bbo.reduce(arr,func);
+```
+
+**result:** `7`
+
 ### forEach
 
 `bbo.forEach(src, func)`
@@ -987,21 +1121,73 @@ var isHas = bbo.has({name:"张三"}, "name");
 
 `bbo.map(src, func)`
 
+Data processing of arrays or objects according to specified methods
+
+**example:**
+
+```js
+var arr = [1,2,3];
+var func = function(src[i], i, src){
+  return src[i] + i;
+}
+bbo.map(arr,func);
+```
+
+**result:** `[1, 3, 5]`
+
 ### findIndex
 
 `bbo.findIndex(src, func)`
+
+**example:**
+
+```js
+var func = function(item, index, obj){
+  return item == index + 1;
+}
+bbo.findIndex([1,2,3],func);
+```
+
+**result:** `0`
 
 ### find
 
 `bbo.find(src, func)`
 
+**example:**
+
+```js
+var func = function(item, index, obj){
+  return item == index + 1;
+}
+bbo.find([1,2,3],func);
+```
+
+**result:** `1`
+
 ### toPath
 
 `bbo.toPath(value)`
 
+**example:**
+
+```js
+bbo.toPath("str")
+```
+
+**result:** `["str"]`
+
 ### get
 
 `bbo.get(object, path, defaultValue)`
+
+**example:**
+
+```js
+bbo.get({}, "https://www.baidu.com/", "https://www.google.cn/")
+```
+
+**result:** `https://www.google.cn/`
 
 ### debounce
 
@@ -1015,9 +1201,29 @@ var isHas = bbo.has({name:"张三"}, "name");
 
 `bbo.pick(object, ...paths)`
 
+Find the properties of an object by using the key
+
+**example:**
+
+```js
+bbo.pick({a:"1"}, ["a"]);
+```
+
+**result:** `{a: "1"}`
+
 ### omit
 
 `bbo.omit(object, ...paths)`
+
+Delete the properties of an object with the key
+
+**example:**
+
+```js
+bbo.omit({a:"1"}, ["a"]);
+```
+
+**result:** `{}`
 
 ## String
 
@@ -1048,7 +1254,7 @@ Increase by 0 based on string length before string
 bbo.string.fillZero("str",4)
 ```
 
-**result:** 0str
+**result:** `0str`
 
 ### longUnique
 
@@ -1062,13 +1268,22 @@ Long string unique
 bbo.string.longUnique("strstring")
 ```
 
-**result:** string
+**result:** `string`
 
 ### stripTags
 
 `bbo.string.stripTags(target)`
 
 Remove the html tags inside the script
+
+**example:**
+
+```js
+var con = "<div>测试</div>";
+bbo.string.stripTags(con);
+```
+
+**result:** `测试`
 
 ### capitalize
 
@@ -1080,13 +1295,21 @@ Remove the html tags inside the script
 bbo.string.capitalize("strstring")
 ```
 
-**result:** Strstring
+**result:** `Strstring`
 
 ### deCapitalize
 
 `bbo.string.deCapitalize([first, ...rest], upperRest = false)`
 
 DeCapitalizes the first letter of a string.
+
+**example:**
+
+```js
+bbo.string.deCapitalize(["s","abc"]);
+```
+
+**result:** `sabc`
 
 ### isAbsoluteURL
 
@@ -1097,16 +1320,35 @@ Returns true if the given string is an absolute URL, false otherwise.
 **example:**
 
 ```js
+bbo.string.isAbsoluteURL("https://www.baidu.com/");
+```
+
+**result:** `true`
+
+**example:**
+
+```js
 bbo.string.isAbsoluteURL("strstring")
 ```
 
-**result:** false
+**result:** `false`
 
 ### mapString
 
 `bbo.string.mapString(str, fn)`
 
 Creates a new string with the results of calling a provided function
+
+**example:**
+
+```js
+var func = function(c, i, str){
+  return c + i;
+}
+bbo.string.mapString("str",func);
+```
+
+**result:** `s0t1r2`
 
 ### mask
 
@@ -1121,7 +1363,7 @@ Replaces all but the last num of characters with the specified mask character.
 bbo.string.mask("strstring",num = 7, mask = '*')
 ```
 
-**result:** **rstring
+**result:** `**rstring`
 
 ### splitLines
 
@@ -1133,11 +1375,12 @@ bbo.string.mask("strstring",num = 7, mask = '*')
 bbo.string.splitLines("'This\nis a\nmultiline\nstring.\n'")
 ```
 
-**result:** ["'This", "is a", "multiline", "string.", "'"]
+**result:** `["'This", "is a", "multiline", "string.", "'"]`
 
 ### camelize
 
 `bbo.string.camelize(target)`
+
 _ or - to CamelCase
 
 **example:**
@@ -1146,7 +1389,7 @@ _ or - to CamelCase
 bbo.string.camelize("strst-ring")
 ```
 
-**result:** strstRing
+**result:** `strstRing`
 
 ### underscored
 
@@ -1160,7 +1403,7 @@ Turn CamelCase to '_'
 bbo.string.underscored("strstRing")
 ```
 
-**result:** strst_ring
+**result:** `strst_ring`
 
 ### dasherize
 
@@ -1174,7 +1417,7 @@ Turn '_' in a string into '-'
 bbo.string.dasherize("strst_Ring")
 ```
 
-**result:** strst-ring
+**result:** `strst-ring`
 
 ### truncate
 
@@ -1188,7 +1431,7 @@ Truncates a string up to a specified length.
 bbo.string.truncate("strstring",3)
 ```
 
-**result:** str...
+**result:** `str...`
 
 ### byteSize
 
@@ -1202,7 +1445,7 @@ Returns the length of a string in bytes.
 bbo.string.byteSize("strstring")
 ```
 
-**result:** 9
+**result:** `9`
 
 ### byteLen
 
@@ -1210,18 +1453,27 @@ bbo.string.byteSize("strstring")
 
 Returns the length of a string in bytes by Unicode (utf-8 utf8 utf-16 utf16)
 
+**example:**
+
+```js
+bbo.string.byteLen("测试","utf-8");
+```
+
+**result:** `6`
+
 ### repeat
 
 `bbo.string.repeat(item, times)`
+
 Repeat item, times times
 
 **example:**
 
 ```js
-bbo.string.repeat("strstring",3)
+bbo.string.repeat("string",3)
 ```
 
-**result:** strstringstrstringstrstring
+**result:** `stringstringstring`
 
 ### endsWith
 
@@ -1229,11 +1481,27 @@ bbo.string.repeat("strstring",3)
 
 Item is the end of the target
 
+**example:**
+
+```js
+bbo.string.endsWith("str","r",'');
+```
+
+**result:** `true`
+
 ### startsWith
 
 `bbo.string.startsWith(target, item, ignore)`
 
 Item is the beginning of the target
+
+**example:**
+
+```js
+bbo.string.endsWith("str","s",'');
+```
+
+**result:** `true`
 
 ### contains[string]
 
@@ -1247,7 +1515,7 @@ Whether a string contains another string
 bbo.string.contains("strstring","str")
 ```
 
-**result:** true
+**result:** `true`
 
 ### xssFilter
 
@@ -1261,7 +1529,7 @@ XSS string filtering
 bbo.string.xssFilter("strstring<<")
 ```
 
-**result:** strstring&lt;&lt;
+**result:** `strstring&lt;&lt;`
 
 ### index
 
@@ -1273,7 +1541,7 @@ bbo.string.xssFilter("strstring<<")
 bbo.string.index("strstring","i")
 ```
 
-**result:** 6
+**result:** `6`
 
 ### capwords
 
@@ -1285,7 +1553,31 @@ bbo.string.index("strstring","i")
 bbo.string.capwords("hello world")
 ```
 
-**result:** Hello World
+**result:** `Hello World`
+
+### fill0
+
+`bbo.fill0(num)`
+
+Add 0 before number
+
+**example:**
+
+```js
+bbo.fill0(3);
+```
+
+**result:** `03`
+
+### chainAsync
+
+`bbo.chainAsync(fns)`
+
+**example:**
+
+```js
+bbo.chainAsync(fns);
+```
 
 ## Array
 
@@ -1302,7 +1594,7 @@ var arr = [1,1,2,3,4,2];
 bbo.array.unique(arr);
 ```
 
-**result:** [1,2,3,4]
+**result:** `[1,2,3,4]`
 
 ### uniqueBy
 
@@ -1318,7 +1610,7 @@ bbo.array.uniqueBy([1,1,2,3,4],function(a,b){
 });
 ```
 
-**result:** [1,1]
+**result:** `[1,1]`
 
 ### random
 
@@ -1349,7 +1641,7 @@ Returns all unique values of an array, based on a provided comparator function.
 bbo.array.randomSize([1,1,2,3,4], 1 );
 ```
 
-**result:** [1]
+**result:** `[1]`
 
 ### shuffle
 
@@ -1363,7 +1655,7 @@ Randomizes the order of the values of an array, returning a new array.
 bbo.array.shuffle([1,7,2,5,4]);
 ```
 
-**result:** [5, 2, 7, 4, 1]
+**result:** `[5, 2, 7, 4, 1]`
 
 ### contains[array]
 
@@ -1378,7 +1670,7 @@ bbo.array.contains([1,7,2,5,4],5);
 bbo.array.contains([1,7,2,5,4],8)
 ```
 
-**result:**  true false
+**result:** `true false`
 
 ### includesAll
 
@@ -1392,7 +1684,7 @@ bbo.array.includesAll([1,7,2,5,4],[5])
 bbo.array.includesAll([1,7,2,5,4],[5,9])
 ```
 
-**result:**  true    false
+**result:**  `true  false`
 
 ### includesAny
 
@@ -1407,7 +1699,7 @@ bbo.array.includesAny([1,7,2,5,4],[10])
 bbo.array.includesAny([1,7,2,5,4],[5,9])
 ```
 
-**result:**  false true
+**result:** `false true`
 
 ### removeAt
 
@@ -1421,7 +1713,7 @@ Remove the element specified by parameter 2 in parameter 1 and return Boolean
 bbo.array.removeAt([1, 1, 2, 3, 4, 2],3)
 ```
 
-**result:**  true [1, 1, 2, 4, 2]
+**result:**  `true [1, 1, 2, 4, 2]`
 
 ### remove
 
@@ -1435,7 +1727,7 @@ Remove parameter 2 in parameter 1 and return boolean
 bbo.array.remove([1, 1, 2, 3, 4, 2],2)
 ```
 
-**result:**  true  [1, 1, 3, 4, 2]
+**result:** `true [1, 1, 3, 4, 2]`
 
 ### compact
 
@@ -1449,7 +1741,7 @@ Removes undefined from an array.
 bbo.array.compact([1,7,undefined])
 ```
 
-**result:**  [1,7]
+**result:** `[1,7]`
 
 ### compactAll
 
@@ -1463,7 +1755,7 @@ Removes false values from an array.
 bbo.array.compactAll([1, 7, undefined, null, '', 0, false])
 ```
 
-**result:**  [1,7]
+**result:** `[1,7]`
 
 ### pluck
 
@@ -1477,7 +1769,7 @@ Get the attribute values in an array object and combine them into a new array
 bbo.array.pluck([{name:'1',age:'12'}],'age')
 ```
 
-**result:**  ["12"]
+**result:** `["12"]`
 
 ### union
 
@@ -1491,7 +1783,7 @@ Returns every element that exists in any of the two arrays once
 bbo.array.union([1,2,3],[4,5,6])
 ```
 
-**result:**  [1,2,3,4,5,6]
+**result:** `[1,2,3,4,5,6]`
 
 ### unionBy
 
@@ -1507,7 +1799,7 @@ bbo.array.unionBy([1,2,3],[4,5,6],function(a,b){
 })
 ```
 
-**result:**  [1,2,3,4,5,6]
+**result:** `[1,2,3,4,5,6]`
 
 ### unionWith
 
@@ -1527,13 +1819,24 @@ Returns a list of elements that exist in both arrays.
 bbo.array.intersect([1,2,3],[4,2,6])
 ```
 
-**result:**  [2]
+**result:** `[2]`
 
 ### intersectBy
 
 `bbo.array.intersectBy(a, b, fn)`
 
 Returns a list of elements that exist in both arrays.after applying the provided function to each array element of both.
+
+**example:**
+
+```js
+var func = function(){
+  return 6;
+}
+bbo.array.intersectBy([1,2,3],[6,4,5],func)
+```
+
+**result:** `[1,2,3]`
 
 ### difference
 
@@ -1547,7 +1850,7 @@ Returns the difference between two arrays.
 bbo.array.difference([1,2,3],[4,2,6])
 ```
 
-**result:**  [1,3]
+**result:**  `[1,3]`
 
 ### differenceBy
 
@@ -1565,7 +1868,7 @@ Returns the largest element in an array
 bbo.array.max([1,2,3])
 ```
 
-**result:**  3
+**result:** `3`
 
 ### min
 
@@ -1579,7 +1882,7 @@ Returns the smallest element in an array
 bbo.array.min([1,2,3])
 ```
 
-**result:**  1
+**result:** `1`
 
 ### equal
 
@@ -1593,7 +1896,7 @@ Check two arrays are equal
 bbo.array.equal([1,2,3],[1,2,3])
 ```
 
-**result:**  true
+**result:** `true`
 
 ### allEqual
 
@@ -1608,7 +1911,7 @@ bbo.array.allEqual([1,2,3])
 bbo.array.allEqual([1,1,1])
 ```
 
-**result:**  false   true
+**result:**  `false true`
 
 ### all
 
@@ -1622,7 +1925,7 @@ Returns true if the provided predicate function returns true for all elements in
 bbo.array.all([1,2,3],function(){return 1})
 ```
 
-**result:** true
+**result:** `true`
 
 ### any
 
@@ -1636,7 +1939,7 @@ Returns true if the provided predicate function returns true for at least one el
 bbo.array.any([1,2,3],function(){return 1})
 ```
 
-**result:** true
+**result:** `true`
 
 ### chunk
 
@@ -1662,7 +1965,7 @@ Counts the occurrences of a value in an array.
 bbo.array.countOccurrences([1,2,2,3],2)
 ```
 
-**result:** 2
+**result:** `2`
 
 ### drop
 
@@ -1676,7 +1979,7 @@ Returns a new array with n elements removed from the left.
 bbo.array.drop([1,2,2,3],2)
 ```
 
-**result:** [2,3]
+**result:** `[2,3]`
 
 ### dropRight
 
@@ -1690,7 +1993,7 @@ Returns a new array with n elements removed from the right.
 bbo.array.dropRight([1,2,2,3],2)
 ```
 
-**result:** [1,2]
+**result:** `[1,2]`
 
 ### dropWhile
 
@@ -1706,11 +2009,12 @@ bbo.array.dropWhile([1,2,2,3],function(item){
 }
 ```
 
-**result:** []
+**result:** `[]`
 
 ### dropRightWhile
 
 `bbo.array.dropRightWhile(arr, func)`
+
 Removes elements from the end of an array until the passed function returns true,
 
 ### column
@@ -1719,12 +2023,11 @@ Removes elements from the end of an array until the passed function returns true
 
 ```js
 bbo.array.column(
-    [{ name: 'Alex', value: 1 }, { name: 'Elvis', value: 2 }, { name: 'Michael', value: 3 }],
-    'name'
+  [{ name: 'Alex', value: 1 }, { name: 'Elvis', value: 2 }, { name: 'Michael', value: 3 }], 'name'
 )
 ```
 
-**result:** {0: "Alex", 1: "Elvis", 2: "Michael"}
+**result:** `{0: "Alex", 1: "Elvis", 2: "Michael"}`
 
 ### search
 
@@ -1734,7 +2037,7 @@ bbo.array.column(
 bbo.array.search('zonneveld', { firstname: 'kevin', middle: 'van', surname: 'zonneveld' })
 ```
 
-**result:** surname
+**result:** `surname`
 
 ## Pinned
 
