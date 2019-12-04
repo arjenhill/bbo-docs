@@ -1,5 +1,5 @@
 {
-  "name": "vuepress-starter",
+  "name": "bbo-docs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,6 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
-  "keywords": [],
-  "author": "",
+  "author": "halldwang",
   "license": "ISC"
 }

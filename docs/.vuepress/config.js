@@ -1,28 +1,15 @@
 module.exports = {
-  title: 'bbo Document',
-  description: 'Just playing around',
-
+  title: "bbo",
+  description: "A utility belt library for modern JavaScript.",
+  dest: "./dist",
+  base: "/bbo/",
+  repo: "https://github.com/tnfe/bbo",
   themeConfig: {
-    sidebar: [
+    nav: [
       {
-        title: 'Usage ',
-        collapsable: false, //是否展开
-      },
-      ['./guide/log/log','LOG'],
-      ['./guide/detecting/detecting','detecting'],
-      ['./guide/arguments/arguments','arguments'],
-      ['./guide/url/url','Url Params'],
-      ['./guide/cookie/cookie','Cookie'],
-      ['./guide/loadassets/loadAssets','load assets'],
-      ['./guide/time/time','Date'],
-      ['./guide/random/random','random'],
-      ['./guide/touch/touch','touch'],
-      ['./guide/image/image','image'],
-      ['./guide/lodash/lodash','lodash'],
-      ['./guide/bom/bom','bom'],
-      ['./guide/array/array','array'],
-      ['./guide/string/string','string'],
-      ['./guide/other/other','other'],
+        text: "Github",
+        link: "https://github.com/tnfe/bbo"
+      }
     ]
   }
-}
+};
