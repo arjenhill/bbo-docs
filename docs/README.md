@@ -10,7 +10,7 @@ sidebar: auto
 
 `bbo.log(msg, styles?)`
 
-the tool that display log information on your phone device.
+The tool that display log information on your phone device.
 
 **example:**
 
@@ -53,7 +53,7 @@ bbo.removeConsole('clear');
 
 `bbo.g(i)`
 
-Get ID label
+Document.getElementById("i")
 
 **example:**
 
@@ -65,7 +65,7 @@ bbo.g("id");
 
 `bbo.gc(cn)`
 
-Get class class name label
+Document.getElementsByClassName('cn')
 
 **example:**
 
@@ -75,7 +75,7 @@ bbo.gc("className");
 
 ### c
 
-Create DOM nodes and add attributes
+Create DOM and add set attributes
 
 `bbo.c(t, cn, i, id)`
 
@@ -89,7 +89,7 @@ bbo.c("div", "box", "内容", "contain");
 
 ### query
 
-Find DOM node
+Document.querySelector("i")
 
 ```js
 <div class = "box"></div>
@@ -102,7 +102,7 @@ bbo.query(".box");
 
 `bbo.show(...el)`
 
-DOM display
+Shows all the elements specified.
 
 **example:**
 
@@ -115,7 +115,7 @@ bbo.show(node);
 
 `bbo.hide(...el)`
 
-DOM display none
+Hides all the elements specified.
 
 **example:**
 
@@ -128,7 +128,7 @@ bbo.hide(node);
 
 `bbo.getStyle(el, ruleName)`
 
-Get style
+Returns the value of a CSS rule for the specified element.
 
 **example:**
 
@@ -140,7 +140,7 @@ bbo.getStyle(el, ruleName)
 
 `bbo.setStyle(el, ruleName, val)`
 
-Setting properties for DOM nodes
+Sets the value of a CSS rule for the specified element.
 
 **example:**
 
@@ -155,7 +155,7 @@ bbo.setStyle(el, "width", "100px")
 
 `bbo.open(src)`
 
-Open the specified link
+Js opens a new page without being blocked by the browser.
 
 **example:**
 
@@ -167,7 +167,7 @@ bbo.open("https://www.google.cn/")
 
 `bbo.stopPropagation(e)`
 
-Prevent events from bubbling
+The stopPropagation() method of the Event interface prevents further propagation of the current event in the capturing and bubbling phases.
 
 **example:**
 
@@ -179,6 +179,8 @@ bbo.stopPropagation(e)
 
 `bbo.trigger(element, event, eventType)`
 
+Triggers a specific event on a given element, optionally passing custom data.
+
 **example:**
 
 ```js
@@ -189,9 +191,13 @@ bbo.trigger(element, event, eventType)
 
 `bbo.copyToClipboard(str)`
 
+Copy a string to the clipboard. Only works as a result of user action (i.e. inside a click event listener).
+
 ### formToObject
 
 `bbo.formToObject(form)`
+
+Encode a set of form elements as an object.
 
 ### lockTouch
 
@@ -210,7 +216,7 @@ bbo.lockTouch()
 
 `bbo.getUrlParam(name, url?)`
 
-get the url parameter of the current page(or custom).
+Get the url parameter of the current page(or custom).
 
 **example:**
 
@@ -252,7 +258,7 @@ bbo.delUrlParam('a', 'http://xxx.com?a=3&b=sd23s');
 
 `bbo.objectParam(arr)`
 
-Match the incoming object key value pair
+Joins all given URL segments together, then normalizes the resulting URL.
 
 **example:**
 
@@ -266,7 +272,7 @@ bbo.objectParam([{name:"张三",value:"18"}]);
 
 `bbo.httpGet(url, callback, err = console.error)`
 
-Send a get request
+Makes a GET request to the passed URL.
 
 ```js
 bbo.httpGet("https://www.baidu.com/", callback, err = console.error);
@@ -279,7 +285,7 @@ function callback(res){
 
 `bbo.httpGet(url, data, callback, err = console.error)`
 
-Send a post request
+Makes a POST request to the passed URL.
 
 ```js
 var data = {name:"张三"}
@@ -462,6 +468,7 @@ console.log(bbo.isTenvideo());
 ### isIphoneXmodel
 
 `bbo.isIphoneXmodel()`
+
 Check if the current device is IphoneXmodel device.
 
 **example:**
@@ -489,6 +496,7 @@ console.log(bbo.mqqbrowser());
 ### isIE
 
 `bbo.isIE()`
+
 Detect the current browser is Microsoft IE.
 
 **example:**
@@ -502,6 +510,7 @@ console.log(bbo.isIE());
 ### ieVersion
 
 `bbo.ieVersion() or bbo.ieVer()`
+
 Check the IE browser version.
 
 ```js
@@ -559,7 +568,7 @@ bbo.getCookie('username');
 
 `bbo.deleteCookie(name) or bbo.delCookie(name)`
 
-delete the browser cookie.
+Delete the browser cookie.
 
 **example:**
 
@@ -581,7 +590,7 @@ bbo.parseCookie(str);
 
 `ppo.cookie().set("name","value")`
 
-set the browser cookie.
+Set the browser cookie.
 
 **example:**
 
@@ -595,7 +604,7 @@ ppo.cookie().set('name', { foo: 'bar' })
 
 `ppo.cookie().get()`
 
-get the browser cookie.
+Get the browser cookie or cookie object.
 
 **example:**
 
@@ -690,6 +699,45 @@ bbo.floor(Math.random()*100, 5);
 
 **example:** `57.14555`
 
+### numberFormat
+
+`bbo.math.numberFormat(number, decimals, decPoint, thousandsSep)`
+
+JavaScript equivalent to PHP's number_format looks like.
+
+**example:**
+
+```js
+ example 1: bbo.math.numberFormat(1234.56)
+ returns 1: '1,235'
+ example 2: bbo.math.numberFormat(1234.56, 2, ',', ' ')
+ returns 2: '1 234,56'
+ example 3: bbo.math.numberFormat(1234.5678, 2, '.', '')
+ returns 3: '1234.57'
+ example 4: bbo.math.numberFormat(67, 2, ',', '.')
+ returns 4: '67,00'
+ example 5: bbo.math.numberFormat(1000)
+ returns 5: '1,000'
+ example 6: bbo.math.numberFormat(67.311, 2)
+ returns 6: '67.31'
+ example 7: bbo.math.numberFormat(1000.55, 1)
+ returns 7: '1,000.6'
+ example 8: bbo.math.numberFormat(67000, 5, ',', '.')
+ returns 8: '67.000,00000'
+ example 9: bbo.math.numberFormat(0.9, 0)
+ returns 9: '1'
+example 10: bbo.math.numberFormat('1.20', 2)
+returns 10: '1.20'
+example 11: bbo.math.numberFormat('1.20', 4)
+returns 11: '1.2000'
+example 12: bbo.math.numberFormat('1.2000', 3)
+returns 12: '1.200'
+example 13: bbo.math.numberFormat('1 000,50', 2, '.', ' ')
+returns 13: '100 050.00'
+example 14: bbo.math.numberFormat(1e-8, 8, '.', '')
+returns 14: '0.00000001'
+```
+
 ## Time
 
 ### getDate
@@ -737,6 +785,8 @@ bbo.formatRemainTime(endTime);
 ### formatDuration
 
 `bbo.formatDuration(ms)`
+
+Returns the human readable format of the given number of milliseconds.
 
 **example:**
 
@@ -884,33 +934,6 @@ bbo.merge({a:1},{b:2})
 ```
 
 **result:** `{a: 1, b: 2}`
-
-## Math
-
-### numberFormat
-
-`bbo.math.numberFormat(number, decimals, decPoint, thousandsSep)`
-
-Process data as specified
-
-**example:**
-
-```js
-bbo.math.numberFormat(1234.56);
-bbo.math.numberFormat(1234.56, 2, ',', ' ');
-bbo.math.numberFormat(1234.5678, 2, '.', '');
-bbo.math.numberFormat(67000, 5, ',', '.');
-```
-
-**result:**
-
-`1,235`
-
-`1 234,56`
-
-`1234.57`
-
-`67.000,00000`
 
 ## Lodash
 
