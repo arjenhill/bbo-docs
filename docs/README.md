@@ -193,11 +193,23 @@ bbo.trigger(element, event, eventType)
 
 Copy a string to the clipboard. Only works as a result of user action (i.e. inside a click event listener).
 
+**example:**
+
+```js
+copyToClipboard('Lorem ipsum'); // 'Lorem ipsum' copied to clipboard.
+```
+
 ### formToObject
 
 `bbo.formToObject(form)`
 
 Encode a set of form elements as an object.
+
+**example:**
+
+```js
+formToObject(document.querySelector('#form')); // { email: 'test@email.com', name: 'Test Name' }
+```
 
 ### lockTouch
 
@@ -263,10 +275,10 @@ Joins all given URL segments together, then normalizes the resulting URL.
 **example:**
 
 ```js
-bbo.objectParam([{name:"张三",value:"18"}]);
+bbo.objectParam({a:1,b:2});
 ```
 
-**result:** `张三=18`
+**result:** `a=1&b=2`
 
 ### httpGet
 
@@ -288,7 +300,7 @@ function callback(res){
 Makes a POST request to the passed URL.
 
 ```js
-var data = {name:"张三"}
+var data = {name:"a"}
 bbo.httpPost("https://www.baidu.com/", data, callback, err = console.error);
 function callback(res){
   console.log(res)
@@ -588,44 +600,44 @@ bbo.parseCookie(str);
 
 ### cookie.set
 
-`ppo.cookie().set("name","value")`
+`bbo.cookie().set("name","value")`
 
 Set the browser cookie.
 
 **example:**
 
 ```js
-ppo.cookie().set('name', 'value', { expires: 7 });
-ppo.cookie().set("name", "value", { expires: 7, path: "" });
-ppo.cookie().set('name', { foo: 'bar' })
+bbo.cookie().set('name', 'value', { expires: 7 });
+bbo.cookie().set("name", "value", { expires: 7, path: "" });
+bbo.cookie().set('name', { foo: 'bar' })
 ```
 
 ### cookie.get
 
-`ppo.cookie().get()`
+`bbo.cookie().get()`
 
 Get the browser cookie or cookie object.
 
 **example:**
 
 ```js
-ppo.cookie().get('name');
-ppo.cookie().get();
-ppo.cookie().getJson("name");
-ppo.cookie().getJson();
+bbo.cookie().get('name');
+bbo.cookie().get();
+bbo.cookie().getJson("name");
+bbo.cookie().getJson();
 ```
 
 ### cookie.remove
 
-`ppo.cookie().remove()`
+`bbo.cookie().remove()`
 
 remove the browser cookie.
 
 **example:**
 
 ```js
-ppo.cookie().remove("name");
-ppo.cookie().remove("name", { path: "" });
+bbo.cookie().remove("name");
+bbo.cookie().remove("name", { path: "" });
 ```
 
 ## Random And Math
@@ -927,13 +939,49 @@ bbo.trash.log();    // All stored data will be printed
 
 `bbo.merge(...objs)`
 
-Merge multiple objects
+Creates a new object from the combination of two or more objects
+
+**example:**
 
 ```js
-bbo.merge({a:1},{b:2})
+const object = {
+  a: [{ x: 2 }, { y: 4 }],
+  b: 1
+};
+const other = {
+  a: { z: 3 },
+  b: [2, 3],
+  c: 'foo'
+};
+merge(object, other); // { a: [ { x: 2 }, { y: 4 }, { z: 3 } ], b: [ 1, 2, 3 ], c: 'foo' }
 ```
 
-**result:** `{a: 1, b: 2}`
+### over
+
+Creates a function that invokes each provided function with the arguments it receives and returns the results.
+
+**example:**
+
+```js
+const minMax = over(Math.min, Math.max);
+minMax(1, 2, 3, 4, 5); // [1,5]
+```
+
+### call
+
+Given a key and a set of arguments, call them when given a context. Primarily useful in composition.
+
+**example:**
+
+```js
+Promise.resolve([1, 2, 3])
+  .then(call('map', x => 2 * x))
+  .then(console.log); // [ 2, 4, 6 ]
+const map = call.bind(null, 'map');
+Promise.resolve([1, 2, 3])
+  .then(map(x => 2 * x))
+  .then(console.log); // [ 2, 4, 6 ]
+```
 
 ## Lodash
 
@@ -1042,7 +1090,7 @@ Determine whether it is a map type
 **example:**
 
 ```js
-var num = bbo.isMap([["name", "张三"], ["age", 25]])
+var num = bbo.isMap([["name", "a"], ["age", 25]])
 ```  
 
 **result:** `false`
@@ -1056,7 +1104,7 @@ Determine whether it is a set type
 **example:**
 
 ```js
-var num = bbo.isSet([["name", "张三"], ["age", 25]])
+var num = bbo.isSet([["name", "a"], ["age", 25]])
 ```  
 
 **result:** `false`
@@ -1113,7 +1161,7 @@ Judge whether the object has the specified property
 **example:**
 
 ```js
-var isHas = bbo.has({name:"张三"}, "name");
+var isHas = bbo.has({name:"a"}, "name");
 ```  
 
 **result:** `true`
@@ -1207,10 +1255,25 @@ bbo.toPath("str")
 **example:**
 
 ```js
-bbo.get({}, "https://www.baidu.com/", "https://www.google.cn/")
+const res = {
+  data: {
+    article: [
+      {
+        articleId: 0,
+        title: 'title'
+      }
+    ]
+  },
+  response: {
+    code: '0',
+    msg: 'success'
+  }
+};
+
+bbo.get(res, 'response.code') // '0'
 ```
 
-**result:** `https://www.google.cn/`
+**result:** `0`
 
 ### debounce
 
@@ -2044,6 +2107,8 @@ Removes elements from the end of an array until the passed function returns true
 
 `bbo.array.column(input, ColumnKey, IndexKey = null)`
 
+**example:**
+
 ```js
 bbo.array.column(
   [{ name: 'Alex', value: 1 }, { name: 'Elvis', value: 2 }, { name: 'Michael', value: 3 }], 'name'
@@ -2061,6 +2126,95 @@ bbo.array.search('zonneveld', { firstname: 'kevin', middle: 'van', surname: 'zon
 ```
 
 **result:** `surname`
+
+### unary
+
+Creates a function that accepts up to one argument, ignoring any additional arguments.
+
+**example:**
+
+```js
+['6', '8', '10'].map(bbo.array.unary(parseInt)); // [6, 8, 10]
+```
+
+## other
+
+### uuid
+
+Generates a Universally Unique Identifier
+
+**example:**
+
+```js
+bbo.uuid() // 921d9949-59fe-4130-89c0-4cfffaacc44a
+```
+
+### hash
+
+Generates a unique hasn code based on the input string
+
+**example:**
+
+```js
+bbo.hash('sdf%$sdfMnjjskds23'); // -844608950
+```
+
+### isTypeof
+
+Determine the type of a variable
+
+**example:**
+
+```js
+if(bbo.isTypeof(arr, 'array')){ console.log(arr); }
+```
+
+### getType
+
+Returns the native type of a value.
+
+**example:**
+
+```js
+bbo.getType(new Set([1, 2, 3])); // 'set'
+```
+
+### judge
+
+A number of conditions to determine, like x == a || x == b || x == c ..., strict is ===.
+
+**example:**
+
+```js
+if(bbo.judge(fileSuffix, ['.js','.jsx','.css','.less'], 'strict'){  
+   console.log('This file is legal!');  
+}
+```
+
+### paramsName
+
+Gets all the formal parameter names of a function.
+
+**example:**
+
+```js
+function abc($use, $next, $name, $key){ ... };
+let paramsName = bbo.paramsName(abc);
+// ["$use", "$next", "$name", "$key"];
+```
+
+### construct
+
+Instantiate a class object and can pass parameters, only support es5 and above.
+
+**example:**
+
+```js
+var classs = [Dog, Cat, Goose, Elephant];
+var randomClass = bbo.randomFromArray(classs);
+var animal = bbo.construct(randomClass, 'animal', 300);
+console.log(animal.name);
+```
 
 ## Pinned
 
