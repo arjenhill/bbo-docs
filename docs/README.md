@@ -4,6 +4,8 @@ sidebar: auto
 ---
 # Documentation
 
+![bbo logo](https://raw.githubusercontent.com/tnfe/bbo/master/docs/logo.png)
+
 ## LOGS
 
 ### log
