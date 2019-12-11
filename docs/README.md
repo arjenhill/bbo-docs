@@ -2234,10 +2234,6 @@ With easy code and less than 7k gzip, bbo can be used anytime and anywhere with 
 
 See the [latest docs/documentation](https://github.ahthw.com/bbo/) for a full API reference.
 
-### From
-
-Project from：[https://github.com/a-jie/ppo](https://github.com/a-jie/ppo) and [ppo-cli](https://github.com/halldwang/ppo-cli) [onavo](https://github.com/halldwang/onavo/tree/master)
-
 ### Installation
 
 Install using npm
@@ -2297,10 +2293,16 @@ Thank you all who already contributed to bbo!
 
 [contributors](https://github.com/tnfe/bbo/graphs/contributors)
 
+### Refer
+
+[ppo](https://github.com/a-jie/ppo) , [ppo-cli](https://github.com/halldwang/ppo-cli) , [onavo](https://github.com/halldwang/onavo/tree/master) , [30-seconds](https://github.com/30-seconds) , [locutus](https://locutus.io/)
+
 ### Changelog
 
 Detailed changes for each release are documented in the [release notes](https://github.com/tnfe/bbo/releases).
 
 ### License
 
-Trine is ISC licensed. See the [LICENSE](https://github.com/tnfe/bbo/blob/master/LICENSE) document for more information.
+Distributed by Win-Vector LLC 2012 under Apache 2.0 License.
+
+Contributions to this project are governed by the CONTRIBUTING file and the Apache Licens.
