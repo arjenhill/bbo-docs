@@ -7,6 +7,8 @@ sidebar: auto
 
 ![bbo logo](https://raw.githubusercontent.com/Tnfe/bbo/master/docs/bbo.png)
 
+> BBO is a small useful modern JavaScript utility library.
+
 ## LOGS
 
 ### log
