@@ -8,5 +8,5 @@
     "docs:build": "vuepress build docs"
   },
   "author": "halldwang",
-  "license": "ISC"
+  "license": "MIT"
 }
