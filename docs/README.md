@@ -2390,4 +2390,4 @@ Detailed changes for each release are documented in the [release notes](https://
 
 ### License
 
-Proton is released under the MIT License. http://www.opensource.org/licenses/mit-license
+Bbo is released under the MIT License. http://www.opensource.org/licenses/mit-license
