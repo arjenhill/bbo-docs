@@ -5,7 +5,7 @@ sidebar: auto
 
 # Documentation
 
-![bbo logo](https://raw.githubusercontent.com/tnfe/bbo/master/docs/logo.png)
+![bbo logo](https://raw.githubusercontent.com/Tnfe/bbo/master/docs/bbo.png)
 
 ## LOGS
 
