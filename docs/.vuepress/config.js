@@ -1,10 +1,11 @@
 module.exports = {
-  title: "bbo",
-  description: "A utility belt library for modern JavaScript.",
+  description: "BBO is a small useful modern JavaScript utility library.",
   dest: "./dist",
   base: "/bbo/",
   repo: "https://github.com/tnfe/bbo",
   themeConfig: {
+    github: "halldwang",
+    logo: "https://raw.githubusercontent.com/tnfe/bbo/master/docs/bbo.png",
     nav: [
       {
         text: "Github",
