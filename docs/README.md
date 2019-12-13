@@ -2305,7 +2305,7 @@ console.log(animal.name);
 
 ### Overview
 
-![npm version](https://img.shields.io/npm/v/bbo.svg) ![gzip size](https://img.shields.io/bundlephobia/minzip/bbo.svg?label=gzip%20size) ![monthly npm installs](https://img.shields.io/npm/dm/bbo.svg?label=npm%20downloads) ![image](https://img.shields.io/badge/license-Apache2.0-blue.svg)
+![npm version](https://img.shields.io/npm/v/bbo.svg) ![gzip size](https://img.shields.io/bundlephobia/minzip/bbo.svg?label=gzip%20size) ![monthly npm installs](https://img.shields.io/npm/dm/bbo.svg?label=npm%20downloads) ![image](https://img.shields.io/badge/license-MIT-blue.svg)
 
 > BBO is a small useful modern JavaScript utility library.
 
@@ -2388,4 +2388,4 @@ Detailed changes for each release are documented in the [release notes](https://
 
 ### License
 
-Bbo is released under the MIT License. http://www.opensource.org/licenses/mit-license
+Bbo is released under the MIT License. [http://www.opensource.org/licenses/mit-license](http://www.opensource.org/licenses/mit-license)
