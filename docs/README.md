@@ -148,11 +148,15 @@ Sets the value of a CSS rule for the specified element.
 **example:**
 
 ```js
-var el = ocument.getElementById("box");
-bbo.setStyle(el, "width", "100px");
+bbo.setStyle(document.querySelector('p'), 'font-size', '20px');
+// The first <p> element on the page will have a font-size of 20px
 ```
 
-**result:** `<div id = "box" style="width:100px">内容</div>`
+### attr
+
+```js
+bbo.attr(document.createElement('a'), 'target', '_blank');
+```
 
 ### open
 
