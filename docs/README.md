@@ -85,10 +85,10 @@ Create DOM and add set attributes
 **example:**
 
 ```js
-bbo.c("div", "box", "内容", "contain");
+bbo.c("div", "box", "xxx", "contain");
 ```
 
-**result:** `<div class="box" id="contain">内容</div>`
+**result:** `<div class="box" id="contain">xxx</div>`
 
 ### query
 
@@ -167,7 +167,7 @@ Js opens a new page without being blocked by the browser.
 **example:**
 
 ```js
-bbo.open("https://www.google.cn/");
+bbo.open("https://www.abc.cn/");
 ```
 
 ### stopPropagation
@@ -294,7 +294,7 @@ bbo.objectParam({ a: 1, b: 2 });
 Makes a GET request to the passed URL.
 
 ```js
-bbo.httpGet("https://www.baidu.com/", callback, (err = console.error));
+bbo.httpGet("https://www.abc.com/", callback, (err = console.error));
 function callback(res) {
   console.log(res);
 }
@@ -308,7 +308,7 @@ Makes a POST request to the passed URL.
 
 ```js
 var data = { name: "a" };
-bbo.httpPost("https://www.baidu.com/", data, callback, (err = console.error));
+bbo.httpPost("https://www.abc.com/", data, callback, (err = console.error));
 function callback(res) {
   console.log(res);
 }
@@ -1481,7 +1481,7 @@ Returns true if the given string is an absolute URL, false otherwise.
 **example:**
 
 ```js
-bbo.string.isAbsoluteURL("https://www.baidu.com/");
+bbo.string.isAbsoluteURL("https://www.abc.com/");
 ```
 
 **result:** `true`
