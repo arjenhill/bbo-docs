@@ -1772,6 +1772,31 @@ bbo.array.uniqueBy([1, 1, 2, 3, 4], function(a, b) {
 
 **result:** `[1,1]`
 
+### uniqueFrom
+
+`bbo.array.uniqueFrom(arr, target)`
+
+Remove duplicates from an array of objects
+
+**example:**
+
+```js
+let array = [
+  { name: 'n1', id: '1' },
+  { name: 'n2', id: '11' },
+  { name: 'n3', id: '12' },
+  { name: 'n2', id: '11' }
+];
+
+return bbo.array.uniqueFrom(array, 'name');
+```
+
+**result:**
+
+```js
+[{ name: 'n1', id: '1' }, { name: 'n2', id: '11' }, { name: 'n3', id: '12' }]
+```
+
 ### random
 
 `bbo.array.random(arr)`
