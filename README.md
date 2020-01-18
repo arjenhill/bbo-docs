@@ -1,6 +1,6 @@
 Documentation for [BBO](https://github.com/tnfe/bbo)
 
-![bbo logo](https://raw.githubusercontent.com/Tnfe/bbo/master/docs/bbo.png)
+![bbo logo](https://mat1.gtimg.com/www/js/libs/bbo.png)
 
 🐝🐜
 

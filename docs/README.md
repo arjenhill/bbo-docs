@@ -5,15 +5,15 @@ sidebar: auto
 
 # Documentation
 
-> BBO is a small useful modern JavaScript utility library.
+> bbo is a useful utility collection library with zero dependencies.
 
-## LOGS
+## Logs
 
 ### log
 
 `bbo.log(msg, styles?)`
 
-The tool that display log information on your phone device.
+the tool that display log information on your phone device.
 
 **example:**
 
@@ -50,13 +50,13 @@ bbo.removeConsole();
 bbo.removeConsole("clear");
 ```
 
-## Global
+## Bom
 
 ### g
 
 `bbo.g(i)`
 
-Document.getElementById("i")
+Equate to `document.getElementById("i")`
 
 **example:**
 
@@ -68,7 +68,7 @@ bbo.g("id");
 
 `bbo.gc(cn)`
 
-Document.getElementsByClassName('cn')
+Equate to `document.getElementsByClassName('cn')`
 
 **example:**
 
@@ -107,10 +107,14 @@ bbo.query(".box");
 
 Shows all the elements specified.
 
+Use the spread operator `(...)` and `Array.prototype.forEach()` to clear the `display` property for each element specified.
+
 **example:**
 
 ```js
-var node = document.getElementById("d1");
+bbo.show(...document.querySelectorAll("img")); // Shows all <img> elements on the page
+
+let node = bbo.g("d1");
 bbo.show(node);
 ```
 
@@ -120,11 +124,44 @@ bbo.show(node);
 
 Hides all the elements specified.
 
+Use `NodeList.prototype.forEach()` to apply `display: none` to each element specified.
+
 **example:**
 
 ```js
-var node = document.getElementById("d1");
+bbo.hide(document.querySelectorAll("img")); // Hides all <img> elements on the page
+
+let node = bbo.g("d1");
 bbo.hide(node);
+```
+
+### elementContains
+
+Returns `true` if the `parent` element contains the `child` element, `false` otherwise.
+
+Check that `parent` is not the same element as `child`, use `parent.contains(child)` to check if the `parent` element contains the `child` element.
+
+**example:**
+
+```js
+elementContains(
+  document.querySelector("head"),
+  document.querySelector("title")
+); // true
+
+elementContains(document.querySelector("body"), document.querySelector("body")); // false
+```
+
+### formToObject
+
+Encode a set of form elements as an `object`.
+
+Use the FormData constructor to convert the HTML form to FormData, Array.from() to convert to an array. Collect the object from the array, using Array.prototype.reduce().
+
+**example:**
+
+```js
+bbo.formToObject(document.querySelector("#form")); // { email: 'test@email.com', name: 'Test Name' }
 ```
 
 ### getStyle
@@ -133,9 +170,13 @@ bbo.hide(node);
 
 Returns the value of a CSS rule for the specified element.
 
+Use `Window.getComputedStyle()` to get the value of the CSS rule for the specified element.
+
 **example:**
 
 ```js
+bbo.getStyle(document.querySelector("p"), "font-size"); // '16px'
+
 bbo.getStyle(el, ruleName);
 ```
 
@@ -145,29 +186,23 @@ bbo.getStyle(el, ruleName);
 
 Sets the value of a CSS rule for the specified element.
 
+Use `element.style` to set the value of the CSS rule for the specified element to `val`.
+
 **example:**
 
 ```js
-bbo.setStyle(document.querySelector('p'), 'font-size', '20px');
 // The first <p> element on the page will have a font-size of 20px
+bbo.setStyle(document.querySelector("p"), "font-size", "20px");
 ```
 
 ### attr
 
-```js
-bbo.attr(document.createElement('a'), 'target', '_blank');
-```
+`bbo.attr(el, ruleName, val)`
 
-### open
-
-`bbo.open(src)`
-
-Js opens a new page without being blocked by the browser.
-
-**example:**
+Equate to `el.setAttribute(ruleName, val)`
 
 ```js
-bbo.open("https://www.abc.cn/");
+bbo.attr(document.createElement("a"), "target", "_blank");
 ```
 
 ### stopPropagation
@@ -181,6 +216,166 @@ The stopPropagation() method of the Event interface prevents further propagation
 ```js
 bbo.stopPropagation(e);
 ```
+
+## Load
+
+### loadImages
+
+`bbo.loadImages(options)`
+
+Asynchronous loading IMG file and only load once.
+
+**example:**
+
+```js
+bbo.loadImages({
+  data: ["1.png", "2.png", "3.png"],
+  step: num => {},
+  complete: () => {},
+  needOneStep: true,
+  path: "/imagePath"
+});
+```
+
+### loadjs
+
+`bbo.loadjs(urls, idOrCallback?, callback?)`
+
+Asynchronous loading javascript script file and only load once.
+
+**example:**
+
+```js
+bbo.loadjs("https://www.abc.com/a.js");
+bbo.loadjs("https://www.abc.com/a.js", callback);
+bbo.loadjs("https://www.abc.com/a.js", "only_id", callback);
+bbo.loadjs(["./a.js", "./b.js", "./c.js"], callback);
+```
+
+### loadcss
+
+`bbo.loadcss(url, callback)`
+
+Asynchronous loading CSS file and only load once.
+
+**example:**
+
+```js
+bbo.loadcss("https://www.abc.com/a.css");
+bbo.loadcss("https://www.abc.com/a.css", callback);
+```
+
+## fill
+
+### fill0
+
+`bbo.fill0(num)`
+
+Add 0 before number
+
+**example:**
+
+```js
+bbo.fill0(3); // => 03
+```
+
+### floor
+
+`bbo.floor(a, b?)`
+
+Keep a few decimal places. Default is 0
+
+**example:**
+
+```js
+bbo.floor(Math.random() * 100, 5); // => 57.14555
+```
+
+### chainAsync
+
+Chains asynchronous functions.
+
+Loop through an array of functions containing asynchronous events, calling `next` when each asynchronous event has completed.
+
+`bbo.chainAsync(fns)`
+
+**example:**
+
+```js
+chainAsync([
+  next => {
+    console.log("0 seconds");
+    setTimeout(next, 1000);
+  },
+  next => {
+    console.log("1 second");
+    setTimeout(next, 1000);
+  },
+  () => {
+    console.log("2 second");
+  }
+]);
+```
+
+### numberFormat
+
+`bbo.math.numberFormat(number, decimals, decPoint, thousandsSep)`
+
+JavaScript equivalent to PHP's number_format looks like.
+
+**example:**
+
+```js
+ example 1: bbo.math.numberFormat(1234.56)
+ returns 1: '1,235'
+ example 2: bbo.math.numberFormat(1234.56, 2, ',', ' ')
+ returns 2: '1 234,56'
+ example 3: bbo.math.numberFormat(1234.5678, 2, '.', '')
+ returns 3: '1234.57'
+ example 4: bbo.math.numberFormat(67, 2, ',', '.')
+ returns 4: '67,00'
+ example 5: bbo.math.numberFormat(1000)
+ returns 5: '1,000'
+ example 6: bbo.math.numberFormat(67.311, 2)
+ returns 6: '67.31'
+ example 7: bbo.math.numberFormat(1000.55, 1)
+ returns 7: '1,000.6'
+ example 8: bbo.math.numberFormat(67000, 5, ',', '.')
+ returns 8: '67.000,00000'
+ example 9: bbo.math.numberFormat(0.9, 0)
+ returns 9: '1'
+example 10: bbo.math.numberFormat('1.20', 2)
+returns 10: '1.20'
+example 11: bbo.math.numberFormat('1.20', 4)
+returns 11: '1.2000'
+example 12: bbo.math.numberFormat('1.2000', 3)
+returns 12: '1.200'
+example 13: bbo.math.numberFormat('1 000,50', 2, '.', ' ')
+returns 13: '100 050.00'
+example 14: bbo.math.numberFormat(1e-8, 8, '.', '')
+returns 14: '0.00000001'
+```
+
+## json
+
+### toJson
+
+`bbo.toJson(res) or bbo.toJSON(res)`
+
+This method is used to handle the data returned by ajax, which is not determined to be a string or json
+
+**example:**
+
+```js
+$.ajax({ url:'xx', success: res => {
+    // res = "{ code: 0 , msg: 'xxx' , data: ... }";
+    res = bbo.toJson(res);
+    if(res.code==0){ ... };
+  }
+});
+```
+
+## behavior
 
 ### trigger
 
@@ -206,18 +401,6 @@ Copy a string to the clipboard. Only works as a result of user action (i.e. insi
 copyToClipboard("Lorem ipsum"); // 'Lorem ipsum' copied to clipboard.
 ```
 
-### formToObject
-
-`bbo.formToObject(form)`
-
-Encode a set of form elements as an object.
-
-**example:**
-
-```js
-formToObject(document.querySelector("#form")); // { email: 'test@email.com', name: 'Test Name' }
-```
-
 ### lockTouch
 
 `bbo.lockTouch()`
@@ -229,6 +412,20 @@ like code: `document.addEventListener("touchmove", function (e) { e.preventDefau
 
 ```js
 bbo.lockTouch();
+```
+
+## http
+
+### open
+
+`bbo.open(src)`
+
+Js opens a new page without being blocked by the browser.
+
+**example:**
+
+```js
+bbo.open("https://www.abc.com/");
 ```
 
 ### getUrlParam
@@ -314,36 +511,23 @@ function callback(res) {
 }
 ```
 
-### setTimesout
+## Device
 
-`bbo.setTimesout(func, delay, times, ...args)`
+### ua
 
-Similar to window.setTimeout, but you can repeat a fixed number of times a function. The function of this is pointing to {"index":index ,"times":times, "over":over}.
+`bbo.ua(lower?)`
 
-**example:**
-
-```js
-var id = bbo.setTimesout(function(word){
-  console.log(word);
-  console.log(this);
-  // log {index: 3 ,times: 8, over: false}
-  if(this.over) ...
-}, 50, 8, 'helloworld')
-```
-
-### clearTimesout
-
-`bbo.clearTimesout(id)`
-
-clear bbo.setTimesout.
+return navigator.userAgent.
 
 **example:**
 
 ```js
-bbo.clearTimesout(id);
+console.log(bbo.ua());
+console.log(bbo.ua("l"));
+console.log(bbo.ua("lower"));
 ```
 
-## Detecting
+**result:** `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36`
 
 ### isIOS
 
@@ -538,23 +722,49 @@ console.log(bbo.ieVersion());
 
 **result:** `IE browser version - 11.1.1`
 
-### ua
+## Cookie
 
-`bbo.ua(lower?)`
+### cookie.get/getJson
 
-return navigator.userAgent.
+`bbo.cookie().get()`
+
+Get the browser cookie or cookie object.
 
 **example:**
 
 ```js
-console.log(bbo.ua());
-console.log(bbo.ua("l"));
-console.log(bbo.ua("lower"));
+bbo.cookie().get("name");
+bbo.cookie().get();
+bbo.cookie().getJson("name");
+bbo.cookie().getJson();
 ```
 
-**result:** `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36`
+### cookie.set
 
-## Cookie
+`bbo.cookie().set("name","value")`
+
+Set the browser cookie.
+
+**example:**
+
+```js
+bbo.cookie().set("name", "value", { expires: 7 });
+bbo.cookie().set("name", "value", { expires: 7, path: "" });
+bbo.cookie().set("name", { foo: "bar" });
+```
+
+### cookie.remove
+
+`bbo.cookie().remove()`
+
+remove the browser cookie.
+
+**example:**
+
+```js
+bbo.cookie().remove("name");
+bbo.cookie().remove("name", { path: "" });
+```
 
 ### setCookie
 
@@ -603,48 +813,6 @@ bbo.delCookie("username");
 
 ```js
 bbo.parseCookie(str);
-```
-
-### cookie.set
-
-`bbo.cookie().set("name","value")`
-
-Set the browser cookie.
-
-**example:**
-
-```js
-bbo.cookie().set("name", "value", { expires: 7 });
-bbo.cookie().set("name", "value", { expires: 7, path: "" });
-bbo.cookie().set("name", { foo: "bar" });
-```
-
-### cookie.get
-
-`bbo.cookie().get()`
-
-Get the browser cookie or cookie object.
-
-**example:**
-
-```js
-bbo.cookie().get("name");
-bbo.cookie().get();
-bbo.cookie().getJson("name");
-bbo.cookie().getJson();
-```
-
-### cookie.remove
-
-`bbo.cookie().remove()`
-
-remove the browser cookie.
-
-**example:**
-
-```js
-bbo.cookie().remove("name");
-bbo.cookie().remove("name", { path: "" });
 ```
 
 ## Storage
@@ -719,7 +887,7 @@ Remove prefix storage only
 bbo.storage({ type: "local", prefix: "xxx" }).removeAll();
 ```
 
-## Random And Math
+## Random
 
 ### randomColor
 
@@ -762,60 +930,36 @@ bbo.randomKey(12);
 
 **result:** XdT5ZwYviNwk
 
-### floor
-
-`bbo.floor(a, b?)`
-
-Keep a few decimal places. Default is 0
-
-**example:**
-
-```js
-bbo.floor(Math.random() * 100, 5);
-```
-
-**example:** `57.14555`
-
-### numberFormat
-
-`bbo.math.numberFormat(number, decimals, decPoint, thousandsSep)`
-
-JavaScript equivalent to PHP's number_format looks like.
-
-**example:**
-
-```js
- example 1: bbo.math.numberFormat(1234.56)
- returns 1: '1,235'
- example 2: bbo.math.numberFormat(1234.56, 2, ',', ' ')
- returns 2: '1 234,56'
- example 3: bbo.math.numberFormat(1234.5678, 2, '.', '')
- returns 3: '1234.57'
- example 4: bbo.math.numberFormat(67, 2, ',', '.')
- returns 4: '67,00'
- example 5: bbo.math.numberFormat(1000)
- returns 5: '1,000'
- example 6: bbo.math.numberFormat(67.311, 2)
- returns 6: '67.31'
- example 7: bbo.math.numberFormat(1000.55, 1)
- returns 7: '1,000.6'
- example 8: bbo.math.numberFormat(67000, 5, ',', '.')
- returns 8: '67.000,00000'
- example 9: bbo.math.numberFormat(0.9, 0)
- returns 9: '1'
-example 10: bbo.math.numberFormat('1.20', 2)
-returns 10: '1.20'
-example 11: bbo.math.numberFormat('1.20', 4)
-returns 11: '1.2000'
-example 12: bbo.math.numberFormat('1.2000', 3)
-returns 12: '1.200'
-example 13: bbo.math.numberFormat('1 000,50', 2, '.', ' ')
-returns 13: '100 050.00'
-example 14: bbo.math.numberFormat(1e-8, 8, '.', '')
-returns 14: '0.00000001'
-```
-
 ## Time
+
+### setTimesout
+
+`bbo.setTimesout(func, delay, times, ...args)`
+
+Similar to window.setTimeout, but you can repeat a fixed number of times a function. The function of this is pointing to {"index":index ,"times":times, "over":over}.
+
+**example:**
+
+```js
+var id = bbo.setTimesout(function(word){
+  console.log(word);
+  console.log(this);
+  // log {index: 3 ,times: 8, over: false}
+  if(this.over) ...
+}, 50, 8, 'helloworld')
+```
+
+### clearTimesout
+
+`bbo.clearTimesout(id)`
+
+clear bbo.setTimesout.
+
+**example:**
+
+```js
+bbo.clearTimesout(id);
+```
 
 ### getDate
 
@@ -900,72 +1044,6 @@ bbo.imageOptimization(
 );
 ```
 
-## Assets and Data
-
-### loadjs
-
-`bbo.loadjs(urls, idOrCallback?, callback?)`
-
-Asynchronous loading javascript script file and only load once.
-
-**example:**
-
-```js
-bbo.loadjs("http://x.com/a.js");
-bbo.loadjs("http://x.com/a.js", callback);
-bbo.loadjs("http://x.com/a.js", "only_id", callback);
-bbo.loadjs(["./a.js", "./b.js", "./c.js"], callback);
-```
-
-### toJson
-
-`bbo.toJson(res) or bbo.toJSON(res)`
-
-This method is used to handle the data returned by ajax, which is not determined to be a string or json
-
-**example:**
-
-```js
-$.ajax({ url:'xx', success: res => {
-    // res = "{ code: 0 , msg: 'xxx' , data: ... }";
-    res = bbo.toJson(res);
-    if(res.code==0){ ... };
-  }
-});
-```
-
-### loadcss
-
-`bbo.loadcss(url, callback)`
-
-Asynchronous loading CSS file and only load once.
-
-**example:**
-
-```js
-bbo.loadcss("http://x.com/a.css");
-bbo.loadcss("http://x.com/a.css", callback);
-```
-
-### loadImages
-
-`bbo.loadImages(options)`
-
-Asynchronous loading IMG file and only load once.
-
-**example:**
-
-```js
-let imagePath = http://x.com/;
-bbo.loadImages({
-  data: ['1.png', '2.png', '3.png'],
-  step: (num) => {},
-  complete: () => {},
-  needOneStep: true,
-  path: '/imagePath'
-});
-```
-
 ## Arguments
 
 ### args
@@ -1008,7 +1086,9 @@ bbo.trash.log(); // All stored data will be printed
 
 `bbo.merge(...objs)`
 
-Creates a new object from the combination of two or more objects
+Creates a new object from the combination of two or more objects.
+
+Use `Array.prototype.reduce()` combined with `Object.keys(obj)` to iterate over all objects and keys. Use `hasOwnProperty()` and `Array.prototype.concat()` to append values for keys existing in multiple objects.
 
 **example:**
 
@@ -1040,12 +1120,15 @@ minMax(1, 2, 3, 4, 5); // [1,5]
 
 Given a key and a set of arguments, call them when given a context. Primarily useful in composition.
 
+Use a closure to call a stored key with stored arguments.
+
 **example:**
 
 ```js
 Promise.resolve([1, 2, 3])
   .then(call("map", x => 2 * x))
   .then(console.log); // [ 2, 4, 6 ]
+
 const map = call.bind(null, "map");
 Promise.resolve([1, 2, 3])
   .then(map(x => 2 * x))
@@ -1061,10 +1144,8 @@ Promise.resolve([1, 2, 3])
 **example:**
 
 ```js
-var getTag = bbo.getTag(func);
+bbo.getTag(func); // =>[object Function]`
 ```
-
-**result:** `[object Function]`
 
 ### hasOwnProperty
 
@@ -1075,10 +1156,8 @@ Determine whether there is a specified attribute value
 **example:**
 
 ```js
-var hasOwn = bbo.hasOwnProperty({ a: "1" }, "a");
+bbo.hasOwnProperty({ a: "1" }, "a"); // => true
 ```
-
-**result:** `true`
 
 ### isObject
 
@@ -1089,10 +1168,8 @@ Judge whether it is an object
 **example:**
 
 ```js
-var obj = bbo.isObject({ a: "1" });
+bbo.isObject({ a: "1" }); // => true
 ```
-
-**result:** `true`
 
 ### isArray
 
@@ -1103,10 +1180,8 @@ Determine whether it is an array type
 **example:**
 
 ```js
-var arr = bbo.isArray([1, 2, 3]);
+bbo.isArray([1, 2, 3]); // => true
 ```
-
-**result:** `true`
 
 ### isString
 
@@ -1117,10 +1192,10 @@ Determine whether it is a string type
 **example:**
 
 ```js
-var str = bbo.isString("str");
+bbo.isString("str"); // => true
 ```
 
-**result:** `true`
+**result:** ``
 
 ### isBoolean
 
@@ -1131,10 +1206,8 @@ Determine whether it is a boolean type
 **example:**
 
 ```js
-var bol = bbo.isBoolean(1);
+bbo.isBoolean(true); // => true
 ```
-
-**result:** `true`
 
 ### isNumber
 
@@ -1145,10 +1218,8 @@ Judge whether it is number type
 **example:**
 
 ```js
-var num = bbo.isNumber(1);
+bbo.isNumber(1); // => true
 ```
-
-**result:** `true`
 
 ### isMap
 
@@ -1159,13 +1230,14 @@ Determine whether it is a map type
 **example:**
 
 ```js
-var num = bbo.isMap([
-  ["name", "a"],
-  ["age", 25]
-]);
-```
+const m = new Map();
+const o = { p: "hello world" };
+m.set(o, "content");
+m.get(o); //content;
 
-**result:** `false`
+bbo.isMap(m); // => true
+bbo.isMap(o); // => false
+```
 
 ### isSet
 
@@ -1176,13 +1248,11 @@ Determine whether it is a set type
 **example:**
 
 ```js
-var num = bbo.isSet([
-  ["name", "a"],
-  ["age", 25]
-]);
-```
+let set = new Set();
+set.add(1);
 
-**result:** `false`
+bbo.isSet(set); // => true
+```
 
 ### isFunction
 
@@ -1193,11 +1263,9 @@ Judge whether it is a function type
 **example:**
 
 ```js
-var fun = function() {};
-var func = bbo.isFunction(fun);
+let fun = function() {};
+bbo.isFunction(fun); // => true
 ```
-
-**result:** `true`
 
 ### isEmpty
 
@@ -1208,10 +1276,8 @@ Judge whether the value is empty
 **example:**
 
 ```js
-var empty = bbo.isEmpty("");
+bbo.isEmpty(""); // => true
 ```
-
-**result:** `true`
 
 ### isShallowEqual
 
@@ -1222,10 +1288,8 @@ Judge whether the values are equal
 **example:**
 
 ```js
-var eq = bbo.isShallowEqual({}, {});
+bbo.isShallowEqual({}, {}); // => true
 ```
-
-**result:** `true`
 
 ### has
 
@@ -1236,10 +1300,14 @@ Judge whether the object has the specified property
 **example:**
 
 ```js
-var isHas = bbo.has({ name: "a" }, "name");
-```
+let object = { 'a': { 'b': 2 } };
 
-**result:** `true`
+bbo.has(object, 'a'); // => true
+
+bbo.has(object, 'a.b'); // => true
+
+bbo.has(object, ['a', 'b']); // => true
+```
 
 ### reduce
 
@@ -1250,18 +1318,38 @@ Data processing of arrays or objects according to specified methods
 **example:**
 
 ```js
-var arr = [1,2,3];
-var func = function(src[i], i, src){
-  return src[i] + i;
-}
-bbo.reduce(arr,func);
-```
+bbo.reduce(
+  [1, 2],
+  function(sum, n) {
+    return sum + n;
+  },
+  0
+); // => 3
 
-**result:** `7`
+bbo.reduce(
+  { a: 1, b: 2, c: 1 },
+  function(result, value, key) {
+    (result[value] || (result[value] = [])).push(key);
+    return result;
+  },
+  {}
+); // => { '1': ['a', 'c'], '2': ['b'] }
+```
 
 ### forEach
 
 `bbo.forEach(src, func)`
+
+```js
+bbo.forEach([1, 2], function(value) {
+  console.log(value);
+});
+// => Logs `1` then `2`.
+
+bbo.forEach({ 'a': 1, 'b': 2 }, function(value, key) {
+  console.log(key);
+}); // => Logs 'a' then 'b'
+```
 
 ### map
 
@@ -1272,14 +1360,18 @@ Data processing of arrays or objects according to specified methods
 **example:**
 
 ```js
-var arr = [1,2,3];
-var func = function(src[i], i, src){
-  return src[i] + i;
+function square(n) {
+  return n * n;
 }
-bbo.map(arr,func);
-```
 
-**result:** `[1, 3, 5]`
+bbo.map([4, 8], square); // => [16, 64]
+
+bbo.map({ a: 4, b: 8 }, square); // => [16, 64]
+
+var users = [{ user: "barney" }, { user: "fred" }];
+
+bbo.map(users, "user"); // => ['barney', 'fred']
+```
 
 ### findIndex
 
@@ -1288,13 +1380,22 @@ bbo.map(arr,func);
 **example:**
 
 ```js
-var func = function(item, index, obj) {
-  return item == index + 1;
-};
-bbo.findIndex([1, 2, 3], func);
-```
+var users = [
+  { user: "barney", active: false },
+  { user: "fred", active: false },
+  { user: "pebbles", active: true }
+];
 
-**result:** `0`
+bbo.findIndex(users, function(o) {
+  return o.user == "barney";
+}); // => 0
+
+bbo.findIndex(users, { user: "fred", active: false }); // => 1
+
+bbo.findIndex(users, ["active", false]); // => 0
+
+bbo.findIndex(users, "active"); // => 2
+```
 
 ### find
 
@@ -1303,13 +1404,22 @@ bbo.findIndex([1, 2, 3], func);
 **example:**
 
 ```js
-var func = function(item, index, obj) {
-  return item == index + 1;
-};
-bbo.find([1, 2, 3], func);
-```
+var users = [
+  { user: "barney", age: 36, active: true },
+  { user: "fred", age: 40, active: false },
+  { user: "pebbles", age: 1, active: true }
+];
 
-**result:** `1`
+bbo.find(users, function(o) {
+  return o.age < 40;
+}); // => object for 'barney'
+
+bbo.find(users, { age: 1, active: true }); // => object for 'pebbles'
+
+bbo.find(users, ["active", false]); // => object for 'fred'
+
+bbo.find(users, "active"); // => object for 'barney'
+```
 
 ### toPath
 
@@ -1318,7 +1428,11 @@ bbo.find([1, 2, 3], func);
 **example:**
 
 ```js
-bbo.toPath("str");
+bbo.toPath('a.b.c');
+// => ['a', 'b', 'c']
+
+bbo.toPath('a[0].b.c');
+// => ['a', '0', 'b', 'c']
 ```
 
 **result:** `["str"]`
@@ -1348,15 +1462,36 @@ const res = {
 bbo.get(res, "response.code"); // '0'
 ```
 
-**result:** `0`
-
 ### debounce
 
-`bbo.debounce(func, wait, options)`
+Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since the last time the debounced function was invoked.
+
+`bbo.debounce(func, [wait=0], [options={}])`
+
+**example:**
+
+```js
+// Avoid costly calculations while the window size is in flux.
+jQuery(window).on('resize', bbo.debounce(calculateLayout, 150));
+
+// Invoke `sendMail` when clicked, debouncing subsequent calls.
+jQuery(element).on('click', bbo.debounce(sendMail, 300, {
+  'leading': true,
+  'trailing': false
+}));
+
+```
 
 ### throttle
 
-`bbo.throttle(func, wait, options)`
+Creates a throttled function that only invokes func at most once per every wait milliseconds.
+
+`bbo.throttle(func, [wait=0], [options={}])`
+
+```js
+var throttled = _.throttle(renewToken, 300000, { 'trailing': false });
+jQuery(element).on('click', throttled);
+```
 
 ### pick
 
@@ -1367,10 +1502,10 @@ Find the properties of an object by using the key
 **example:**
 
 ```js
-bbo.pick({ a: "1" }, ["a"]);
-```
+var object = { 'a': 1, 'b': '2', 'c': 3 };
 
-**result:** `{a: "1"}`
+bbo.pick(object, ['a', 'c']); // => { 'a': 1, 'c': 3 }
+```
 
 ### omit
 
@@ -1381,10 +1516,10 @@ Delete the properties of an object with the key
 **example:**
 
 ```js
-bbo.omit({ a: "1" }, ["a"]);
-```
+var object = { 'a': 1, 'b': '2', 'c': 3 };
 
-**result:** `{}`
+bbo.omit(object, ['a', 'c']); // => { 'b': '2' }
+```
 
 ## String
 
@@ -1663,7 +1798,7 @@ bbo.string.endsWith("str", "s", "");
 
 **result:** `true`
 
-### contains[string]
+### containsWith
 
 `bbo.string.contains(target, item)`
 
@@ -1715,30 +1850,6 @@ bbo.string.capwords("hello world");
 
 **result:** `Hello World`
 
-### fill0
-
-`bbo.fill0(num)`
-
-Add 0 before number
-
-**example:**
-
-```js
-bbo.fill0(3);
-```
-
-**result:** `03`
-
-### chainAsync
-
-`bbo.chainAsync(fns)`
-
-**example:**
-
-```js
-bbo.chainAsync(fns);
-```
-
 ## Array
 
 ### unique
@@ -1782,19 +1893,23 @@ Remove duplicates from an array of objects
 
 ```js
 let array = [
-  { name: 'n1', id: '1' },
-  { name: 'n2', id: '11' },
-  { name: 'n3', id: '12' },
-  { name: 'n2', id: '11' }
+  { name: "n1", id: "1" },
+  { name: "n2", id: "11" },
+  { name: "n3", id: "12" },
+  { name: "n2", id: "11" }
 ];
 
-return bbo.array.uniqueFrom(array, 'name');
+return bbo.array.uniqueFrom(array, "name");
 ```
 
 **result:**
 
 ```js
-[{ name: 'n1', id: '1' }, { name: 'n2', id: '11' }, { name: 'n3', id: '12' }]
+[
+  { name: "n1", id: "1" },
+  { name: "n2", id: "11" },
+  { name: "n3", id: "12" }
+];
 ```
 
 ### random
@@ -1842,7 +1957,7 @@ bbo.array.shuffle([1, 7, 2, 5, 4]);
 
 **result:** `[5, 2, 7, 4, 1]`
 
-### contains[array]
+### contains
 
 `bbo.array.contains(target, item)`
 
@@ -1851,11 +1966,9 @@ Returns true if the element has the specified Array, false otherwise.
 **example:**
 
 ```js
-bbo.array.contains([1, 7, 2, 5, 4], 5);
-bbo.array.contains([1, 7, 2, 5, 4], 8);
-```
-
-**result:** `true false`
+bbo.array.contains([1, 7, 2, 5, 4], 5); // true
+bbo.array.contains([1, 7, 2, 5, 4], 8); // false
+``
 
 ### includesAll
 
@@ -2330,91 +2443,31 @@ var animal = bbo.construct(randomClass, "animal", 300);
 console.log(animal.name);
 ```
 
-## Pinned
+### eventEmitter
 
-### Overview
+Can be used in the browser to help you subscribe and publish events.
 
-![npm version](https://img.shields.io/npm/v/bbo.svg) ![gzip size](https://img.shields.io/bundlephobia/minzip/bbo.svg?label=gzip%20size) ![monthly npm installs](https://img.shields.io/npm/dm/bbo.svg?label=npm%20downloads) ![image](https://img.shields.io/badge/license-MIT-blue.svg)
+**example:**
 
-> BBO is a small useful modern JavaScript utility library.
+```js
+function handle1(a, b, c) {
+  console.log('one', a, b, c);
+}
+function handle2(a, b, c) {
+  console.log('two', a, b, c);
+}
+function handle3(a, b, c) {
+  console.log('three', a, b, c);
+}
 
-Every frontend developer has his own utils library, and we often write methods that are easily forgotten and highly used. [bbo](https://github.com/tnfe/bbo.git) is a super small and useful utils library for JavaScript. It isn't couping with [lodash](https://github.com/lodash/lodash) [underscore](https://github.com/jashkenas/underscore) [lazy.js](https://github.com/dtao/lazy.js).
 
-I sorted out the most frequently used functions in daily development. These functions are almost ubiquitous in your development, and they cannot be found in lodash and underscore.
+let emitter = new eventEmitter();
+emitter
+  .on('demo', handle1)
+  .once('demo', handle2)
+  .on('demo', handle3);
 
-Most code comes from the [stackOverflow](https://stackoverflow.com/) site in the high-score answers, so we pay tribute to the original authors.
+emitter.emit('demo', [1, 2, 3]);
 
-With easy code and less than 9k gzip, bbo can be used anytime and anywhere with no worries.
-
-See the [latest docs/documentation](https://github.ahthw.com/bbo/) for a full API reference.
-
-### Installation
-
-Install using npm
-
-[![anix](https://nodei.co/npm/bbo.png)](https://npmjs.org/package/bbo)
-
-```JavaScript
-npm install bbo --save
-...
-import bbo from 'bbo';
+emitter.allOff('demo')
 ```
-
-### Usage
-
-```JavaScript
-var username = bbo.getCookie('username');
-
-bbo.log('hello world!');
-
-var id = bbo.setTimesout(function(word){
-    console.log(word);
-    console.log(this);  // log {index: 3 ,times: 8, over: false}
-}, 1000/20, 8, 'helloWorld')
-```
-
-### Why
-
-When you use react, vue, angular，you often need to write a lot of utils methods. But lodash and underscore libraries are not omnipotent. So you have to find a lot of tool libraries. By using bbo, you can solve many small problems in the daily development. It is simple and compact!
-
-### Building
-
-node is a dependency, use terminal to install it with:
-
-```JavaScript
-git clone git://github.com/tnfe/bbo.git
-
-...
-npm install
-npm run lint
-npm run build
-```
-
-And run example
-
-```JavaScript
-npm run start
-//visit http://localhost:8080
-```
-
-### Maintainers
-
-[@halldwang](https://github.com/halldwang).
-
-### Contribution
-
-Thank you all who already contributed to bbo!
-
-[contributors](https://github.com/tnfe/bbo/graphs/contributors)
-
-### Refer
-
-[ppo](https://github.com/a-jie/ppo) , [ppo-cli](https://github.com/halldwang/ppo-cli) , [onavo](https://github.com/halldwang/onavo/tree/master) , [30-seconds](https://github.com/30-seconds) , [locutus](https://locutus.io/) , [mnu](https://github.com/ihtml5/mnu.git)
-
-### Changelog
-
-Detailed changes for each release are documented in the [release notes](https://github.com/tnfe/bbo/releases).
-
-### License
-
-Bbo is released under the MIT License. [http://www.opensource.org/licenses/mit-license](http://www.opensource.org/licenses/mit-license)
