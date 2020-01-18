@@ -1525,7 +1525,7 @@ bbo.omit(object, ['a', 'c']); // => { 'b': '2' }
 
 ### trim
 
-`bbo.string.trim(str)`
+`bbo.trim(str)`
 
 Remove spaces after removing previous string
 
@@ -1533,42 +1533,42 @@ Remove spaces after removing previous string
 
 ```js
 var str = "   str  str    ";
-bbo.string.trim(str);
+bbo.trim(str);
 ```
 
 **result:** ' str str'
 
 ### fillZero
 
-`bbo.string.fillZero(target, n)`
+`bbo.fillZero(target, n)`
 
 Increase by 0 based on string length before string
 
 **example:**
 
 ```js
-bbo.string.fillZero("str", 4);
+bbo.fillZero("str", 4);
 ```
 
 **result:** `0str`
 
 ### longUnique
 
-`bbo.string.longUnique(target)`
+`bbo.longUnique(target)`
 
 Long string unique
 
 **example:**
 
 ```js
-bbo.string.longUnique("strstring");
+bbo.longUnique("strstring");
 ```
 
 **result:** `string`
 
 ### stripTags
 
-`bbo.string.stripTags(target)`
+`bbo.stripTags(target)`
 
 Remove the html tags inside the script
 
@@ -1576,47 +1576,47 @@ Remove the html tags inside the script
 
 ```js
 var con = "<div>测试</div>";
-bbo.string.stripTags(con);
+bbo.stripTags(con);
 ```
 
 **result:** `测试`
 
 ### capitalize
 
-`bbo.string.capitalize(target)`
+`bbo.capitalize(target)`
 
 **example:**
 
 ```js
-bbo.string.capitalize("strstring");
+bbo.capitalize("strstring");
 ```
 
 **result:** `Strstring`
 
 ### deCapitalize
 
-`bbo.string.deCapitalize([first, ...rest], upperRest = false)`
+`bbo.deCapitalize([first, ...rest], upperRest = false)`
 
 DeCapitalizes the first letter of a string.
 
 **example:**
 
 ```js
-bbo.string.deCapitalize(["s", "abc"]);
+bbo.deCapitalize(["s", "abc"]);
 ```
 
 **result:** `sabc`
 
 ### isAbsoluteURL
 
-`bbo.string.isAbsoluteURL(str)`
+`bbo.isAbsoluteURL(str)`
 
 Returns true if the given string is an absolute URL, false otherwise.
 
 **example:**
 
 ```js
-bbo.string.isAbsoluteURL("https://www.abc.com/");
+bbo.isAbsoluteURL("https://www.abc.com/");
 ```
 
 **result:** `true`
@@ -1624,14 +1624,14 @@ bbo.string.isAbsoluteURL("https://www.abc.com/");
 **example:**
 
 ```js
-bbo.string.isAbsoluteURL("strstring");
+bbo.isAbsoluteURL("strstring");
 ```
 
 **result:** `false`
 
 ### mapString
 
-`bbo.string.mapString(str, fn)`
+`bbo.mapString(str, fn)`
 
 Creates a new string with the results of calling a provided function
 
@@ -1641,211 +1641,211 @@ Creates a new string with the results of calling a provided function
 var func = function(c, i, str) {
   return c + i;
 };
-bbo.string.mapString("str", func);
+bbo.mapString("str", func);
 ```
 
 **result:** `s0t1r2`
 
 ### mask
 
-`bbo.string.mask(cc, num = 4, mask = '*')`
+`bbo.mask(cc, num = 4, mask = '*')`
 
 Replaces all but the last num of characters with the specified mask character.
 
 **example:**
 
 ```js
-bbo.string.mask("strstring", (num = 7), (mask = "*"));
+bbo.mask("strstring", (num = 7), (mask = "*"));
 ```
 
 **result:** `**rstring`
 
 ### splitLines
 
-`bbo.string.splitLines(str)`
+`bbo.splitLines(str)`
 
 **example:**
 
 ```js
-bbo.string.splitLines("'This\nis a\nmultiline\nstring.\n'");
+bbo.splitLines("'This\nis a\nmultiline\nstring.\n'");
 ```
 
 **result:** `["'This", "is a", "multiline", "string.", "'"]`
 
 ### camelize
 
-`bbo.string.camelize(target)`
+`bbo.camelize(target)`
 
 \_ or - to CamelCase
 
 **example:**
 
 ```js
-bbo.string.camelize("strst-ring");
+bbo.camelize("strst-ring");
 ```
 
 **result:** `strstRing`
 
 ### underscored
 
-`bbo.string.underscored(target)`
+`bbo.underscored(target)`
 
 Turn CamelCase to '\_'
 
 **example:**
 
 ```js
-bbo.string.underscored("strstRing");
+bbo.underscored("strstRing");
 ```
 
 **result:** `strst_ring`
 
 ### dasherize
 
-`bbo.string.dasherize(target)`
+`bbo.dasherize(target)`
 
 Turn '\_' in a string into '-'
 
 **example:**
 
 ```js
-bbo.string.dasherize("strst_Ring");
+bbo.dasherize("strst_Ring");
 ```
 
 **result:** `strst-ring`
 
 ### truncate
 
-`bbo.string.truncate(str, num)`
+`bbo.truncate(str, num)`
 
 Truncates a string up to a specified length.
 
 **example:**
 
 ```js
-bbo.string.truncate("strstring", 3);
+bbo.truncate("strstring", 3);
 ```
 
 **result:** `str...`
 
 ### byteSize
 
-`bbo.string.byteSize(str)`
+`bbo.byteSize(str)`
 
 Returns the length of a string in bytes.
 
 **example:**
 
 ```js
-bbo.string.byteSize("strstring");
+bbo.byteSize("strstring");
 ```
 
 **result:** `9`
 
 ### byteLen
 
-`bbo.string.byteLen(str, charset)`
+`bbo.byteLen(str, charset)`
 
 Returns the length of a string in bytes by Unicode (utf-8 utf8 utf-16 utf16)
 
 **example:**
 
 ```js
-bbo.string.byteLen("测试", "utf-8");
+bbo.byteLen("测试", "utf-8");
 ```
 
 **result:** `6`
 
 ### repeat
 
-`bbo.string.repeat(item, times)`
+`bbo.repeat(item, times)`
 
 Repeat item, times times
 
 **example:**
 
 ```js
-bbo.string.repeat("string", 3);
+bbo.repeat("string", 3);
 ```
 
 **result:** `stringstringstring`
 
 ### endsWith
 
-`bbo.string.endsWith(target, item, ignore)`
+`bbo.endsWith(target, item, ignore)`
 
 Item is the end of the target
 
 **example:**
 
 ```js
-bbo.string.endsWith("str", "r", "");
+bbo.endsWith("str", "r", "");
 ```
 
 **result:** `true`
 
 ### startsWith
 
-`bbo.string.startsWith(target, item, ignore)`
+`bbo.startsWith(target, item, ignore)`
 
 Item is the beginning of the target
 
 **example:**
 
 ```js
-bbo.string.endsWith("str", "s", "");
+bbo.endsWith("str", "s", "");
 ```
 
 **result:** `true`
 
 ### containsWith
 
-`bbo.string.contains(target, item)`
+`bbo.contains(target, item)`
 
 Whether a string contains another string
 
 **example:**
 
 ```js
-bbo.string.contains("strstring", "str");
+bbo.contains("strstring", "str");
 ```
 
 **result:** `true`
 
 ### xssFilter
 
-`bbo.string.xssFilter(str)`
+`bbo.xssFilter(str)`
 
 XSS string filtering
 
 **example:**
 
 ```js
-bbo.string.xssFilter("strstring<<");
+bbo.xssFilter("strstring<<");
 ```
 
 **result:** `strstring&lt;&lt;`
 
 ### index
 
-`bbo.string.index(s, sep)`
+`bbo.index(s, sep)`
 
 **example:**
 
 ```js
-bbo.string.index("strstring", "i");
+bbo.index("strstring", "i");
 ```
 
 **result:** `6`
 
 ### capwords
 
-`bbo.string.capwords(str)`
+`bbo.capwords(str)`
 
 **example:**
 
 ```js
-bbo.string.capwords("hello world");
+bbo.capwords("hello world");
 ```
 
 **result:** `Hello World`
@@ -1854,7 +1854,7 @@ bbo.string.capwords("hello world");
 
 ### unique
 
-`bbo.array.unique(arr)`
+`bbo.unique(arr)`
 
 Returns all unique values of an array.
 
@@ -1862,21 +1862,21 @@ Returns all unique values of an array.
 
 ```js
 var arr = [1, 1, 2, 3, 4, 2];
-bbo.array.unique(arr);
+bbo.unique(arr);
 ```
 
 **result:** `[1,2,3,4]`
 
 ### uniqueBy
 
-`bbo.array.uniqueBy(arr, fn)`
+`bbo.uniqueBy(arr, fn)`
 
 Returns all unique values of an array, based on a provided comparator function.
 
 **example:**
 
 ```js
-bbo.array.uniqueBy([1, 1, 2, 3, 4], function(a, b) {
+bbo.uniqueBy([1, 1, 2, 3, 4], function(a, b) {
   a - b;
 });
 ```
@@ -1885,7 +1885,7 @@ bbo.array.uniqueBy([1, 1, 2, 3, 4], function(a, b) {
 
 ### uniqueFrom
 
-`bbo.array.uniqueFrom(arr, target)`
+`bbo.uniqueFrom(arr, target)`
 
 Remove duplicates from an array of objects
 
@@ -1899,7 +1899,7 @@ let array = [
   { name: "n2", id: "11" }
 ];
 
-return bbo.array.uniqueFrom(array, "name");
+return bbo.uniqueFrom(array, "name");
 ```
 
 **result:**
@@ -1914,15 +1914,15 @@ return bbo.array.uniqueFrom(array, "name");
 
 ### random
 
-`bbo.array.random(arr)`
+`bbo.random(arr)`
 
 Returns a random element from an array.
 
 **example:**
 
 ```js
-bbo.array.random([1, 2, 3, 4]);
-bbo.array.random([1, 2, 3, 4]);
+bbo.random([1, 2, 3, 4]);
+bbo.random([1, 2, 3, 4]);
 ```
 
 **result:**
@@ -1931,168 +1931,168 @@ bbo.array.random([1, 2, 3, 4]);
 
 ### randomSize
 
-`bbo.array.randomSize([...arr], n = 1)`
+`bbo.randomSize([...arr], n = 1)`
 
 Returns all unique values of an array, based on a provided comparator function.
 
 **example:**
 
 ```js
-bbo.array.randomSize([1, 1, 2, 3, 4], 1);
+bbo.randomSize([1, 1, 2, 3, 4], 1);
 ```
 
 **result:** `[1]`
 
 ### shuffle
 
-`bbo.array.shuffle([...arr])`
+`bbo.shuffle([...arr])`
 
 Randomizes the order of the values of an array, returning a new array.
 
 **example:**
 
 ```js
-bbo.array.shuffle([1, 7, 2, 5, 4]);
+bbo.shuffle([1, 7, 2, 5, 4]);
 ```
 
 **result:** `[5, 2, 7, 4, 1]`
 
 ### contains
 
-`bbo.array.contains(target, item)`
+`bbo.contains(target, item)`
 
 Returns true if the element has the specified Array, false otherwise.
 
 **example:**
 
 ```js
-bbo.array.contains([1, 7, 2, 5, 4], 5); // true
-bbo.array.contains([1, 7, 2, 5, 4], 8); // false
+bbo.contains([1, 7, 2, 5, 4], 5); // true
+bbo.contains([1, 7, 2, 5, 4], 8); // false
 ``
 
 ### includesAll
 
-`bbo.array.includesAll(arr, values)`
+`bbo.includesAll(arr, values)`
 Returns true if all the elements values are included in arr, false otherwise.
 
 **example:**
 
 ```js
-bbo.array.includesAll([1, 7, 2, 5, 4], [5]);
-bbo.array.includesAll([1, 7, 2, 5, 4], [5, 9]);
+bbo.includesAll([1, 7, 2, 5, 4], [5]);
+bbo.includesAll([1, 7, 2, 5, 4], [5, 9]);
 ```
 
 **result:** `true false`
 
 ### includesAny
 
-`bbo.array.includesAny(arr, values)`
+`bbo.includesAny(arr, values)`
 
 Returns true if at least one element of values is included in arr , false otherwise.
 
 **example:**
 
 ```js
-bbo.array.includesAny([1, 7, 2, 5, 4], [10]);
-bbo.array.includesAny([1, 7, 2, 5, 4], [5, 9]);
+bbo.includesAny([1, 7, 2, 5, 4], [10]);
+bbo.includesAny([1, 7, 2, 5, 4], [5, 9]);
 ```
 
 **result:** `false true`
 
 ### removeAt
 
-`bbo.array.removeAt(target, index)`
+`bbo.removeAt(target, index)`
 
 Remove the element specified by parameter 2 in parameter 1 and return Boolean
 
 **example:**
 
 ```js
-bbo.array.removeAt([1, 1, 2, 3, 4, 2], 3);
+bbo.removeAt([1, 1, 2, 3, 4, 2], 3);
 ```
 
 **result:** `true [1, 1, 2, 4, 2]`
 
 ### remove
 
-`bbo.array.remove(target, index)`
+`bbo.remove(target, index)`
 
 Remove parameter 2 in parameter 1 and return boolean
 
 **example:**
 
 ```js
-bbo.array.remove([1, 1, 2, 3, 4, 2], 2);
+bbo.remove([1, 1, 2, 3, 4, 2], 2);
 ```
 
 **result:** `true [1, 1, 3, 4, 2]`
 
 ### compact
 
-`bbo.array.compact(target)`
+`bbo.compact(target)`
 
 Removes undefined from an array.
 
 **example:**
 
 ```js
-bbo.array.compact([1, 7, undefined]);
+bbo.compact([1, 7, undefined]);
 ```
 
 **result:** `[1,7]`
 
 ### compactAll
 
-`bbo.array.compactAll(arr)`
+`bbo.compactAll(arr)`
 
 Removes false values from an array.
 
 **example:**
 
 ```js
-bbo.array.compactAll([1, 7, undefined, null, "", 0, false]);
+bbo.compactAll([1, 7, undefined, null, "", 0, false]);
 ```
 
 **result:** `[1,7]`
 
 ### pluck
 
-`bbo.array.pluck(target, name)`
+`bbo.pluck(target, name)`
 
 Get the attribute values in an array object and combine them into a new array
 
 **example:**
 
 ```js
-bbo.array.pluck([{ name: "1", age: "12" }], "age");
+bbo.pluck([{ name: "1", age: "12" }], "age");
 ```
 
 **result:** `["12"]`
 
 ### union
 
-`bbo.array.union(a, b)`
+`bbo.union(a, b)`
 
 Returns every element that exists in any of the two arrays once
 
 **example:**
 
 ```js
-bbo.array.union([1, 2, 3], [4, 5, 6]);
+bbo.union([1, 2, 3], [4, 5, 6]);
 ```
 
 **result:** `[1,2,3,4,5,6]`
 
 ### unionBy
 
-`bbo.array.unionBy(a, b, fn)`
+`bbo.unionBy(a, b, fn)`
 
 Returns every element that exists in any of the two arrays once
 
 **example:**
 
 ```js
-bbo.array.unionBy([1, 2, 3], [4, 5, 6], function(a, b) {
+bbo.unionBy([1, 2, 3], [4, 5, 6], function(a, b) {
   return a - b;
 });
 ```
@@ -2101,27 +2101,27 @@ bbo.array.unionBy([1, 2, 3], [4, 5, 6], function(a, b) {
 
 ### unionWith
 
-`bbo.array.unionWith(a, b, comp)`
+`bbo.unionWith(a, b, comp)`
 
 Returns every element that exists in any of the two arrays once,
 
 ### intersect
 
-`bbo.array.intersect(a, b)`
+`bbo.intersect(a, b)`
 
 Returns a list of elements that exist in both arrays.
 
 **example:**
 
 ```js
-bbo.array.intersect([1, 2, 3], [4, 2, 6]);
+bbo.intersect([1, 2, 3], [4, 2, 6]);
 ```
 
 **result:** `[2]`
 
 ### intersectBy
 
-`bbo.array.intersectBy(a, b, fn)`
+`bbo.intersectBy(a, b, fn)`
 
 Returns a list of elements that exist in both arrays.after applying the provided function to each array element of both.
 
@@ -2131,96 +2131,96 @@ Returns a list of elements that exist in both arrays.after applying the provided
 var func = function() {
   return 6;
 };
-bbo.array.intersectBy([1, 2, 3], [6, 4, 5], func);
+bbo.intersectBy([1, 2, 3], [6, 4, 5], func);
 ```
 
 **result:** `[1,2,3]`
 
 ### difference
 
-`bbo.array.difference(a, b)`
+`bbo.difference(a, b)`
 
 Returns the difference between two arrays.
 
 **example:**
 
 ```js
-bbo.array.difference([1, 2, 3], [4, 2, 6]);
+bbo.difference([1, 2, 3], [4, 2, 6]);
 ```
 
 **result:** `[1,3]`
 
 ### differenceBy
 
-`bbo.array.differenceBy(a, b, fn)`
+`bbo.differenceBy(a, b, fn)`
 Returns the difference between two arrays.
 
 ### max
 
-`bbo.array.max(target)`
+`bbo.max(target)`
 Returns the largest element in an array
 
 **example:**
 
 ```js
-bbo.array.max([1, 2, 3]);
+bbo.max([1, 2, 3]);
 ```
 
 **result:** `3`
 
 ### min
 
-`bbo.array.min(target)`
+`bbo.min(target)`
 
 Returns the smallest element in an array
 
 **example:**
 
 ```js
-bbo.array.min([1, 2, 3]);
+bbo.min([1, 2, 3]);
 ```
 
 **result:** `1`
 
 ### equal
 
-`bbo.array.equal(arr1, arr2)`
+`bbo.equal(arr1, arr2)`
 
 Check two arrays are equal
 
 **example:**
 
 ```js
-bbo.array.equal([1, 2, 3], [1, 2, 3]);
+bbo.equal([1, 2, 3], [1, 2, 3]);
 ```
 
 **result:** `true`
 
 ### allEqual
 
-`bbo.array.allEqual(arr1)`
+`bbo.allEqual(arr1)`
 
 Check if all elements in an array are equal.
 
 **example:**
 
 ```js
-bbo.array.allEqual([1, 2, 3]);
-bbo.array.allEqual([1, 1, 1]);
+bbo.allEqual([1, 2, 3]);
+bbo.allEqual([1, 1, 1]);
 ```
 
 **result:** `false true`
 
 ### all
 
-`bbo.array.all(arr, fn = Boolean)`
+`bbo.all(arr, fn = Boolean)`
 
 Returns true if the provided predicate function returns true for all elements in a collection, false otherwise.
 
 **example:**
 
 ```js
-bbo.array.all([1, 2, 3], function() {
+bbo.all([1, 2, 3], function() {
   return 1;
 });
 ```
@@ -2229,14 +2229,14 @@ bbo.array.all([1, 2, 3], function() {
 
 ### any
 
-`bbo.array.any(arr, fn = Boolean)`
+`bbo.any(arr, fn = Boolean)`
 
 Returns true if the provided predicate function returns true for at least one element in a collection,
 
 **example:**
 
 ```js
-bbo.array.any([1, 2, 3], function() {
+bbo.any([1, 2, 3], function() {
   return 1;
 });
 ```
@@ -2245,68 +2245,68 @@ bbo.array.any([1, 2, 3], function() {
 
 ### chunk
 
-`bbo.array.chunk(arr, size)`
+`bbo.chunk(arr, size)`
 
 Chunks an array into smaller arrays of a specified size.
 
 ### countBy
 
-`bbo.array.countBy(arr, fn )`
+`bbo.countBy(arr, fn )`
 
 Groups the elements of an array based on the given function and returns the count of elements in each group.
 
 ### countOccurrences
 
-`bbo.array.countOccurrences(arr, val)`
+`bbo.countOccurrences(arr, val)`
 
 Counts the occurrences of a value in an array.
 
 **example:**
 
 ```js
-bbo.array.countOccurrences([1, 2, 2, 3], 2);
+bbo.countOccurrences([1, 2, 2, 3], 2);
 ```
 
 **result:** `2`
 
 ### drop
 
-`bbo.array.drop(arr, n)`
+`bbo.drop(arr, n)`
 
 Returns a new array with n elements removed from the left.
 
 **example:**
 
 ```js
-bbo.array.drop([1, 2, 2, 3], 2);
+bbo.drop([1, 2, 2, 3], 2);
 ```
 
 **result:** `[2,3]`
 
 ### dropRight
 
-`bbo.array.dropRight(arr, n)`
+`bbo.dropRight(arr, n)`
 
 Returns a new array with n elements removed from the right.
 
 **example:**
 
 ```js
-bbo.array.dropRight([1, 2, 2, 3], 2);
+bbo.dropRight([1, 2, 2, 3], 2);
 ```
 
 **result:** `[1,2]`
 
 ### dropWhile
 
-`bbo.array.dropWhile(arr, func)`
+`bbo.dropWhile(arr, func)`
 
 Removes elements from the end of an array until the passed function returns true,
 
 **example:**
 
 ```js
-bbo.array.dropWhile([1,2,2,3],function(item){
+bbo.dropWhile([1,2,2,3],function(item){
     return false
 }
 ```
@@ -2315,18 +2315,18 @@ bbo.array.dropWhile([1,2,2,3],function(item){
 
 ### dropRightWhile
 
-`bbo.array.dropRightWhile(arr, func)`
+`bbo.dropRightWhile(arr, func)`
 
 Removes elements from the end of an array until the passed function returns true,
 
 ### column
 
-`bbo.array.column(input, ColumnKey, IndexKey = null)`
+`bbo.column(input, ColumnKey, IndexKey = null)`
 
 **example:**
 
 ```js
-bbo.array.column(
+bbo.column(
   [
     { name: "Alex", value: 1 },
     { name: "Elvis", value: 2 },
@@ -2340,10 +2340,10 @@ bbo.array.column(
 
 ### search
 
-`bbo.array.search(needle, haystack, argStrict)`
+`bbo.search(needle, haystack, argStrict)`
 
 ```js
-bbo.array.search("zonneveld", {
+bbo.search("zonneveld", {
   firstname: "kevin",
   middle: "van",
   surname: "zonneveld"
@@ -2359,7 +2359,7 @@ Creates a function that accepts up to one argument, ignoring any additional argu
 **example:**
 
 ```js
-["6", "8", "10"].map(bbo.array.unary(parseInt)); // [6, 8, 10]
+["6", "8", "10"].map(bbo.unary(parseInt)); // [6, 8, 10]
 ```
 
 ## Other
