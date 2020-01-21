@@ -1300,13 +1300,13 @@ Judge whether the object has the specified property
 **example:**
 
 ```js
-let object = { 'a': { 'b': 2 } };
+let object = { a: { b: 2 } };
 
-bbo.has(object, 'a'); // => true
+bbo.has(object, "a"); // => true
 
-bbo.has(object, 'a.b'); // => true
+bbo.has(object, "a.b"); // => true
 
-bbo.has(object, ['a', 'b']); // => true
+bbo.has(object, ["a", "b"]); // => true
 ```
 
 ### reduce
@@ -1346,7 +1346,7 @@ bbo.forEach([1, 2], function(value) {
 });
 // => Logs `1` then `2`.
 
-bbo.forEach({ 'a': 1, 'b': 2 }, function(value, key) {
+bbo.forEach({ a: 1, b: 2 }, function(value, key) {
   console.log(key);
 }); // => Logs 'a' then 'b'
 ```
@@ -1428,10 +1428,10 @@ bbo.find(users, "active"); // => object for 'barney'
 **example:**
 
 ```js
-bbo.toPath('a.b.c');
+bbo.toPath("a.b.c");
 // => ['a', 'b', 'c']
 
-bbo.toPath('a[0].b.c');
+bbo.toPath("a[0].b.c");
 // => ['a', '0', 'b', 'c']
 ```
 
@@ -1472,14 +1472,16 @@ Creates a debounced function that delays invoking func until after wait millisec
 
 ```js
 // Avoid costly calculations while the window size is in flux.
-jQuery(window).on('resize', bbo.debounce(calculateLayout, 150));
+jQuery(window).on("resize", bbo.debounce(calculateLayout, 150));
 
 // Invoke `sendMail` when clicked, debouncing subsequent calls.
-jQuery(element).on('click', bbo.debounce(sendMail, 300, {
-  'leading': true,
-  'trailing': false
-}));
-
+jQuery(element).on(
+  "click",
+  bbo.debounce(sendMail, 300, {
+    leading: true,
+    trailing: false
+  })
+);
 ```
 
 ### throttle
@@ -1489,8 +1491,8 @@ Creates a throttled function that only invokes func at most once per every wait 
 `bbo.throttle(func, [wait=0], [options={}])`
 
 ```js
-var throttled = _.throttle(renewToken, 300000, { 'trailing': false });
-jQuery(element).on('click', throttled);
+var throttled = _.throttle(renewToken, 300000, { trailing: false });
+jQuery(element).on("click", throttled);
 ```
 
 ### pick
@@ -1502,9 +1504,9 @@ Find the properties of an object by using the key
 **example:**
 
 ```js
-var object = { 'a': 1, 'b': '2', 'c': 3 };
+var object = { a: 1, b: "2", c: 3 };
 
-bbo.pick(object, ['a', 'c']); // => { 'a': 1, 'c': 3 }
+bbo.pick(object, ["a", "c"]); // => { 'a': 1, 'c': 3 }
 ```
 
 ### omit
@@ -1516,9 +1518,9 @@ Delete the properties of an object with the key
 **example:**
 
 ```js
-var object = { 'a': 1, 'b': '2', 'c': 3 };
+var object = { a: 1, b: "2", c: 3 };
 
-bbo.omit(object, ['a', 'c']); // => { 'b': '2' }
+bbo.omit(object, ["a", "c"]); // => { 'b': '2' }
 ```
 
 ## String
@@ -1751,10 +1753,8 @@ Returns the length of a string in bytes by Unicode (utf-8 utf8 utf-16 utf16)
 **example:**
 
 ```js
-bbo.byteLen("测试", "utf-8");
+bbo.byteLen("hello", "utf-8"); // => 5
 ```
-
-**result:** `6`
 
 ### repeat
 
@@ -1800,17 +1800,15 @@ bbo.endsWith("str", "s", "");
 
 ### containsWith
 
-`bbo.contains(target, item)`
+`bbo.containsWith(target, item)`
 
-Whether a string contains another string
+Here’s what our current JavaScript equivalent to [Go's strings.Contains](https://golang.org/pkg/strings/#Contains) looks like.
 
 **example:**
 
 ```js
-bbo.contains("strstring", "str");
+bbo.containsWith("strstring", "str"); // => true
 ```
-
-**result:** `true`
 
 ### xssFilter
 
@@ -1821,34 +1819,34 @@ XSS string filtering
 **example:**
 
 ```js
-bbo.xssFilter("strstring<<");
+bbo.xssFilter("strstring<<"); // => strstring&lt;&lt;
 ```
 
-**result:** `strstring&lt;&lt;`
+### effortIndex
 
-### index
+Here’s what our current JavaScript equivalent to [Go's strings.Index](https://golang.org/pkg/strings/#Index) looks like.
 
-`bbo.index(s, sep)`
+`bbo.effortIndex(s, sep)`
 
 **example:**
 
 ```js
-bbo.index("strstring", "i");
+bbo.effortIndex("Kevin", "K"); // => 0
+bbo.effortIndex("Kevin", "Z"); // => -1
 ```
 
-**result:** `6`
-
 ### capwords
+
+Here’s what our current JavaScript equivalent to [Python's string.capwords](https://docs.python.org/3/library/string.html#string.capwords) looks like.
 
 `bbo.capwords(str)`
 
 **example:**
 
 ```js
-bbo.capwords("hello world");
+bbo.capwords("kevin van  zonneveld"); // =>'Kevin Van  Zonneveld'
+bbo.capwords("HELLO WORLD"); // =>'HELLO WORLD'
 ```
-
-**result:** `Hello World`
 
 ## Array
 
@@ -1965,7 +1963,7 @@ Returns true if the element has the specified Array, false otherwise.
 
 **example:**
 
-```js
+````js
 bbo.contains([1, 7, 2, 5, 4], 5); // true
 bbo.contains([1, 7, 2, 5, 4], 8); // false
 ``
@@ -1980,7 +1978,7 @@ Returns true if all the elements values are included in arr, false otherwise.
 ```js
 bbo.includesAll([1, 7, 2, 5, 4], [5]);
 bbo.includesAll([1, 7, 2, 5, 4], [5, 9]);
-```
+````
 
 **result:** `true false`
 
@@ -2451,23 +2449,22 @@ Can be used in the browser to help you subscribe and publish events.
 
 ```js
 function handle1(a, b, c) {
-  console.log('one', a, b, c);
+  console.log("one", a, b, c);
 }
 function handle2(a, b, c) {
-  console.log('two', a, b, c);
+  console.log("two", a, b, c);
 }
 function handle3(a, b, c) {
-  console.log('three', a, b, c);
+  console.log("three", a, b, c);
 }
-
 
 let emitter = new eventEmitter();
 emitter
-  .on('demo', handle1)
-  .once('demo', handle2)
-  .on('demo', handle3);
+  .on("demo", handle1)
+  .once("demo", handle2)
+  .on("demo", handle3);
 
-emitter.emit('demo', [1, 2, 3]);
+emitter.emit("demo", [1, 2, 3]);
 
-emitter.allOff('demo')
+emitter.allOff("demo");
 ```
