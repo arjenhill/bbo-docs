@@ -639,6 +639,17 @@ Check if the current device is Tencent video App.
 bbo.isTenvideo();
 ```
 
+### isWeishi
+
+`bbo.isWeishi()`
+
+Check if the current device is Tencent Weishi App.
+
+**example:**
+
+```js
+bbo.isTenvideo();
+
 ### isIphoneXmodel
 
 `bbo.isIphoneXmodel()`
