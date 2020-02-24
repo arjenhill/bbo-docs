@@ -54,9 +54,9 @@ bbo.removeConsole("clear");
 
 ### g
 
-`bbo.g(i)`
+`bbo.g(id)`
 
-Equate to `document.getElementById("i")`
+Equate to `document.getElementById("id")`
 
 **example:**
 
@@ -68,7 +68,7 @@ bbo.g("id");
 
 `bbo.gc(cn)`
 
-Equate to `document.getElementsByClassName('cn')`
+Equate to `document.getElementsByClassName('class')`
 
 **example:**
 
@@ -85,21 +85,17 @@ Create DOM and add set attributes
 **example:**
 
 ```js
-bbo.c("div", "box", "xxx", "contain");
+bbo.c("div", "box", "text", "contain"); // => `<div class="box" id="contain">text</div>`
 ```
-
-**result:** `<div class="box" id="contain">xxx</div>`
 
 ### query
 
-Document.querySelector("i")
+Document.querySelector("id")
 
 ```js
 <div class="box"></div>;
-bbo.query(".box");
+bbo.query(".box"); // => `<div class = "box"></div>`
 ```
-
-**result:** `<div class = "box"></div>`
 
 ### show
 
@@ -114,7 +110,7 @@ Use the spread operator `(...)` and `Array.prototype.forEach()` to clear the `di
 ```js
 bbo.show(...document.querySelectorAll("img")); // Shows all <img> elements on the page
 
-let node = bbo.g("d1");
+let node = bbo.g("id");
 bbo.show(node);
 ```
 
@@ -131,7 +127,7 @@ Use `NodeList.prototype.forEach()` to apply `display: none` to each element spec
 ```js
 bbo.hide(document.querySelectorAll("img")); // Hides all <img> elements on the page
 
-let node = bbo.g("d1");
+let node = bbo.g("id");
 bbo.hide(node);
 ```
 
@@ -147,21 +143,9 @@ Check that `parent` is not the same element as `child`, use `parent.contains(chi
 elementContains(
   document.querySelector("head"),
   document.querySelector("title")
-); // true
+); // => true
 
-elementContains(document.querySelector("body"), document.querySelector("body")); // false
-```
-
-### formToObject
-
-Encode a set of form elements as an `object`.
-
-Use the FormData constructor to convert the HTML form to FormData, Array.from() to convert to an array. Collect the object from the array, using Array.prototype.reduce().
-
-**example:**
-
-```js
-bbo.formToObject(document.querySelector("#form")); // { email: 'test@email.com', name: 'Test Name' }
+elementContains(document.querySelector("body"), document.querySelector("body")); // => false
 ```
 
 ### getStyle
@@ -175,8 +159,7 @@ Use `Window.getComputedStyle()` to get the value of the CSS rule for the specifi
 **example:**
 
 ```js
-bbo.getStyle(document.querySelector("p"), "font-size"); // '16px'
-
+bbo.getStyle(document.querySelector("p"), "font-size"); // =>'16px'
 bbo.getStyle(el, ruleName);
 ```
 
@@ -299,6 +282,28 @@ Loop through an array of functions containing asynchronous events, calling `next
 
 `bbo.chainAsync(fns)`
 
+### modulo
+
+modulo of a number and a divisor
+
+**example:**
+
+```js
+bbo.modulo(7, 5); // 2
+bbo.modulo(17, 23); // 17
+bbo.modulo(16.2, 3.8); // 1
+bbo.modulo(5.8, 3.4); //2.4
+bbo.modulo(4, 0); // 4
+bbo.modulo(-7, 5); // 3
+bbo.modulo(-2, 15); // 13
+bbo.modulo(-5.8, 3.4); // 1
+bbo.modulo(12, -1); // NaN
+bbo.modulo(-3, -8); // NaN
+bbo.modulo(12, "apple"); // NaN
+bbo.modulo("bee", 9); // NaN
+bbo.modulo(null, undefined); // NaN
+```
+
 **example:**
 
 ```js
@@ -367,12 +372,8 @@ This method is used to handle the data returned by ajax, which is not determined
 **example:**
 
 ```js
-$.ajax({ url:'xx', success: res => {
-    // res = "{ code: 0 , msg: 'xxx' , data: ... }";
-    res = bbo.toJson(res);
-    if(res.code==0){ ... };
-  }
-});
+let res = "{ code: 0 , msg: 'xxx' , data: ... }";
+bbo.toJson(res);
 ```
 
 ## behavior
@@ -425,7 +426,7 @@ Js opens a new page without being blocked by the browser.
 **example:**
 
 ```js
-bbo.open("https://www.abc.com/");
+bbo.open("httpss://www.url.com/");
 ```
 
 ### getUrlParam
@@ -437,10 +438,8 @@ Get the url parameter of the current page(or custom).
 **example:**
 
 ```js
-bbo.getUrlParam("a", "http://xxx.com?a=3&b=sd23s");
+bbo.getUrlParam("a", "https://url.com?a=1&b=2"); // => 1
 ```
-
-**result:** `3`
 
 ### setUrlParam
 
@@ -451,10 +450,8 @@ Set the current page (or custom) url parameters, return the modified url.
 **example:**
 
 ```js
-bbo.setUrlParam("a", 1, "http://xxx.com?a=3&b=sd23s");
+bbo.setUrlParam("a", 1, "https://url.com?a=0&b=2"); // => http://url.com?a=1&b=2
 ```
-
-**result:** `<http://xxx.com?a=1&b=sd23s>`
 
 ### deleteUrlParam
 
@@ -465,10 +462,8 @@ delete the current page (or custom) url parameter, return the modified url.
 **example:**
 
 ```js
-bbo.delUrlParam("a", "http://xxx.com?a=3&b=sd23s");
+bbo.delUrlParam("a", "https://url.com?a=1&b=2"); // => https://url.com?b=2
 ```
-
-**result:** `<http://xxx.com?b=sd23s>`
 
 ### objectParam
 
@@ -479,10 +474,8 @@ Joins all given URL segments together, then normalizes the resulting URL.
 **example:**
 
 ```js
-bbo.objectParam({ a: 1, b: 2 });
+bbo.objectParam({ a: 1, b: 2 }); // => a=1&b=2
 ```
-
-**result:** `a=1&b=2`
 
 ### httpGet
 
@@ -491,7 +484,7 @@ bbo.objectParam({ a: 1, b: 2 });
 Makes a GET request to the passed URL.
 
 ```js
-bbo.httpGet("https://www.abc.com/", callback, (err = console.error));
+bbo.httpGet("https://www.url.com/", callback, (err = console.error));
 function callback(res) {
   console.log(res);
 }
@@ -505,7 +498,7 @@ Makes a POST request to the passed URL.
 
 ```js
 var data = { name: "a" };
-bbo.httpPost("https://www.abc.com/", data, callback, (err = console.error));
+bbo.httpPost("https://www.url.com/", data, callback, (err = console.error));
 function callback(res) {
   console.log(res);
 }
@@ -527,8 +520,6 @@ console.log(bbo.ua("l"));
 console.log(bbo.ua("lower"));
 ```
 
-**result:** `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36`
-
 ### isIOS
 
 `bbo.isIOS() or bbo.isIos()`
@@ -538,10 +529,8 @@ Check whether the mobile device is an IOS device.
 **example:**
 
 ```js
-console.log(bbo.isIOS());
+bbo.isIOS();
 ```
-
-**result:** `true`
 
 ### isAndroid
 
@@ -552,10 +541,8 @@ Check whether the mobile device is an Android device.
 **example:**
 
 ```js
-console.log(bbo.isAndroid());
+bbo.isAndroid();
 ```
-
-**result:** `true`
 
 ### isiPhone
 
@@ -566,10 +553,8 @@ Check whether the mobile device is an iphone.
 **example:**
 
 ```js
-console.log(bbo.isiPhone());
+bbo.isiPhone();
 ```
-
-**result:** `true`
 
 ### isIPad
 
@@ -580,10 +565,8 @@ Check whether the mobile device is an IPad.
 **example:**
 
 ```js
-console.log(bbo.isIPad());
+bbo.isIPad();
 ```
-
-**result:** `true`
 
 ### isMobile
 
@@ -594,10 +577,8 @@ Check if the current device is a mobile device.
 **example:**
 
 ```js
-console.log(bbo.isMobile());
+bbo.isMobile();
 ```
-
-**result:** `true`
 
 ### isPC
 
@@ -608,10 +589,8 @@ Check if the current device is a PC device.
 **example:**
 
 ```js
-console.log(bbo.isPC());
+bbo.isPC();
 ```
-
-**result:** `true`
 
 ### isWeixin
 
@@ -622,51 +601,43 @@ Check if the current device is Weixin device.
 **example:**
 
 ```js
-console.log(bbo.isWeixin());
+bbo.isWeixin();
 ```
-
-**result:** `true`
 
 ### isNewsApp
 
 `bbo.isNewsApp()`
 
-Check if the current device is NewsApp device.
+Check if the current device is TencentNews App.
 
 **example:**
 
 ```js
-console.log(bbo.isNewsApp());
+bbo.isNewsApp();
 ```
-
-**result:** `true`
 
 ### isQQ
 
 `bbo.isQQ()`
-Check if the current device is QQ device.
+Check if the current device is Tencent QQ App.
 
 **example:**
 
 ```js
-console.log(bbo.isQQ());
+bbo.isQQ();
 ```
-
-**result:** `true`
 
 ### isTenvideo
 
 `bbo.isTenvideo()`
 
-Check if the current device is Tenvideo device.
+Check if the current device is Tencent video App.
 
 **example:**
 
 ```js
-console.log(bbo.isTenvideo());
+bbo.isTenvideo();
 ```
-
-**result:** `true`
 
 ### isIphoneXmodel
 
@@ -677,10 +648,8 @@ Check if the current device is IphoneXmodel device.
 **example:**
 
 ```js
-console.log(bbo.isIphoneXmodel());
+bbo.isIphoneXmodel();
 ```
-
-**result:** `true`
 
 ### mqqbrowser
 
@@ -691,10 +660,8 @@ Check if the current device is mqqbrowser device.
 **example:**
 
 ```js
-console.log(bbo.mqqbrowser());
+bbo.mqqbrowser();
 ```
-
-**result:** `true`
 
 ### isIE
 
@@ -705,10 +672,8 @@ Detect the current browser is Microsoft IE.
 **example:**
 
 ```js
-console.log(bbo.isIE());
+bbo.isIE();
 ```
-
-**result:** `true`
 
 ### ieVersion
 
@@ -717,10 +682,8 @@ console.log(bbo.isIE());
 Check the IE browser version.
 
 ```js
-console.log(bbo.ieVersion());
+bbo.ieVersion();
 ```
-
-**result:** `IE browser version - 11.1.1`
 
 ## Cookie
 
@@ -836,10 +799,8 @@ bbo.storage({ type: "local", prefix: "debug" }).setItem("view", { a: 1, b: 2 });
 **example:**
 
 ```js
-bbo.storage({ type: "local", prefix: "debug" }).getItem("view");
+bbo.storage({ type: "local", prefix: "debug" }).getItem("view"); // => {a: 1, b: 2}
 ```
-
-**result:** `{a: 1, b: 2}`
 
 ### get[storage]
 
@@ -848,10 +809,8 @@ bbo.storage({ type: "local", prefix: "debug" }).getItem("view");
 **example:**
 
 ```js
-bbo.storage({ type: "local", prefix: "debug" }).get("view");
+bbo.storage({ type: "local", prefix: "debug" }).get("view"); // => { view: {a: 1, b: 2} }
 ```
-
-**result:** `{ view: {a: 1, b: 2} }`
 
 ### has[storage]
 
@@ -862,8 +821,6 @@ bbo.storage({ type: "local", prefix: "debug" }).get("view");
 ```js
 bbo.storage({ type: "local", prefix: "debug" }).has("view");
 ```
-
-**result:** `true`
 
 ### removeItem
 
@@ -896,10 +853,8 @@ bbo.storage({ type: "local", prefix: "xxx" }).removeAll();
 Returns the hex format random color.
 
 ```js
-bbo.randomColor();
+bbo.randomColor(); // => #6ca911
 ```
-
-**result:** `#6ca911`
 
 ### randomA2B
 
@@ -914,8 +869,6 @@ bbo.randomA2B(1, 20);
 bbo.randomA2B(1, 20, true);
 ```
 
-**result:** `17`
-
 ### randomKey
 
 `bbo.randomKey(length?)`
@@ -925,10 +878,8 @@ Returns a random string containing uppercase and lowercase letters and numbers.
 **example:**
 
 ```js
-bbo.randomKey(12);
+bbo.randomKey(12); // => XdT5ZwYviNwk
 ```
-
-**result:** XdT5ZwYviNwk
 
 ## Time
 
@@ -968,10 +919,8 @@ bbo.clearTimesout(id);
 **example:**
 
 ```js
-bbo.getDate("/", ":");
+bbo.getDate("/", ":"); // => `2000/00/00 00:00:00`
 ```
-
-**result:** `2019/12/02 17:00:30`
 
 ### formatPassTime
 
@@ -983,10 +932,8 @@ Format the elapsed time from starttime
 
 ```js
 var startTime = Date.parse("2019/12/01");
-bbo.formatPassTime(startTime);
+bbo.formatPassTime(startTime); // => 2天前
 ```
-
-**result:** `2天前`
 
 ### formatRemainTime
 
@@ -998,10 +945,8 @@ Format the elapsed time from endTime
 
 ```js
 var endTime = Date.parse("2019/12/04");
-bbo.formatRemainTime(endTime);
+bbo.formatRemainTime(endTime); // => 0天 12小时 28分钟 45秒
 ```
-
-**result:** `0天 12小时 28分钟 45秒`
 
 ### formatDuration
 
@@ -1012,13 +957,9 @@ Returns the human readable format of the given number of milliseconds.
 **example:**
 
 ```js
-bbo.formatDuration(1001);
-bbo.formatDuration(34325055574);
+bbo.formatDuration(1001); // => 1 second, 1 millisecond
+bbo.formatDuration(34325055574); // => 397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds
 ```
-
-**result:**
-`'1 second, 1 millisecond'`
-`'397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds'`
 
 ## Image
 
@@ -1127,12 +1068,12 @@ Use a closure to call a stored key with stored arguments.
 ```js
 Promise.resolve([1, 2, 3])
   .then(call("map", x => 2 * x))
-  .then(console.log); // [ 2, 4, 6 ]
+  .then(console.log); // => [ 2, 4, 6 ]
 
 const map = call.bind(null, "map");
 Promise.resolve([1, 2, 3])
   .then(map(x => 2 * x))
-  .then(console.log); // [ 2, 4, 6 ]
+  .then(console.log); // => [ 2, 4, 6 ]
 ```
 
 ## Lodash
@@ -1144,7 +1085,7 @@ Promise.resolve([1, 2, 3])
 **example:**
 
 ```js
-bbo.getTag(func); // =>[object Function]`
+bbo.getTag(func); // =>[object Function]
 ```
 
 ### hasOwnProperty
@@ -1194,8 +1135,6 @@ Determine whether it is a string type
 ```js
 bbo.isString("str"); // => true
 ```
-
-**result:** ``
 
 ### isBoolean
 
@@ -1252,6 +1191,18 @@ let set = new Set();
 set.add(1);
 
 bbo.isSet(set); // => true
+```
+
+### isSymbol
+
+Determine whether it is a Symbol type
+
+**example:**
+
+```js
+let symbol = new Symbol();
+
+bbo.isSymbol(symbol); // => true
 ```
 
 ### isFunction
@@ -1334,6 +1285,23 @@ bbo.reduce(
   },
   {}
 ); // => { '1': ['a', 'c'], '2': ['b'] }
+```
+
+### deepClone
+
+deep copies objects and arrays , Deep clones all properties except functions.
+
+**example:**
+
+```js
+var arr = [1, 2, 3];
+var subObj = { aa: 1 };
+var obj = { a: 3, b: 5, c: arr, d: subObj };
+var objClone = bbo.deepClone(obj);
+arr.push(4);
+subObj.bb = 2;
+obj; // {a: 3, b: 5, c: [1, 2, 3, 4], d: {aa: 1}}
+objClone; // {a: 3, b: 5, c: [1, 2, 3], d: {aa: 1, bb: 2}}
 ```
 
 ### forEach
@@ -1425,19 +1393,9 @@ bbo.find(users, "active"); // => object for 'barney'
 
 `bbo.toPath(value)`
 
-**example:**
-
-```js
-bbo.toPath("a.b.c");
-// => ['a', 'b', 'c']
-
-bbo.toPath("a[0].b.c");
-// => ['a', '0', 'b', 'c']
-```
-
-**result:** `["str"]`
-
 ### get
+
+Get value at property
 
 `bbo.get(object, path, defaultValue)`
 
@@ -1460,6 +1418,35 @@ const res = {
 };
 
 bbo.get(res, "response.code"); // '0'
+```
+
+### set
+
+`bbo.set(object, props, defaultValue)`
+
+Set value at property, create intermediate properties if necessary
+
+```js
+const obj1 = {};
+bbo.set(obj1, "a.aa.aaa", 4); // true
+obj1; // {a: {aa: {aaa: 4}}}
+
+const obj2 = {};
+bbo.set(obj2, ["a", "aa", "aaa"], 4); // true
+obj2; // {a: {aa: {aaa: 4}}}
+
+const obj3 = { a: { aa: { aaa: 2 } } };
+bbo.set(obj3, "a.aa.aaa", 3); // true
+obj3; // {a: {aa: {aaa: 3}}}
+
+// don't clobber existing
+const obj4 = { a: { aa: { aaa: 2 } } };
+bbo.set(obj4, "a.aa", { bbb: 7 }); // false
+
+const obj5 = { a: {} };
+const sym = Symbol();
+bbo.set(obj5.a, sym, 7); // true
+obj5; // {a: {Symbol(): 7}}
 ```
 
 ### debounce
@@ -1534,11 +1521,9 @@ Remove spaces after removing previous string
 **example:**
 
 ```js
-var str = "   str  str    ";
-bbo.trim(str);
+var str = "   abc  def    ";
+bbo.trim(str); // => "   abc  def"
 ```
-
-**result:** ' str str'
 
 ### fillZero
 
@@ -1549,10 +1534,8 @@ Increase by 0 based on string length before string
 **example:**
 
 ```js
-bbo.fillZero("str", 4);
+bbo.fillZero(12345, 6); // "012345"
 ```
-
-**result:** `0str`
 
 ### longUnique
 
@@ -1563,10 +1546,8 @@ Long string unique
 **example:**
 
 ```js
-bbo.longUnique("strstring");
+bbo.longUnique("strstring"); // => string
 ```
-
-**result:** `string`
 
 ### stripTags
 
@@ -1577,11 +1558,9 @@ Remove the html tags inside the script
 **example:**
 
 ```js
-var con = "<div>测试</div>";
-bbo.stripTags(con);
+var con = "<div>text</div>";
+bbo.stripTags(con); // => 'text'
 ```
-
-**result:** `测试`
 
 ### capitalize
 
@@ -1590,10 +1569,8 @@ bbo.stripTags(con);
 **example:**
 
 ```js
-bbo.capitalize("strstring");
+bbo.capitalize("strstring"); // => Strstring
 ```
-
-**result:** `Strstring`
 
 ### deCapitalize
 
@@ -1604,10 +1581,8 @@ DeCapitalizes the first letter of a string.
 **example:**
 
 ```js
-bbo.deCapitalize(["s", "abc"]);
+bbo.deCapitalize("DeCapitalize"); //=> "deCapitalize"
 ```
-
-**result:** `sabc`
 
 ### isAbsoluteURL
 
@@ -1618,18 +1593,9 @@ Returns true if the given string is an absolute URL, false otherwise.
 **example:**
 
 ```js
-bbo.isAbsoluteURL("https://www.abc.com/");
+bbo.isAbsoluteURL("https://www.url.com/"); // => true
+bbo.isAbsoluteURL("strstring"); // => false
 ```
-
-**result:** `true`
-
-**example:**
-
-```js
-bbo.isAbsoluteURL("strstring");
-```
-
-**result:** `false`
 
 ### mapString
 
@@ -1643,10 +1609,9 @@ Creates a new string with the results of calling a provided function
 var func = function(c, i, str) {
   return c + i;
 };
-bbo.mapString("str", func);
+bbo.mapString("str", func); // => s0t1r2
+bbo.mapString("lorem ipsum", c => c.toUpperCase()); // => 'LOREM IPSUM'
 ```
-
-**result:** `s0t1r2`
 
 ### mask
 
@@ -1657,10 +1622,10 @@ Replaces all but the last num of characters with the specified mask character.
 **example:**
 
 ```js
-bbo.mask("strstring", (num = 7), (mask = "*"));
+bbo.mask(1234567890); // => '******7890'
+bbo.mask(1234567890, 3); // => '*******890'
+bbo.mask(1234567890, -4, "$"); // => '$$$$567890'
 ```
-
-**result:** `**rstring`
 
 ### splitLines
 
@@ -1669,10 +1634,8 @@ bbo.mask("strstring", (num = 7), (mask = "*"));
 **example:**
 
 ```js
-bbo.splitLines("'This\nis a\nmultiline\nstring.\n'");
+bbo.splitLines("'This\nis a\nmultiline\nstring.\n'"); // => ["'This", "is a", "multiline", "string.", "'"]
 ```
-
-**result:** `["'This", "is a", "multiline", "string.", "'"]`
 
 ### camelize
 
@@ -1683,10 +1646,8 @@ bbo.splitLines("'This\nis a\nmultiline\nstring.\n'");
 **example:**
 
 ```js
-bbo.camelize("strst-ring");
+bbo.camelize("strst-ring"); // => strstRing
 ```
-
-**result:** `strstRing`
 
 ### underscored
 
@@ -1697,10 +1658,8 @@ Turn CamelCase to '\_'
 **example:**
 
 ```js
-bbo.underscored("strstRing");
+bbo.underscored("strstRing"); // => strst_ring
 ```
-
-**result:** `strst_ring`
 
 ### dasherize
 
@@ -1711,10 +1670,8 @@ Turn '\_' in a string into '-'
 **example:**
 
 ```js
-bbo.dasherize("strst_Ring");
+bbo.dasherize("strst_Ring"); // => strst-ring
 ```
-
-**result:** `strst-ring`
 
 ### truncate
 
@@ -1725,10 +1682,8 @@ Truncates a string up to a specified length.
 **example:**
 
 ```js
-bbo.truncate("strstring", 3);
+bbo.truncate("strstring", 3); // => str...
 ```
-
-**result:** `str...`
 
 ### byteSize
 
@@ -1739,10 +1694,8 @@ Returns the length of a string in bytes.
 **example:**
 
 ```js
-bbo.byteSize("strstring");
+bbo.byteSize("strstring"); // => 9
 ```
-
-**result:** `9`
 
 ### byteLen
 
@@ -1765,10 +1718,8 @@ Repeat item, times times
 **example:**
 
 ```js
-bbo.repeat("string", 3);
+bbo.repeat("string", 3); // => stringstringstring
 ```
-
-**result:** `stringstringstring`
 
 ### endsWith
 
@@ -1779,10 +1730,8 @@ Item is the end of the target
 **example:**
 
 ```js
-bbo.endsWith("str", "r", "");
+bbo.endsWith("str", "r", ""); // => true
 ```
-
-**result:** `true`
 
 ### startsWith
 
@@ -1793,10 +1742,8 @@ Item is the beginning of the target
 **example:**
 
 ```js
-bbo.endsWith("str", "s", "");
+bbo.endsWith("str", "s", ""); // => true
 ```
-
-**result:** `true`
 
 ### containsWith
 
@@ -1860,10 +1807,8 @@ Returns all unique values of an array.
 
 ```js
 var arr = [1, 1, 2, 3, 4, 2];
-bbo.unique(arr);
+bbo.unique(arr); // => [1,2,3,4]
 ```
-
-**result:** `[1,2,3,4]`
 
 ### uniqueBy
 
@@ -1878,8 +1823,6 @@ bbo.uniqueBy([1, 1, 2, 3, 4], function(a, b) {
   a - b;
 });
 ```
-
-**result:** `[1,1]`
 
 ### uniqueFrom
 
@@ -1897,17 +1840,7 @@ let array = [
   { name: "n2", id: "11" }
 ];
 
-return bbo.uniqueFrom(array, "name");
-```
-
-**result:**
-
-```js
-[
-  { name: "n1", id: "1" },
-  { name: "n2", id: "11" },
-  { name: "n3", id: "12" }
-];
+return bbo.uniqueFrom(array, "name"); // => [{ name: "n1", id: "1" },{ name: "n2", id: "11" },{ name: "n3", id: "12" }];
 ```
 
 ### random
@@ -1920,12 +1853,7 @@ Returns a random element from an array.
 
 ```js
 bbo.random([1, 2, 3, 4]);
-bbo.random([1, 2, 3, 4]);
 ```
-
-**result:**
-`1`
-`4`
 
 ### randomSize
 
@@ -1939,8 +1867,6 @@ Returns all unique values of an array, based on a provided comparator function.
 bbo.randomSize([1, 1, 2, 3, 4], 1);
 ```
 
-**result:** `[1]`
-
 ### shuffle
 
 `bbo.shuffle([...arr])`
@@ -1950,10 +1876,8 @@ Randomizes the order of the values of an array, returning a new array.
 **example:**
 
 ```js
-bbo.shuffle([1, 7, 2, 5, 4]);
+bbo.shuffle([1, 7, 2, 5, 4]); // => [5, 2, 7, 4, 1]
 ```
-
-**result:** `[5, 2, 7, 4, 1]`
 
 ### contains
 
@@ -1976,11 +1900,9 @@ Returns true if all the elements values are included in arr, false otherwise.
 **example:**
 
 ```js
-bbo.includesAll([1, 7, 2, 5, 4], [5]);
-bbo.includesAll([1, 7, 2, 5, 4], [5, 9]);
+bbo.includesAll([1, 7, 2, 5, 4], [5]); // => true
+bbo.includesAll([1, 7, 2, 5, 4], [5, 9]); // => false
 ````
-
-**result:** `true false`
 
 ### includesAny
 
@@ -1991,11 +1913,9 @@ Returns true if at least one element of values is included in arr , false otherw
 **example:**
 
 ```js
-bbo.includesAny([1, 7, 2, 5, 4], [10]);
-bbo.includesAny([1, 7, 2, 5, 4], [5, 9]);
+bbo.includesAny([1, 7, 2, 5, 4], [10]); // => false
+bbo.includesAny([1, 7, 2, 5, 4], [5, 9]); // => true
 ```
-
-**result:** `false true`
 
 ### removeAt
 
@@ -2006,10 +1926,8 @@ Remove the element specified by parameter 2 in parameter 1 and return Boolean
 **example:**
 
 ```js
-bbo.removeAt([1, 1, 2, 3, 4, 2], 3);
+bbo.removeAt([1, 1, 2, 3, 4, 2], 3); // => true [1, 1, 2, 4, 2]
 ```
-
-**result:** `true [1, 1, 2, 4, 2]`
 
 ### remove
 
@@ -2020,10 +1938,8 @@ Remove parameter 2 in parameter 1 and return boolean
 **example:**
 
 ```js
-bbo.remove([1, 1, 2, 3, 4, 2], 2);
+bbo.remove([1, 1, 2, 3, 4, 2], 2); // => true [1, 1, 3, 4, 2]
 ```
-
-**result:** `true [1, 1, 3, 4, 2]`
 
 ### compact
 
@@ -2034,10 +1950,8 @@ Removes undefined from an array.
 **example:**
 
 ```js
-bbo.compact([1, 7, undefined]);
+bbo.compact([1, 7, undefined]); // => [1,7]
 ```
-
-**result:** `[1,7]`
 
 ### compactAll
 
@@ -2048,10 +1962,8 @@ Removes false values from an array.
 **example:**
 
 ```js
-bbo.compactAll([1, 7, undefined, null, "", 0, false]);
+bbo.compactAll([1, 7, undefined, null, "", 0, false]); // => [1,7]
 ```
-
-**result:** `[1,7]`
 
 ### pluck
 
@@ -2062,10 +1974,8 @@ Get the attribute values in an array object and combine them into a new array
 **example:**
 
 ```js
-bbo.pluck([{ name: "1", age: "12" }], "age");
+bbo.pluck([{ name: "1", age: "12" }], "age"); // => ["12"]
 ```
-
-**result:** `["12"]`
 
 ### union
 
@@ -2076,10 +1986,8 @@ Returns every element that exists in any of the two arrays once
 **example:**
 
 ```js
-bbo.union([1, 2, 3], [4, 5, 6]);
+bbo.union([1, 2, 3], [4, 5, 6]); // => [1,2,3,4,5,6]
 ```
-
-**result:** `[1,2,3,4,5,6]`
 
 ### unionBy
 
@@ -2092,10 +2000,8 @@ Returns every element that exists in any of the two arrays once
 ```js
 bbo.unionBy([1, 2, 3], [4, 5, 6], function(a, b) {
   return a - b;
-});
+}); // => [1,2,3,4,5,6]
 ```
-
-**result:** `[1,2,3,4,5,6]`
 
 ### unionWith
 
@@ -2112,10 +2018,8 @@ Returns a list of elements that exist in both arrays.
 **example:**
 
 ```js
-bbo.intersect([1, 2, 3], [4, 2, 6]);
+bbo.intersect([1, 2, 3], [4, 2, 6]); // => [2]
 ```
-
-**result:** `[2]`
 
 ### intersectBy
 
@@ -2129,10 +2033,8 @@ Returns a list of elements that exist in both arrays.after applying the provided
 var func = function() {
   return 6;
 };
-bbo.intersectBy([1, 2, 3], [6, 4, 5], func);
+bbo.intersectBy([1, 2, 3], [6, 4, 5], func); // => [1,2,3]
 ```
-
-**result:** `[1,2,3]`
 
 ### difference
 
@@ -2143,10 +2045,8 @@ Returns the difference between two arrays.
 **example:**
 
 ```js
-bbo.difference([1, 2, 3], [4, 2, 6]);
+bbo.difference([1, 2, 3], [4, 2, 6]); // => [1,3]
 ```
-
-**result:** `[1,3]`
 
 ### differenceBy
 
@@ -2164,8 +2064,6 @@ Returns the largest element in an array
 bbo.max([1, 2, 3]);
 ```
 
-**result:** `3`
-
 ### min
 
 `bbo.min(target)`
@@ -2177,8 +2075,6 @@ Returns the smallest element in an array
 ```js
 bbo.min([1, 2, 3]);
 ```
-
-**result:** `1`
 
 ### equal
 
@@ -2192,8 +2088,6 @@ Check two arrays are equal
 bbo.equal([1, 2, 3], [1, 2, 3]);
 ```
 
-**result:** `true`
-
 ### allEqual
 
 `bbo.allEqual(arr1)`
@@ -2203,11 +2097,9 @@ Check if all elements in an array are equal.
 **example:**
 
 ```js
-bbo.allEqual([1, 2, 3]);
-bbo.allEqual([1, 1, 1]);
+bbo.allEqual([1, 2, 3]); // => false
+bbo.allEqual([1, 1, 1]); // => true
 ```
-
-**result:** `false true`
 
 ### all
 
@@ -2223,8 +2115,6 @@ bbo.all([1, 2, 3], function() {
 });
 ```
 
-**result:** `true`
-
 ### any
 
 `bbo.any(arr, fn = Boolean)`
@@ -2238,8 +2128,6 @@ bbo.any([1, 2, 3], function() {
   return 1;
 });
 ```
-
-**result:** `true`
 
 ### chunk
 
@@ -2265,8 +2153,6 @@ Counts the occurrences of a value in an array.
 bbo.countOccurrences([1, 2, 2, 3], 2);
 ```
 
-**result:** `2`
-
 ### drop
 
 `bbo.drop(arr, n)`
@@ -2276,10 +2162,8 @@ Returns a new array with n elements removed from the left.
 **example:**
 
 ```js
-bbo.drop([1, 2, 2, 3], 2);
+bbo.drop([1, 2, 2, 3], 2); // => [2,3]
 ```
-
-**result:** `[2,3]`
 
 ### dropRight
 
@@ -2290,10 +2174,8 @@ Returns a new array with n elements removed from the right.
 **example:**
 
 ```js
-bbo.dropRight([1, 2, 2, 3], 2);
+bbo.dropRight([1, 2, 2, 3], 2); // => [1,2]
 ```
-
-**result:** `[1,2]`
 
 ### dropWhile
 
@@ -2309,8 +2191,6 @@ bbo.dropWhile([1,2,2,3],function(item){
 }
 ```
 
-**result:** `[]`
-
 ### dropRightWhile
 
 `bbo.dropRightWhile(arr, func)`
@@ -2320,6 +2200,8 @@ Removes elements from the end of an array until the passed function returns true
 ### column
 
 `bbo.column(input, ColumnKey, IndexKey = null)`
+
+Return the values from a single column in the input array
 
 **example:**
 
@@ -2332,9 +2214,40 @@ bbo.column(
   ],
   "name"
 );
-```
+// =>  {0: "Alex", 1: "Elvis", 2: "Michael"}
 
-**result:** `{0: "Alex", 1: "Elvis", 2: "Michael"}`
+bbo.column(
+  {
+    0: { name: "Alex", value: 1 },
+    1: { name: "Elvis", value: 2 },
+    2: { name: "Michael", value: 3 }
+  },
+  "name"
+);
+// => {0: "Alex", 1: "Elvis", 2: "Michael"}
+
+bbo.column(
+  [
+    { name: "Alex", value: 1 },
+    { name: "Elvis", value: 2 },
+    { name: "Michael", value: 3 }
+  ],
+  "name",
+  "value"
+);
+// => {1: "Alex", 2: "Elvis", 3: "Michael"}
+
+bbo.column(
+  [
+    { name: "Alex", value: 1 },
+    { name: "Elvis", value: 2 },
+    { name: "Michael", value: 3 }
+  ],
+  null,
+  "value"
+);
+// => {1: {name: 'Alex', value: 1}, 2: {name: 'Elvis', value: 2}, 3: {name: 'Michael', value: 3}}
+```
 
 ### search
 
@@ -2345,10 +2258,8 @@ bbo.search("zonneveld", {
   firstname: "kevin",
   middle: "van",
   surname: "zonneveld"
-});
+}); // 'surname'
 ```
-
-**result:** `surname`
 
 ### unary
 
@@ -2358,6 +2269,26 @@ Creates a function that accepts up to one argument, ignoring any additional argu
 
 ```js
 ["6", "8", "10"].map(bbo.unary(parseInt)); // [6, 8, 10]
+```
+
+### indexBy
+
+Return an object from an array, keyed by the value at the given id
+
+**example:**
+
+```js
+bbo.indexBy(
+  [
+    { id: "first", val: 1 },
+    { id: "second", val: 2 }
+  ],
+  "id"
+); // {first: {id: 'first', val: 1}, second: {id: 'second', val: 2}}
+bbo.index([{ id: "first", val: 1 }, null], "id"); // {first: {id: 'first', val: 1}}
+bbo.index([], "id"); // {}
+bbo.index([], null); // throws
+bbo.index({}, "id"); // throws
 ```
 
 ## Other
