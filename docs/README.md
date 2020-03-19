@@ -376,6 +376,18 @@ let res = "{ code: 0 , msg: 'xxx' , data: ... }";
 bbo.toJson(res);
 ```
 
+### jsonp
+
+`bbo.jsonp(url,options,callBack)`
+
+A simple JSONP implementation.
+
+```js
+bbo.jsonp('url', { a: 2 }, (res) => {
+  console.log(res);
+});
+```
+
 ## behavior
 
 ### trigger
@@ -970,6 +982,45 @@ Returns the human readable format of the given number of milliseconds.
 ```js
 bbo.formatDuration(1001); // => 1 second, 1 millisecond
 bbo.formatDuration(34325055574); // => 397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds
+```
+
+### sleep
+
+Sleep promise resolves a promise after a specified delay.
+
+`bbo.sleep(time)`
+
+```js
+(async () => {
+    await bbo.sleep(2000);
+    console.log('2 seconds later …');
+})();
+
+bbo.sleep(100).then(() => {
+  // do something
+})
+
+let trace = value => {
+    console.log(value);
+    return value;
+};
+
+bbo.sleep(2000)
+    .then(() => 'hello')
+    .then(trace)
+    .then(sleep(1000))
+    .then(value => value + ' world')
+    .then(trace)
+    .then(sleep(500))
+    .then(value => value + '!')
+    .then(trace);
+
+// [2 seconds sleep]
+// hello
+// [1 second sleep]
+// hello world
+// [500 ms sleep]
+// hello world!
 ```
 
 ## Image
