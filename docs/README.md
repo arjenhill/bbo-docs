@@ -1162,6 +1162,20 @@ Determine whether there is a specified attribute value
 bbo.hasOwnProperty({ a: "1" }, "a"); // => true
 ```
 
+### isDate
+
+`bbo.isDate(date)`
+
+Checks whether the given object is a Date.
+
+**example:**
+
+```js
+bbo.isDate(new Date); // => true
+bbo.isDate('Mon April 23 2099'); // => false
+
+```
+
 ### isObject
 
 `bbo.isObject(obj)`
@@ -1570,6 +1584,317 @@ Delete the properties of an object with the key
 var object = { a: 1, b: "2", c: 3 };
 
 bbo.omit(object, ["a", "c"]); // => { 'b': '2' }
+```
+
+## Object
+
+### properObject
+
+`bbo.properObject(object)`
+
+Output a smooth object
+
+**example:**
+
+```js
+let a = 1;
+let obj = {
+  foo: {
+    bar: {
+      a,
+      b: ['a', 'a1'],
+      c: [
+        'x',
+        'y',
+        {
+          a,
+          b: 2
+        }
+      ],
+      d: 100
+    }
+  }
+};
+
+bbo.properObject(obj);
+
+// output =>
+/*
+obj = {
+  foo: {
+    bar: {
+      a: 1,
+      b: ['a', 'a1'],
+      c: [
+        'x',
+        'y',
+        {
+          a: 1,
+          b: 2
+        }
+      ],
+      d: 100
+    }
+  }
+};
+*/
+```
+
+### objectDiff
+
+`bbo.objectDiff(originalObj, updatedObj)`
+
+Returns the difference of the original and updated objects
+
+**example:**
+
+```js
+const lhs = {
+  foo: {
+    bar: {
+      a: ['a', 'b'],
+      b: 2,
+      c: ['x', 'y'],
+      e: 100 // deleted
+    }
+  },
+  buzz: 'world'
+};
+
+const rhs = {
+  foo: {
+    bar: {
+      a: ['a'], // index 1 ('b')  deleted
+      b: 2, // unchanged
+      c: ['x', 'y', 'z'], // 'z' added
+      d: 'Hello, world!' // added
+    }
+  },
+  buzz: 'fizz' // updated
+};
+
+console.log(bbo.objectDiff(lhs, rhs)); // =>
+/*
+{
+  foo: {
+    bar: {
+      a: {
+        '1': undefined
+      },
+      c: {
+        '2': 'z'
+      },
+      d: 'Hello, world!',
+      e: undefined
+    }
+  },
+  buzz: 'fizz'
+}
+*/
+```
+
+### addedDiff
+
+`bbo.addedDiff(originalObj, updatedObj)`
+
+Returns only the values added to the updated object
+
+**example:**
+
+```js
+const lhs = {
+  foo: {
+    bar: {
+      a: ['a', 'b'],
+      b: 2,
+      c: ['x', 'y'],
+      e: 100 // deleted
+    }
+  },
+  buzz: 'world'
+};
+
+const rhs = {
+  foo: {
+    bar: {
+      a: ['a'], // index 1 ('b')  deleted
+      b: 2, // unchanged
+      c: ['x', 'y', 'z'], // 'z' added
+      d: 'Hello, world!' // added
+    }
+  },
+  buzz: 'fizz' // updated
+};
+
+console.log(bbo.addedDiff(lhs, rhs));
+
+/*
+{
+  foo: {
+    bar: {
+      c: {
+        '2': 'z'
+      },
+      d: 'Hello, world!'
+    }
+  }
+}
+*/
+```
+
+### deletedDiff
+
+`bbo.deletedDiff(originalObj, updatedObj)`
+
+Returns only the values deleted in the updated object
+
+**example:**
+
+```js
+const lhs = {
+  foo: {
+    bar: {
+      a: ['a', 'b'],
+      b: 2,
+      c: ['x', 'y'],
+      e: 100 // deleted
+    }
+  },
+  buzz: 'world'
+};
+
+const rhs = {
+  foo: {
+    bar: {
+      a: ['a'], // index 1 ('b')  deleted
+      b: 2, // unchanged
+      c: ['x', 'y', 'z'], // 'z' added
+      d: 'Hello, world!' // added
+    }
+  },
+  buzz: 'fizz' // updated
+};
+
+console.log(bbo.deletedDiff(lhs, rhs));
+
+/*
+{
+  foo: {
+    bar: {
+      a: {
+        '1': undefined
+      },
+      e: undefined
+    }
+  }
+}
+*/
+```
+
+### updatedDiff
+
+`bbo.updatedDiff(originalObj, updatedObj)`
+
+Returns only the values that have been changed in the updated object
+
+**example:**
+
+```js
+const lhs = {
+  foo: {
+    bar: {
+      a: ['a', 'b'],
+      b: 2,
+      c: ['x', 'y'],
+      e: 100 // deleted
+    }
+  },
+  buzz: 'world'
+};
+
+const rhs = {
+  foo: {
+    bar: {
+      a: ['a'], // index 1 ('b')  deleted
+      b: 2, // unchanged
+      c: ['x', 'y', 'z'], // 'z' added
+      d: 'Hello, world!' // added
+    }
+  },
+  buzz: 'fizz' // updated
+};
+
+console.log(bbo.updatedDiff(lhs, rhs));
+
+/*
+{
+  buzz: 'fizz'
+}
+*/
+```
+
+### detailedDiff
+
+`bbo.detailedDiff(originalObj, updatedObj)`
+
+Returns an object with the added, deleted and updated differences
+
+**example:**
+
+```js
+const lhs = {
+  foo: {
+    bar: {
+      a: ['a', 'b'],
+      b: 2,
+      c: ['x', 'y'],
+      e: 100 // deleted
+    }
+  },
+  buzz: 'world'
+};
+
+const rhs = {
+  foo: {
+    bar: {
+      a: ['a'], // index 1 ('b')  deleted
+      b: 2, // unchanged
+      c: ['x', 'y', 'z'], // 'z' added
+      d: 'Hello, world!' // added
+    }
+  },
+  buzz: 'fizz' // updated
+};
+
+console.log(bbo.detailedDiff(lhs, rhs));
+
+/*
+{
+  added: {
+    foo: {
+      bar: {
+        c: {
+          '2': 'z'
+        },
+        d: 'Hello, world!'
+      }
+    }
+  },
+  deleted: {
+    foo: {
+      bar: {
+        a: {
+          '1': undefined
+        },
+        e: undefined
+      }
+    }
+  },
+  updated: {
+    buzz: 'fizz'
+  }
+}
+*/
 ```
 
 ## String
