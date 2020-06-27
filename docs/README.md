@@ -3,9 +3,9 @@ sidebarDepth: 2
 sidebar: auto
 ---
 
-# Documentation
+# Document
 
-> bbo is a useful utility collection library with zero dependencies.
+> bbo is A utility library of zero dependencies for JavaScript.
 
 ## Logs
 
@@ -32,7 +32,7 @@ In setInterval or requestAnimationFrame functions, a fixed number of log is perf
 **example:**
 
 ```js
-setInterval(function() {
+setInterval(function () {
   bbo.logs(myid + "&15", r, "show id: " + myid, " index:", ++index);
 }, 20);
 ```
@@ -213,10 +213,10 @@ Asynchronous loading IMG file and only load once.
 ```js
 bbo.loadImages({
   data: ["1.png", "2.png", "3.png"],
-  step: num => {},
+  step: (num) => {},
   complete: () => {},
   needOneStep: true,
-  path: "/imagePath"
+  path: "/imagePath",
 });
 ```
 
@@ -308,17 +308,17 @@ bbo.modulo(null, undefined); // NaN
 
 ```js
 chainAsync([
-  next => {
+  (next) => {
     console.log("0 seconds");
     setTimeout(next, 1000);
   },
-  next => {
+  (next) => {
     console.log("1 second");
     setTimeout(next, 1000);
   },
   () => {
     console.log("2 second");
-  }
+  },
 ]);
 ```
 
@@ -383,7 +383,7 @@ bbo.toJson(res);
 A simple JSONP implementation.
 
 ```js
-bbo.jsonp('url', { a: 2 }, (res) => {
+bbo.jsonp("url", { a: 2 }, (res) => {
   console.log(res);
 });
 ```
@@ -659,7 +659,7 @@ Check if the current device is Tencent Weishi App.
 
 **example:**
 
-```js
+````js
 bbo.isTenvideo();
 
 ### isIphoneXmodel
@@ -672,7 +672,7 @@ Check if the current device is IphoneXmodel device.
 
 ```js
 bbo.isIphoneXmodel();
-```
+````
 
 ### mqqbrowser
 
@@ -992,28 +992,29 @@ Sleep promise resolves a promise after a specified delay.
 
 ```js
 (async () => {
-    await bbo.sleep(2000);
-    console.log('2 seconds later …');
+  await bbo.sleep(2000);
+  console.log("2 seconds later …");
 })();
 
 bbo.sleep(100).then(() => {
   // do something
-})
+});
 
-let trace = value => {
-    console.log(value);
-    return value;
+let trace = (value) => {
+  console.log(value);
+  return value;
 };
 
-bbo.sleep(2000)
-    .then(() => 'hello')
-    .then(trace)
-    .then(sleep(1000))
-    .then(value => value + ' world')
-    .then(trace)
-    .then(sleep(500))
-    .then(value => value + '!')
-    .then(trace);
+bbo
+  .sleep(2000)
+  .then(() => "hello")
+  .then(trace)
+  .then(sleep(1000))
+  .then((value) => value + " world")
+  .then(trace)
+  .then(sleep(500))
+  .then((value) => value + "!")
+  .then(trace);
 
 // [2 seconds sleep]
 // hello
@@ -1027,25 +1028,21 @@ bbo.sleep(2000)
 
 ### checkImageSize
 
-`bbo.checkImageSize(image, options, deviation = 0)`
+Check the image size，allow File Object or Data URLs.
 
-Check image size
-
-```js
-bbo.checkImageSize(image, options, (deviation = 0));
-```
+`bbo.checkImageSize( image , { enabledMaxSize: false, enabledNatural: false, ratio: 1 })`
 
 ### imageOptimization
 
 Image optimization
 
-```js
-bbo.imageOptimization(
-  image,
-  (quality = 0.9),
-  ({ maxWidth = 1920, mimeType } = {})
-);
-```
+`js bbo.imageOptimization( image, quality = 0.9, { maxWidth = 1920, mimeType });`
+
+### toDataUrl
+
+Return image Object or Data URLs.
+
+`bbo.toDataUrl( url of image , { enabledType: false} )`
 
 ## Arguments
 
@@ -1098,12 +1095,12 @@ Use `Array.prototype.reduce()` combined with `Object.keys(obj)` to iterate over 
 ```js
 const object = {
   a: [{ x: 2 }, { y: 4 }],
-  b: 1
+  b: 1,
 };
 const other = {
   a: { z: 3 },
   b: [2, 3],
-  c: "foo"
+  c: "foo",
 };
 merge(object, other); // { a: [ { x: 2 }, { y: 4 }, { z: 3 } ], b: [ 1, 2, 3 ], c: 'foo' }
 ```
@@ -1129,13 +1126,119 @@ Use a closure to call a stored key with stored arguments.
 
 ```js
 Promise.resolve([1, 2, 3])
-  .then(call("map", x => 2 * x))
+  .then(call("map", (x) => 2 * x))
   .then(console.log); // => [ 2, 4, 6 ]
 
 const map = call.bind(null, "map");
 Promise.resolve([1, 2, 3])
-  .then(map(x => 2 * x))
+  .then(map((x) => 2 * x))
   .then(console.log); // => [ 2, 4, 6 ]
+```
+
+## Collection
+
+### clone
+
+Deep copies objects and arrays , Deep clones all properties except functions.
+
+`bbo.clone(obj) or bbo.deepClone(obj)`
+
+**example:**
+
+```js
+var arr = [1, 2, 3];
+var subObj = { aa: 1 };
+var obj = { a: 3, b: 5, c: arr, d: subObj };
+var objClone = bbo.deepClone(obj);
+arr.push(4);
+subObj.bb = 2;
+obj; // {a: 3, b: 5, c: [1, 2, 3, 4], d: {aa: 1}}
+objClone; // {a: 3, b: 5, c: [1, 2, 3], d: {aa: 1, bb: 2}}
+```
+
+### values
+
+Return property values as an array
+
+`bbo.values(obj)`
+
+**example:**
+
+```js
+bbo.values({ a: 4, c: 8 }); // [4, 8]
+bbo.values({ a: { aa: 2 }, b: { bb: 4 } }); // [{aa: 2}, {bb: 4}]
+bbo.values({}); // []
+bbo.values([1, 2, 3]); // [1, 2, 3]
+bbo.values(function (a, b) {
+  return a + b;
+}); // []
+```
+
+### entries
+
+Return object entries as an array of [key, value] pairs
+
+`bbo.entries(obj)`
+
+**example:**
+
+```js
+// Object:
+bbo.entries({ c: 8, a: 4 }); // [['c', 8], ['a', 4]]
+bbo.entries({ b: { bb: 4 }, a: { aa: 2 } }); // [['b', {bb: 4}], ['a', {aa: 2}]]
+bbo.entries({}); // []
+// Array:
+bbo.entries([{ c: 8 }, { a: 4 }]); // [[0, {c: 8}], [1, {a: 4}]]
+bbo.entries(["À", "mauvais", "ouvrier", "point", "de", "bon", "outil"]); // [[0, 'À'], [1, 'mauvais'] ... [6, 'outil']]
+bbo.entries([]); // []
+```
+
+### extend
+
+Extend an object
+
+`bbo.extend(obj)`
+
+**example:**
+
+```js
+var obj = {a: 3, b: 5};
+bbo.extend(obj, {a: 4, c: 8}); // {a: 4, b: 5, c: 8}
+obj; // {a: 4, b: 5, c: 8}
+
+var obj = {a: 3, b: 5};
+bbo.extend({}, obj, {a: 4, c: 8}); // {a: 4, b: 5, c: 8}
+obj; // {a: 3, b: 5}
+
+var arr = [1, 2, 3];
+var obj = {a: 3, b: 5};
+bbo.extend(obj, {c: arr}); // {a: 3, b: 5, c: [1, 2, 3]}
+arr.push(4);
+obj; // {a: 3, b: 5, c: [1, 2, 3, 4]}
+
+var arr = [1, 2, 3];
+var obj = {a: 3, b: 5};
+bbo.extend(true, obj, {c: arr}); // {a: 3, b: 5, c: [1, 2, 3]}
+arr.push(4);
+obj; // {a: 3, b: 5, c: [1, 2, 3]}
+
+bbo.extend({a: 4, b: 5}); // {a: 4, b: 5}
+bbo.extend({a: 4, b: 5}, 3); {a: 4, b: 5}
+bbo.extend({a: 4, b: 5}, true); {a: 4, b: 5}
+```
+
+### size
+
+Gets the size of `collection` by returning its length for Array|Object|string (Array-like) etc...
+
+`bbo.size(obj)`
+
+**example:**
+
+```js
+bbo.size([1, 2, 3]); // => 3
+bbo.size({ a: 1, b: 2 }); // => 2
+bbo.size("pebbles"); // => 7
 ```
 
 ## Lodash
@@ -1171,9 +1274,8 @@ Checks whether the given object is a Date.
 **example:**
 
 ```js
-bbo.isDate(new Date); // => true
-bbo.isDate('Mon April 23 2099'); // => false
-
+bbo.isDate(new Date()); // => true
+bbo.isDate("Mon April 23 2099"); // => false
 ```
 
 ### isObject
@@ -1290,7 +1392,7 @@ Judge whether it is a function type
 **example:**
 
 ```js
-let fun = function() {};
+let fun = function () {};
 bbo.isFunction(fun); // => true
 ```
 
@@ -1347,7 +1449,7 @@ Data processing of arrays or objects according to specified methods
 ```js
 bbo.reduce(
   [1, 2],
-  function(sum, n) {
+  function (sum, n) {
     return sum + n;
   },
   0
@@ -1355,7 +1457,7 @@ bbo.reduce(
 
 bbo.reduce(
   { a: 1, b: 2, c: 1 },
-  function(result, value, key) {
+  function (result, value, key) {
     (result[value] || (result[value] = [])).push(key);
     return result;
   },
@@ -1363,34 +1465,17 @@ bbo.reduce(
 ); // => { '1': ['a', 'c'], '2': ['b'] }
 ```
 
-### deepClone
-
-deep copies objects and arrays , Deep clones all properties except functions.
-
-**example:**
-
-```js
-var arr = [1, 2, 3];
-var subObj = { aa: 1 };
-var obj = { a: 3, b: 5, c: arr, d: subObj };
-var objClone = bbo.deepClone(obj);
-arr.push(4);
-subObj.bb = 2;
-obj; // {a: 3, b: 5, c: [1, 2, 3, 4], d: {aa: 1}}
-objClone; // {a: 3, b: 5, c: [1, 2, 3], d: {aa: 1, bb: 2}}
-```
-
 ### forEach
 
 `bbo.forEach(src, func)`
 
 ```js
-bbo.forEach([1, 2], function(value) {
+bbo.forEach([1, 2], function (value) {
   console.log(value);
 });
 // => Logs `1` then `2`.
 
-bbo.forEach({ a: 1, b: 2 }, function(value, key) {
+bbo.forEach({ a: 1, b: 2 }, function (value, key) {
   console.log(key);
 }); // => Logs 'a' then 'b'
 ```
@@ -1427,10 +1512,10 @@ bbo.map(users, "user"); // => ['barney', 'fred']
 var users = [
   { user: "barney", active: false },
   { user: "fred", active: false },
-  { user: "pebbles", active: true }
+  { user: "pebbles", active: true },
 ];
 
-bbo.findIndex(users, function(o) {
+bbo.findIndex(users, function (o) {
   return o.user == "barney";
 }); // => 0
 
@@ -1451,10 +1536,10 @@ bbo.findIndex(users, "active"); // => 2
 var users = [
   { user: "barney", age: 36, active: true },
   { user: "fred", age: 40, active: false },
-  { user: "pebbles", age: 1, active: true }
+  { user: "pebbles", age: 1, active: true },
 ];
 
-bbo.find(users, function(o) {
+bbo.find(users, function (o) {
   return o.age < 40;
 }); // => object for 'barney'
 
@@ -1467,7 +1552,17 @@ bbo.find(users, "active"); // => object for 'barney'
 
 ### toPath
 
+Converts `value` to a property path array.
+
 `bbo.toPath(value)`
+
+**example:**
+
+```js
+bbo.toPath("a.b.c"); // => ['a', 'b', 'c']
+
+bbo.toPath("a[0].b.c"); // => ['a', '0', 'b', 'c']
+```
 
 ### get
 
@@ -1478,22 +1573,24 @@ Get value at property
 **example:**
 
 ```js
-const res = {
-  data: {
-    article: [
-      {
-        articleId: 0,
-        title: "title"
-      }
-    ]
-  },
-  response: {
-    code: "0",
-    msg: "success"
-  }
-};
+const obj = { a: { aa: { aaa: 2 } }, b: 4 };
 
-bbo.get(res, "response.code"); // '0'
+bbo.get(obj, "a.aa.aaa"); // 2
+bbo.get(obj, ["a", "aa", "aaa"]); // 2
+bbo.get(obj, "b.bb.bbb"); // undefined
+bbo.get(obj, ["b", "bb", "bbb"]); // undefined
+bbo.get(obj.a, "aa.aaa"); // 2
+bbo.get(obj.a, ["aa", "aaa"]); // 2
+bbo.get(obj.b, "bb.bbb"); // undefined
+bbo.get(obj.b, ["bb", "bbb"]); // undefined
+bbo.get(obj.b, "bb.bbb", 42); // 42
+bbo.get(obj.b, ["bb", "bbb"], 42); // 42
+
+const obj = { a: {} };
+const sym = Symbol();
+obj.a[sym] = 4;
+
+bbo.get(obj.a, sym); // 4
 ```
 
 ### set
@@ -1527,63 +1624,72 @@ obj5; // {a: {Symbol(): 7}}
 
 ### debounce
 
-Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since the last time the debounced function was invoked.
+Creates a debounced function that delays invoking func until.
 
-`bbo.debounce(func, [wait=0], [options={}])`
+`bbo.debounce(func, [wait=0], options)`
 
 **example:**
 
 ```js
-// Avoid costly calculations while the window size is in flux.
-jQuery(window).on("resize", bbo.debounce(calculateLayout, 150));
+const fn1 = debounce(() => console.log("Hello"), 500);
+fn1();
+fn1();
+fn1();
+// 500ms later logs 'hello' once
 
-// Invoke `sendMail` when clicked, debouncing subsequent calls.
-jQuery(element).on(
-  "click",
-  bbo.debounce(sendMail, 300, {
-    leading: true,
-    trailing: false
-  })
-);
+const fn2 = debounce(() => console.log("Hello"), 500, true);
+fn2(); // logs hello immediately
+fn2();
+fn2();
+// 500ms later logs 'hello' once
 ```
 
 ### throttle
 
 Creates a throttled function that only invokes func at most once per every wait milliseconds.
 
-`bbo.throttle(func, [wait=0], [options={}])`
+`bbo.throttle(func, [wait=0], options)`
 
 ```js
-var throttled = _.throttle(renewToken, 300000, { trailing: false });
-jQuery(element).on("click", throttled);
+const fn1 = throttle(() => console.log("hello"), 500, true);
+setInterval(fn1, 400);
+// logs 'hello' immediately and then every 500ms
+
+const fn2 = throttle(() => console.log("hello"), 500);
+setInterval(fn2, 400);
+// logs 'hello' after 500ms and then every 500ms
 ```
 
 ### pick
 
 `bbo.pick(object, ...paths)`
 
-Find the properties of an object by using the key
+Copy an object but with only the specified keys
 
 **example:**
 
 ```js
-var object = { a: 1, b: "2", c: 3 };
-
-bbo.pick(object, ["a", "c"]); // => { 'a': 1, 'c': 3 }
+var obj = { a: 3, b: 5, c: 9 };
+bbo.pick(obj, ["a", "c"]); // {a: 3, c: 9}
+bbo.pick(obj, "a", "c"); // {a: 3, c: 9}
+bbo.pick(obj, ["a", "b", "d"]); // {a: 3, b: 5}
+bbo.pick(obj, ["a", "a"]); // {a: 3}
 ```
 
 ### omit
 
 `bbo.omit(object, ...paths)`
 
-Delete the properties of an object with the key
+Copy an object but omit the specified keys
 
 **example:**
 
 ```js
-var object = { a: 1, b: "2", c: 3 };
-
-bbo.omit(object, ["a", "c"]); // => { 'b': '2' }
+var obj = { a: 3, b: 5, c: 9 };
+bbo.omit(obj, ["a", "c"]); // {b: 5}
+bbo.omit(obj, "a", "c"); // {b: 5}
+bbo.omit(obj, ["a", "b", "d"]); // {c: 9}
+bbo.omit(obj, ["a", "a"]); // {b: 5, c: 9}
 ```
 
 ## Object
@@ -1602,18 +1708,18 @@ let obj = {
   foo: {
     bar: {
       a,
-      b: ['a', 'a1'],
+      b: ["a", "a1"],
       c: [
-        'x',
-        'y',
+        "x",
+        "y",
         {
           a,
-          b: 2
-        }
+          b: 2,
+        },
       ],
-      d: 100
-    }
-  }
+      d: 100,
+    },
+  },
 };
 
 bbo.properObject(obj);
@@ -1652,25 +1758,25 @@ Returns the difference of the original and updated objects
 const lhs = {
   foo: {
     bar: {
-      a: ['a', 'b'],
+      a: ["a", "b"],
       b: 2,
-      c: ['x', 'y'],
-      e: 100 // deleted
-    }
+      c: ["x", "y"],
+      e: 100, // deleted
+    },
   },
-  buzz: 'world'
+  buzz: "world",
 };
 
 const rhs = {
   foo: {
     bar: {
-      a: ['a'], // index 1 ('b')  deleted
+      a: ["a"], // index 1 ('b')  deleted
       b: 2, // unchanged
-      c: ['x', 'y', 'z'], // 'z' added
-      d: 'Hello, world!' // added
-    }
+      c: ["x", "y", "z"], // 'z' added
+      d: "Hello, world!", // added
+    },
   },
-  buzz: 'fizz' // updated
+  buzz: "fizz", // updated
 };
 
 console.log(bbo.objectDiff(lhs, rhs)); // =>
@@ -1705,25 +1811,25 @@ Returns only the values added to the updated object
 const lhs = {
   foo: {
     bar: {
-      a: ['a', 'b'],
+      a: ["a", "b"],
       b: 2,
-      c: ['x', 'y'],
-      e: 100 // deleted
-    }
+      c: ["x", "y"],
+      e: 100, // deleted
+    },
   },
-  buzz: 'world'
+  buzz: "world",
 };
 
 const rhs = {
   foo: {
     bar: {
-      a: ['a'], // index 1 ('b')  deleted
+      a: ["a"], // index 1 ('b')  deleted
       b: 2, // unchanged
-      c: ['x', 'y', 'z'], // 'z' added
-      d: 'Hello, world!' // added
-    }
+      c: ["x", "y", "z"], // 'z' added
+      d: "Hello, world!", // added
+    },
   },
-  buzz: 'fizz' // updated
+  buzz: "fizz", // updated
 };
 
 console.log(bbo.addedDiff(lhs, rhs));
@@ -1754,25 +1860,25 @@ Returns only the values deleted in the updated object
 const lhs = {
   foo: {
     bar: {
-      a: ['a', 'b'],
+      a: ["a", "b"],
       b: 2,
-      c: ['x', 'y'],
-      e: 100 // deleted
-    }
+      c: ["x", "y"],
+      e: 100, // deleted
+    },
   },
-  buzz: 'world'
+  buzz: "world",
 };
 
 const rhs = {
   foo: {
     bar: {
-      a: ['a'], // index 1 ('b')  deleted
+      a: ["a"], // index 1 ('b')  deleted
       b: 2, // unchanged
-      c: ['x', 'y', 'z'], // 'z' added
-      d: 'Hello, world!' // added
-    }
+      c: ["x", "y", "z"], // 'z' added
+      d: "Hello, world!", // added
+    },
   },
-  buzz: 'fizz' // updated
+  buzz: "fizz", // updated
 };
 
 console.log(bbo.deletedDiff(lhs, rhs));
@@ -1803,25 +1909,25 @@ Returns only the values that have been changed in the updated object
 const lhs = {
   foo: {
     bar: {
-      a: ['a', 'b'],
+      a: ["a", "b"],
       b: 2,
-      c: ['x', 'y'],
-      e: 100 // deleted
-    }
+      c: ["x", "y"],
+      e: 100, // deleted
+    },
   },
-  buzz: 'world'
+  buzz: "world",
 };
 
 const rhs = {
   foo: {
     bar: {
-      a: ['a'], // index 1 ('b')  deleted
+      a: ["a"], // index 1 ('b')  deleted
       b: 2, // unchanged
-      c: ['x', 'y', 'z'], // 'z' added
-      d: 'Hello, world!' // added
-    }
+      c: ["x", "y", "z"], // 'z' added
+      d: "Hello, world!", // added
+    },
   },
-  buzz: 'fizz' // updated
+  buzz: "fizz", // updated
 };
 
 console.log(bbo.updatedDiff(lhs, rhs));
@@ -1845,25 +1951,25 @@ Returns an object with the added, deleted and updated differences
 const lhs = {
   foo: {
     bar: {
-      a: ['a', 'b'],
+      a: ["a", "b"],
       b: 2,
-      c: ['x', 'y'],
-      e: 100 // deleted
-    }
+      c: ["x", "y"],
+      e: 100, // deleted
+    },
   },
-  buzz: 'world'
+  buzz: "world",
 };
 
 const rhs = {
   foo: {
     bar: {
-      a: ['a'], // index 1 ('b')  deleted
+      a: ["a"], // index 1 ('b')  deleted
       b: 2, // unchanged
-      c: ['x', 'y', 'z'], // 'z' added
-      d: 'Hello, world!' // added
-    }
+      c: ["x", "y", "z"], // 'z' added
+      d: "Hello, world!", // added
+    },
   },
-  buzz: 'fizz' // updated
+  buzz: "fizz", // updated
 };
 
 console.log(bbo.detailedDiff(lhs, rhs));
@@ -1993,11 +2099,11 @@ Creates a new string with the results of calling a provided function
 **example:**
 
 ```js
-var func = function(c, i, str) {
+var func = function (c, i, str) {
   return c + i;
 };
 bbo.mapString("str", func); // => s0t1r2
-bbo.mapString("lorem ipsum", c => c.toUpperCase()); // => 'LOREM IPSUM'
+bbo.mapString("lorem ipsum", (c) => c.toUpperCase()); // => 'LOREM IPSUM'
 ```
 
 ### mask
@@ -2206,7 +2312,7 @@ Returns all unique values of an array, based on a provided comparator function.
 **example:**
 
 ```js
-bbo.uniqueBy([1, 1, 2, 3, 4], function(a, b) {
+bbo.uniqueBy([1, 1, 2, 3, 4], function (a, b) {
   a - b;
 });
 ```
@@ -2224,7 +2330,7 @@ let array = [
   { name: "n1", id: "1" },
   { name: "n2", id: "11" },
   { name: "n3", id: "12" },
-  { name: "n2", id: "11" }
+  { name: "n2", id: "11" },
 ];
 
 return bbo.uniqueFrom(array, "name"); // => [{ name: "n1", id: "1" },{ name: "n2", id: "11" },{ name: "n3", id: "12" }];
@@ -2318,26 +2424,28 @@ bbo.removeAt([1, 1, 2, 3, 4, 2], 3); // => true [1, 1, 2, 4, 2]
 
 ### remove
 
-`bbo.remove(target, index)`
+`bbo.remove(target, path...)`
 
-Remove parameter 2 in parameter 1 and return boolean
+Removes one array from another
 
 **example:**
 
 ```js
-bbo.remove([1, 1, 2, 3, 4, 2], 2); // => true [1, 1, 3, 4, 2]
+bbo.remove([1, 2, 3, 4, 5, 6], [1, 3, 6]); // [2, 4, 5]
 ```
 
 ### compact
 
 `bbo.compact(target)`
 
-Removes undefined from an array.
+Returns a copy of an array with falsey values removed.
 
 **example:**
 
 ```js
-bbo.compact([1, 7, undefined]); // => [1,7]
+bbo.compact([1, null, 2, undefined, null, NaN, 3, 4, false, 5]); // [1, 2, 3, 4, 5]
+bbo.compact([1, 2, [], 4, {}]); // [1, 2, [], 4, {}]
+bbo.compact([]); // []
 ```
 
 ### compactAll
@@ -2385,7 +2493,7 @@ Returns every element that exists in any of the two arrays once
 **example:**
 
 ```js
-bbo.unionBy([1, 2, 3], [4, 5, 6], function(a, b) {
+bbo.unionBy([1, 2, 3], [4, 5, 6], function (a, b) {
   return a - b;
 }); // => [1,2,3,4,5,6]
 ```
@@ -2417,7 +2525,7 @@ Returns a list of elements that exist in both arrays.after applying the provided
 **example:**
 
 ```js
-var func = function() {
+var func = function () {
   return 6;
 };
 bbo.intersectBy([1, 2, 3], [6, 4, 5], func); // => [1,2,3]
@@ -2497,7 +2605,7 @@ Returns true if the provided predicate function returns true for all elements in
 **example:**
 
 ```js
-bbo.all([1, 2, 3], function() {
+bbo.all([1, 2, 3], function () {
   return 1;
 });
 ```
@@ -2511,7 +2619,7 @@ Returns true if the provided predicate function returns true for at least one el
 **example:**
 
 ```js
-bbo.any([1, 2, 3], function() {
+bbo.any([1, 2, 3], function () {
   return 1;
 });
 ```
@@ -2597,7 +2705,7 @@ bbo.column(
   [
     { name: "Alex", value: 1 },
     { name: "Elvis", value: 2 },
-    { name: "Michael", value: 3 }
+    { name: "Michael", value: 3 },
   ],
   "name"
 );
@@ -2607,7 +2715,7 @@ bbo.column(
   {
     0: { name: "Alex", value: 1 },
     1: { name: "Elvis", value: 2 },
-    2: { name: "Michael", value: 3 }
+    2: { name: "Michael", value: 3 },
   },
   "name"
 );
@@ -2617,7 +2725,7 @@ bbo.column(
   [
     { name: "Alex", value: 1 },
     { name: "Elvis", value: 2 },
-    { name: "Michael", value: 3 }
+    { name: "Michael", value: 3 },
   ],
   "name",
   "value"
@@ -2628,7 +2736,7 @@ bbo.column(
   [
     { name: "Alex", value: 1 },
     { name: "Elvis", value: 2 },
-    { name: "Michael", value: 3 }
+    { name: "Michael", value: 3 },
   ],
   null,
   "value"
@@ -2644,7 +2752,7 @@ bbo.column(
 bbo.search("zonneveld", {
   firstname: "kevin",
   middle: "van",
-  surname: "zonneveld"
+  surname: "zonneveld",
 }); // 'surname'
 ```
 
@@ -2668,7 +2776,7 @@ Return an object from an array, keyed by the value at the given id
 bbo.indexBy(
   [
     { id: "first", val: 1 },
-    { id: "second", val: 2 }
+    { id: "second", val: 2 },
   ],
   "id"
 ); // {first: {id: 'first', val: 1}, second: {id: 'second', val: 2}}
@@ -2777,10 +2885,7 @@ function handle3(a, b, c) {
 }
 
 let emitter = new eventEmitter();
-emitter
-  .on("demo", handle1)
-  .once("demo", handle2)
-  .on("demo", handle3);
+emitter.on("demo", handle1).once("demo", handle2).on("demo", handle3);
 
 emitter.emit("demo", [1, 2, 3]);
 
