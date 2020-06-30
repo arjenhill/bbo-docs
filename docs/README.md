@@ -1135,6 +1135,19 @@ Promise.resolve([1, 2, 3])
   .then(console.log); // => [ 2, 4, 6 ]
 ```
 
+### hasOwnProperty
+
+`bbo.hasOwnProperty(obj, keyName)`
+
+Checks if `key` is a direct property of `object`.
+
+**example:**
+
+```js
+const object = { a: { b: 2 } };
+bbo.hasOwnProperty(object, "a"); // => true
+```
+
 ## Collection
 
 ### clone
@@ -1253,16 +1266,32 @@ bbo.size("pebbles"); // => 7
 bbo.getTag(func); // =>[object Function]
 ```
 
-### hasOwnProperty
+### is
 
-`bbo.hasOwnProperty(obj, keyName)`
+`bbo.is(obj, obj)`
 
-Determine whether there is a specified attribute value
+The bbo.is method determines whether two values are the same value.
 
 **example:**
 
 ```js
-bbo.hasOwnProperty({ a: "1" }, "a"); // => true
+bbo.is("foo", "foo"); // true
+bbo.is(window, window); // true
+
+bbo.is("foo", "bar"); // false
+bbo.is([], []); // false
+
+var foo = { a: 1 };
+var bar = { a: 1 };
+bbo.is(foo, foo); // true
+bbo.is(foo, bar); // false
+
+bbo.is(null, null); // true
+
+// Special Cases
+bbo.is(0, -0); // false
+bbo.is(-0, -0); // true
+bbo.is(NaN, 0 / 0); // true
 ```
 
 ### isDate
@@ -1405,7 +1434,25 @@ Judge whether the value is empty
 **example:**
 
 ```js
+bbo.isEmpty({ a: 3, b: 5 }); // => false
+bbo.isEmpty([1, 2]); // => false
+bbo.isEmpty(new Set([1, 2, 2])); // => false
+bbo.isEmpty(new Map().set("a", 2)); // => false
+bbo.isEmpty({}); // => true
+bbo.isEmpty([]); // => true
+bbo.isEmpty(new Set()); // => true
+bbo.isEmpty(new Map()); // => true
+bbo.isEmpty("abc"); // => false
 bbo.isEmpty(""); // => true
+bbo.isEmpty(0); // => true
+bbo.isEmpty(1); // => true
+bbo.isEmpty(true); // => true
+bbo.isEmpty(Symbol("abc")); // => true
+bbo.isEmpty(new String("abc")); // => false
+bbo.isEmpty(new String("")); // => true
+bbo.isEmpty(new Boolean(true)); // => true
+bbo.isEmpty(null); // => true
+bbo.isEmpty(undefined); // => true
 ```
 
 ### isShallowEqual
@@ -1500,6 +1547,22 @@ bbo.map({ a: 4, b: 8 }, square); // => [16, 64]
 var users = [{ user: "barney" }, { user: "fred" }];
 
 bbo.map(users, "user"); // => ['barney', 'fred']
+```
+
+### mapValues
+
+`bbo.mapValues(obj, predicate)`
+
+Returns a new object with the predicate applied to each value
+
+like just-map-object, but (value, key, object) are passed to the predicate
+
+**example:**
+
+```js
+bbo.mapValues({ a: 3, b: 5, c: 9 }, (value) => value + 1); // {a: 4, b: 6, c: 10}
+bbo.mapValues({ a: 3, b: 5, c: 9 }, (value, key) => value + key); // {a: 3a, b: 5b, c: 9c}
+bbo.mapValues({ a: 3, b: 5, c: 9 }, (value, key, object) => object.b); // {a: 5, b: 5, c: 5}
 ```
 
 ### findIndex
