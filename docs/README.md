@@ -1254,6 +1254,20 @@ bbo.size({ a: 1, b: 2 }); // => 2
 bbo.size("pebbles"); // => 7
 ```
 
+### search
+
+`bbo.search(needle, haystack, argStrict)`
+
+```js
+bbo.search("zonneveld", {
+  firstname: "kevin",
+  middle: "van",
+  surname: "zonneveld",
+}); // => 'surname'
+
+bbo.search("3", { a: 3, b: 5, c: 7 }); // => 'a'
+```
+
 ## Lodash
 
 ### getTag
@@ -1489,7 +1503,7 @@ bbo.has(object, ["a", "b"]); // => true
 
 `bbo.reduce(src, func)`
 
-Data processing of arrays or objects according to specified methods
+Applies a function against an accumulator and each key-value pairs of the object
 
 **example:**
 
@@ -1510,6 +1524,15 @@ bbo.reduce(
   },
   {}
 ); // => { '1': ['a', 'c'], '2': ['b'] }
+
+bbo.reduce(
+  { a: 3, b: 5, c: 9 },
+  (acc, key, value, index, keys) => {
+    acc[value] = key;
+    return acc;
+  },
+  {}
+); // => {3: 'a', 5: 'b', 9: 'c'}
 ```
 
 ### forEach
@@ -2077,8 +2100,10 @@ Remove spaces after removing previous string
 **example:**
 
 ```js
-var str = "   abc  def    ";
-bbo.trim(str); // => "   abc  def"
+bbo.trim(" abc  "); // =>'abc';
+bbo.trim(" abc"); // => 'abc';
+bbo.trim("abc"); // => 'abc';
+bbo.trim("a bc"); // => 'a bc';
 ```
 
 ### fillZero
@@ -2091,6 +2116,11 @@ Increase by 0 based on string length before string
 
 ```js
 bbo.fillZero(12345, 6); // "012345"
+bbo.fillZero("abc"); // "abc"
+bbo.fillZero("12345", 10); // "0000012345"
+bbo.fillZero("abcdefg", 10); // "000abcdefg"
+bbo.fillZero(12345, 2); // "45"
+bbo.fillZero("abc", 1); // "c"
 ```
 
 ### longUnique
@@ -2102,7 +2132,10 @@ Long string unique
 **example:**
 
 ```js
-bbo.longUnique("strstring"); // => string
+bbo.longUnique("strtring"); // => 'string'
+longUnique("sTrString"); // => 'sTrSting'
+longUnique("abcdefg abcdefgi hijk"); // => 'abcdefg ihjk'
+longUnique("123456 123 7"); // => '123456 7'
 ```
 
 ### stripTags
@@ -2114,8 +2147,19 @@ Remove the html tags inside the script
 **example:**
 
 ```js
-var con = "<div>text</div>";
-bbo.stripTags(con); // => 'text'
+bbo.stripTags("abc<ab>"); // => 'abc'
+bbo.stripTags("<ab/>abc<ab>"); // =>'abc')
+bbo.stripTags("<ab/>abc<ab><ab><ab><ab>"); // => 'abc'
+bbo.stripTags("<AB/>abc<ab><AB><ab><AB>"); // => 'abc'
+bbo.stripTags("<ab/>abc<ab/>"); // =>'abc'
+bbo.stripTags("<AB/>abc<><AB>123<ab><AB>"); // => abc<>123'
+bbo.stripTags("<ab/><ab/>"); // => ''
+bbo.stripTags("<!-- test -->"); // => ''
+bbo.stripTags("<script>tst</srcipt>"); // =>'tst'
+bbo.stripTags(
+  '<script type="text/javascript"><!--document.write("!"); //--></script>'
+); // => ''
+bbo.stripTags("<!DOCTYPE html>"); //  => ''
 ```
 
 ### capitalize
@@ -2130,14 +2174,16 @@ bbo.capitalize("strstring"); // => Strstring
 
 ### deCapitalize
 
-`bbo.deCapitalize([first, ...rest], upperRest = false)`
+`bbo.deCapitalize(string)`
 
-DeCapitalizes the first letter of a string.
+Converts the first character of `subject` to lower case.
 
 **example:**
 
 ```js
 bbo.deCapitalize("DeCapitalize"); //=> "deCapitalize"
+bbo.deCapitalize("Sun"); // => 'sun'
+bbo.deCapitalize("moon"); // => 'moon'
 ```
 
 ### isAbsoluteURL
@@ -2165,7 +2211,7 @@ Creates a new string with the results of calling a provided function
 var func = function (c, i, str) {
   return c + i;
 };
-bbo.mapString("str", func); // => s0t1r2
+bbo.mapString("a b c d", func); // => 'a0 1b2 3c4 5d6'
 bbo.mapString("lorem ipsum", (c) => c.toUpperCase()); // => 'LOREM IPSUM'
 ```
 
@@ -2181,9 +2227,15 @@ Replaces all but the last num of characters with the specified mask character.
 bbo.mask(1234567890); // => '******7890'
 bbo.mask(1234567890, 3); // => '*******890'
 bbo.mask(1234567890, -4, "$"); // => '$$$$567890'
+
+bbo.mask("adcdefghijk"); // => '*******hijk'
+bbo.mask("adcdefghijk", 3); // => '********ijk'
+bbo.mask("adcdefghijk", -4, "$"); // =>'$$$$efghijk'
 ```
 
 ### splitLines
+
+Splits a multiline string into an array of lines.
 
 `bbo.splitLines(str)`
 
@@ -2191,6 +2243,7 @@ bbo.mask(1234567890, -4, "$"); // => '$$$$567890'
 
 ```js
 bbo.splitLines("'This\nis a\nmultiline\nstring.\n'"); // => ["'This", "is a", "multiline", "string.", "'"]
+bbo.splitLines("a\nb\r\nc"); // => [ 'a', 'b', 'c' ]
 ```
 
 ### camelize
@@ -2202,7 +2255,7 @@ bbo.splitLines("'This\nis a\nmultiline\nstring.\n'"); // => ["'This", "is a", "m
 **example:**
 
 ```js
-bbo.camelize("strst-ring"); // => strstRing
+bbo.camelize("to-upper-case"); // => 'toUpperCase'
 ```
 
 ### underscored
@@ -2214,7 +2267,7 @@ Turn CamelCase to '\_'
 **example:**
 
 ```js
-bbo.underscored("strstRing"); // => strst_ring
+bbo.underscored("toUpperCase"); // => 'to_upper_case'
 ```
 
 ### dasherize
@@ -2226,7 +2279,7 @@ Turn '\_' in a string into '-'
 **example:**
 
 ```js
-bbo.dasherize("strst_Ring"); // => strst-ring
+bbo.dasherize("hello-world"); // => 'hello_world'
 ```
 
 ### truncate
@@ -2238,7 +2291,13 @@ Truncates a string up to a specified length.
 **example:**
 
 ```js
-bbo.truncate("strstring", 3); // => str...
+bbo.truncate("abcdefg"); // => 'abc...'
+bbo.truncate("abcdefg", 1); // => 'a...'
+bbo.truncate("abcdefg", 3); // => 'abc...';
+bbo.truncate("abcdefg", 4); // => 'a...';
+bbo.truncate("boomerang", 7); // =>'boom...');
+bbo.truncate("abcdefgabcdefg", 7); // => 'abcd...';
+bbo.truncate("abcdefgabcdefg", 10); // => 'abcdefg...';
 ```
 
 ### byteSize
@@ -2274,10 +2333,34 @@ Repeat item, times times
 **example:**
 
 ```js
-bbo.repeat("string", 3); // => stringstringstring
+bbo.repeat("string", 3); // => 'stringstringstring'
+bbo.repeat("TechOnTheNet", 3); // => 'TechOnTheNetTechOnTheNetTechOnTheNet'
+```
+
+### startsWith
+
+Check if a string starts with a given substring.
+
+`bbo.startsWith(target, item, ignore)`
+
+Item is the beginning of the target
+
+**example:**
+
+```js
+bbo.startsWith("str", "s", ""); // => true
+bbo.startsWith("Hello World!", ""); // => true
+bbo.startsWith("Hello World!", "H"); // => true
+bbo.startsWith("Hello World!", "Hell"); // => true
+bbo.startsWith("Hello World!", "Hello"); // => true
+bbo.startsWith("Hello World!", "Hello "); // => true
+bbo.startsWith("Hello World!", "Hello W"); // => true
+bbo.startsWith("They belong to me", "They belong to me!", "!"); // => true
 ```
 
 ### endsWith
+
+Checks if a string is ends with a given substring.
 
 `bbo.endsWith(target, item, ignore)`
 
@@ -2287,18 +2370,12 @@ Item is the end of the target
 
 ```js
 bbo.endsWith("str", "r", ""); // => true
-```
+bbo.endsWith('red alert', 'alert'); // => true
 
-### startsWith
+bbo.endsWith('Hello World!', '!'); // => true
+bbo.endsWith('Hello World!', 'orld!''); // => true
 
-`bbo.startsWith(target, item, ignore)`
-
-Item is the beginning of the target
-
-**example:**
-
-```js
-bbo.endsWith("str", "s", ""); // => true
+bbo.endsWith('metro south', 'metro'); // false
 ```
 
 ### containsWith
@@ -2322,7 +2399,8 @@ XSS string filtering
 **example:**
 
 ```js
-bbo.xssFilter("strstring<<"); // => strstring&lt;&lt;
+bbo.xssFilter("<div>x-html<img src="/bbo/image.png" onerror="onError()"></div>");
+// => '&lt;div&gt;x-html&lt;img src=&quot;/bbo/image.png&quot; onerror=&quot;onError()&quot;&gt;&lt;/div&gt;';
 ```
 
 ### effortIndex
@@ -2362,8 +2440,7 @@ Returns all unique values of an array.
 **example:**
 
 ```js
-var arr = [1, 1, 2, 3, 4, 2];
-bbo.unique(arr); // => [1,2,3,4]
+bbo.unique([1, 1, 2, 3, 4, 2]); // => [1,2,3,4]
 ```
 
 ### uniqueBy
@@ -2375,9 +2452,16 @@ Returns all unique values of an array, based on a provided comparator function.
 **example:**
 
 ```js
-bbo.uniqueBy([1, 1, 2, 3, 4], function (a, b) {
-  a - b;
-});
+bbo.uniqueBy([1, 1, 2, 3, 4],  (a, b) =>  a - b); // =>  [1, 1]
+
+const array = [
+  { id: 0, value: "a" },
+  { id: 1, value: "b" },
+  { id: 2, value: "c" },
+  { id: 1, value: "d" },
+  { id: 0, value: "e" },
+];
+bbo.uniqueBy(array, (a, b) => a.id == b.id); // => [ { id: 0, value: 'a' }, { id: 1, value: 'b' }, { id: 2, value: 'c' } ]
 ```
 
 ### uniqueFrom
@@ -2408,7 +2492,7 @@ Returns a random element from an array.
 **example:**
 
 ```js
-bbo.random([1, 2, 3, 4]);
+bbo.random([3, 7, 9, 11]); // => 9
 ```
 
 ### randomSize
@@ -2420,7 +2504,8 @@ Returns all unique values of an array, based on a provided comparator function.
 **example:**
 
 ```js
-bbo.randomSize([1, 1, 2, 3, 4], 1);
+bbo.randomSize([1, 2, 3], 2); // => [3,1]
+bbo.randomSize([1, 2, 3], 4); // => [2,3,1]
 ```
 
 ### shuffle
@@ -2432,7 +2517,7 @@ Randomizes the order of the values of an array, returning a new array.
 **example:**
 
 ```js
-bbo.shuffle([1, 7, 2, 5, 4]); // => [5, 2, 7, 4, 1]
+bbo.shuffle([1, 2, 3]); // => [3, 1, 2]
 ```
 
 ### contains
@@ -2443,22 +2528,25 @@ Returns true if the element has the specified Array, false otherwise.
 
 **example:**
 
-````js
+```js
 bbo.contains([1, 7, 2, 5, 4], 5); // true
 bbo.contains([1, 7, 2, 5, 4], 8); // false
-``
+```
 
 ### includesAll
 
 `bbo.includesAll(arr, values)`
+
 Returns true if all the elements values are included in arr, false otherwise.
 
 **example:**
 
 ```js
+bbo.includesAll([], []); // => true
 bbo.includesAll([1, 7, 2, 5, 4], [5]); // => true
+bbo.includesAll([1, 7, 2, 5, 4], [5, 4]); // => true
 bbo.includesAll([1, 7, 2, 5, 4], [5, 9]); // => false
-````
+```
 
 ### includesAny
 
@@ -2469,8 +2557,10 @@ Returns true if at least one element of values is included in arr , false otherw
 **example:**
 
 ```js
-bbo.includesAny([1, 7, 2, 5, 4], [10]); // => false
+bbo.includesAny([1, 2, 3], [1, 2, 3]); // => true
 bbo.includesAny([1, 7, 2, 5, 4], [5, 9]); // => true
+bbo.includesAny([1, 7, 2, 5, 4], [10]); // => false
+bbo.includesAll([], []); // => false
 ```
 
 ### removeAt
@@ -2506,21 +2596,11 @@ Returns a copy of an array with falsey values removed.
 **example:**
 
 ```js
+bbo.compact([0, 1, false, 2, "", 3]); // [1, 2, 3]
+bbo.compact([1, 7, undefined, null, "", 0, false]); // => [1,7]
 bbo.compact([1, null, 2, undefined, null, NaN, 3, 4, false, 5]); // [1, 2, 3, 4, 5]
 bbo.compact([1, 2, [], 4, {}]); // [1, 2, [], 4, {}]
 bbo.compact([]); // []
-```
-
-### compactAll
-
-`bbo.compactAll(arr)`
-
-Removes false values from an array.
-
-**example:**
-
-```js
-bbo.compactAll([1, 7, undefined, null, "", 0, false]); // => [1,7]
 ```
 
 ### pluck
@@ -2532,7 +2612,8 @@ Get the attribute values in an array object and combine them into a new array
 **example:**
 
 ```js
-bbo.pluck([{ name: "1", age: "12" }], "age"); // => ["12"]
+bbo.pluck([{ name: "1", age: "12" }], "age"); // => ['12']
+bbo.pluck([{ a: 1 }, { a: 2 }], "a"); // => ['1','2']
 ```
 
 ### union
@@ -2544,6 +2625,7 @@ Returns every element that exists in any of the two arrays once
 **example:**
 
 ```js
+bbo.union([1, 2, 3], [4, 3, 2]); // => [1,2,3,4]
 bbo.union([1, 2, 3], [4, 5, 6]); // => [1,2,3,4,5,6]
 ```
 
@@ -2551,7 +2633,7 @@ bbo.union([1, 2, 3], [4, 5, 6]); // => [1,2,3,4,5,6]
 
 `bbo.unionBy(a, b, fn)`
 
-Returns every element that exists in any of the two arrays once
+Returns every element that exists in any of the two arrays once, after applying the provided function to each array element of both.
 
 **example:**
 
@@ -2559,13 +2641,25 @@ Returns every element that exists in any of the two arrays once
 bbo.unionBy([1, 2, 3], [4, 5, 6], function (a, b) {
   return a - b;
 }); // => [1,2,3,4,5,6]
+
+bbo.unionBy([2.1], [1.2, 2.3], Math.floor); // [2.1, 1.2]
 ```
 
 ### unionWith
 
 `bbo.unionWith(a, b, comp)`
 
-Returns every element that exists in any of the two arrays once,
+Returns every element that exists in any of the two arrays once, using a provided comparator function.
+
+**example:**
+
+```js
+bbo.unionWith(
+  [1, 1.2, 1.5, 3, 0],
+  [1.9, 3, 0, 3.9],
+  (a, b) => Math.round(a) === Math.round(b)
+); // => [1, 1.2, 1.5, 3, 0, 3.9]
+```
 
 ### intersect
 
@@ -2576,7 +2670,10 @@ Returns a list of elements that exist in both arrays.
 **example:**
 
 ```js
-bbo.intersect([1, 2, 3], [4, 2, 6]); // => [2]
+bbo.intersect([1, 2, 3], [4, 3, 2]); // => [2, 3]
+bbo.intersect([1, 2, 3], []); // => [];
+bbo.intersect([], [4, 3, 2]); // => [];
+bbo.intersect([], []); // => []
 ```
 
 ### intersectBy
@@ -2588,10 +2685,12 @@ Returns a list of elements that exist in both arrays.after applying the provided
 **example:**
 
 ```js
-var func = function () {
+const func = () => {
   return 6;
 };
+
 bbo.intersectBy([1, 2, 3], [6, 4, 5], func); // => [1,2,3]
+bbo.intersectBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [2.1]
 ```
 
 ### difference
@@ -2609,7 +2708,15 @@ bbo.difference([1, 2, 3], [4, 2, 6]); // => [1,3]
 ### differenceBy
 
 `bbo.differenceBy(a, b, fn)`
+
 Returns the difference between two arrays.
+
+**example:**
+
+```js
+bbo.differenceBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [1]
+bbo.differenceBy([{ x: 2 }, { x: 1 }], [{ x: 1 }], (v) => v.x); // [2]
+```
 
 ### max
 
@@ -2619,7 +2726,7 @@ Returns the largest element in an array
 **example:**
 
 ```js
-bbo.max([1, 2, 3]);
+bbo.max([1, 2, 3]); // => 3
 ```
 
 ### min
@@ -2631,7 +2738,7 @@ Returns the smallest element in an array
 **example:**
 
 ```js
-bbo.min([1, 2, 3]);
+bbo.min([1, 2, 3]); // => 1
 ```
 
 ### equal
@@ -2643,7 +2750,9 @@ Check two arrays are equal
 **example:**
 
 ```js
-bbo.equal([1, 2, 3], [1, 2, 3]);
+bbo.equal([], []); // => true
+bbo.equal([1, 2, 3], [1, 2, 3]); // => true
+bbo.equal([1, 2, 3], [1, 2, 4]); // => false
 ```
 
 ### allEqual
@@ -2655,8 +2764,15 @@ Check if all elements in an array are equal.
 **example:**
 
 ```js
-bbo.allEqual([1, 2, 3]); // => false
-bbo.allEqual([1, 1, 1]); // => true
+// base array.every( (val, i, arr) => val === arr[0])
+bbo.allEqual(['a', 'a', 'a', 'a']); // => true
+bbo.allEqual(['a', 'a', 'b', 'a']); // => false
+
+bbo.allEqual(['false', '']); // => false
+bbo.allEqual(['false', 'false']); // => true
+bbo.allEqual(['false', false])); // => false
+bbo.allEqual([NaN, NaN]); // => false
+
 ```
 
 ### all
@@ -2668,9 +2784,9 @@ Returns true if the provided predicate function returns true for all elements in
 **example:**
 
 ```js
-bbo.all([1, 2, 3], function () {
-  return 1;
-});
+bbo.all([4, 2, 3], (x) => x > 1); // => true
+bbo.all([4, 2, 3], (x) => x < 1); // => false
+bbo.all([1, 2, 3]); // =>  true
 ```
 
 ### any
@@ -2682,9 +2798,9 @@ Returns true if the provided predicate function returns true for at least one el
 **example:**
 
 ```js
-bbo.any([1, 2, 3], function () {
-  return 1;
-});
+bbo.any([0, 1, 2, 0], (x) => x >= 2); // => true
+bbo.any([0, 0, 1, 0], (x) => x == 0); // => false
+bbo.any([0, 0, 1, 0]); // => true
 ```
 
 ### chunk
@@ -2693,11 +2809,27 @@ bbo.any([1, 2, 3], function () {
 
 Chunks an array into smaller arrays of a specified size.
 
+**example:**
+
+```js
+bbo.chunk([1, 2, 3, 4, 5], 2); // => [[1, 2], [3, 4], [5]]
+bbo.chunk([], 2); // => []
+bbo.chunk([1, 2, 3], 4); // => [[1, 2, 3]]
+```
+
 ### countBy
 
 `bbo.countBy(arr, fn )`
 
 Groups the elements of an array based on the given function and returns the count of elements in each group.
+
+**example:**
+
+```js
+bbo.countBy([6, 10, 100, 10], Math.sqrt); // => {"10":1,"2.449489742783178":1,"3.1622776601683795":2}
+bbo.countBy([6.1, 4.2, 6.3], Math.floor); // => {4: 1, 6: 2}
+bbo.countBy(["one", "two", "three"], "length"); //=> {3: 2, 5: 1}
+```
 
 ### countOccurrences
 
@@ -2708,7 +2840,9 @@ Counts the occurrences of a value in an array.
 **example:**
 
 ```js
-bbo.countOccurrences([1, 2, 2, 3], 2);
+bbo.countOccurrences([1, 1, 2, 1, 2, 3], 1); // => 3
+bbo.countOccurrences([1, 1, 2, 1, 2, 3], 2); // => 2
+bbo.countOccurrences([1, 1, 2, 1, 2, 3], 3); // => 1
 ```
 
 ### drop
@@ -2720,7 +2854,9 @@ Returns a new array with n elements removed from the left.
 **example:**
 
 ```js
-bbo.drop([1, 2, 2, 3], 2); // => [2,3]
+bbo.drop([1, 2, 3]); // => [2,3]
+bbo.drop([1, 2, 3], 2); // => [3]
+bbo.drop([1, 2, 3], 42); // => []
 ```
 
 ### dropRight
@@ -2732,28 +2868,32 @@ Returns a new array with n elements removed from the right.
 **example:**
 
 ```js
-bbo.dropRight([1, 2, 2, 3], 2); // => [1,2]
+bbo.dropRight([1, 2, 3]); // => [1,2]
+bbo.dropRight([1, 2, 3], 2); // => [1]
+bbo.dropRight([1, 2, 3], 42); // => []
 ```
 
 ### dropWhile
 
 `bbo.dropWhile(arr, func)`
 
-Removes elements from the end of an array until the passed function returns true,
+Removes elements from the end of an array until the passed function returns true.
 
 **example:**
 
 ```js
-bbo.dropWhile([1,2,2,3],function(item){
-    return false
-}
+bbo.dropWhile([1, 2, 3, 4], (n) => n >= 3); // => [3,4]
 ```
 
 ### dropRightWhile
 
 `bbo.dropRightWhile(arr, func)`
 
-Removes elements from the end of an array until the passed function returns true,
+Removes elements from the end of an array until the passed function returns true.
+
+```js
+bbo.dropRightWhile([1, 2, 3, 4], (n) => n < 3); // => [1, 2]
+```
 
 ### column
 
@@ -2766,57 +2906,58 @@ Return the values from a single column in the input array
 ```js
 bbo.column(
   [
-    { name: "Alex", value: 1 },
-    { name: "Elvis", value: 2 },
-    { name: "Michael", value: 3 },
+    { name: "a", value: 1 },
+    { name: "b", value: 2 },
+    { name: "c", value: 3 },
   ],
   "name"
 );
-// =>  {0: "Alex", 1: "Elvis", 2: "Michael"}
+// =>  {0: "a", 1: "b", 2: "c"}
 
 bbo.column(
   {
-    0: { name: "Alex", value: 1 },
-    1: { name: "Elvis", value: 2 },
-    2: { name: "Michael", value: 3 },
+    0: { name: "a", value: 1 },
+    1: { name: "b", value: 2 },
+    2: { name: "c", value: 3 },
   },
   "name"
 );
-// => {0: "Alex", 1: "Elvis", 2: "Michael"}
+// => {0: "a", 1: "b", 2: "c"}
 
 bbo.column(
   [
-    { name: "Alex", value: 1 },
-    { name: "Elvis", value: 2 },
-    { name: "Michael", value: 3 },
+    { name: "a", value: 1 },
+    { name: "b", value: 2 },
+    { name: "c", value: 3 },
   ],
   "name",
   "value"
 );
-// => {1: "Alex", 2: "Elvis", 3: "Michael"}
+// => {1: "a", 2: "b", 3: "c"}
 
 bbo.column(
   [
-    { name: "Alex", value: 1 },
-    { name: "Elvis", value: 2 },
-    { name: "Michael", value: 3 },
+    { name: "a", value: 1 },
+    { name: "b", value: 2 },
+    { name: "c", value: 3 },
   ],
   null,
   "value"
 );
-// => {1: {name: 'Alex', value: 1}, 2: {name: 'Elvis', value: 2}, 3: {name: 'Michael', value: 3}}
+// => {1: {name: 'a', value: 1}, 2: {name: 'b', value: 2}, 3: {name: 'c', value: 3}}
 ```
 
-### search
+### split
 
-`bbo.search(needle, haystack, argStrict)`
+Regroup the array according to the length of the array elements
+
+`bbo.split(array, n)`
+
+**example:**
 
 ```js
-bbo.search("zonneveld", {
-  firstname: "kevin",
-  middle: "van",
-  surname: "zonneveld",
-}); // 'surname'
+bbo.split([], 2); // => []
+bbo.split([1, 2, 3, 4, 5], 2); // => [[1,2], [3,4], [5]]
 ```
 
 ### unary
@@ -2836,17 +2977,15 @@ Return an object from an array, keyed by the value at the given id
 **example:**
 
 ```js
-bbo.indexBy(
-  [
-    { id: "first", val: 1 },
-    { id: "second", val: 2 },
-  ],
-  "id"
-); // {first: {id: 'first', val: 1}, second: {id: 'second', val: 2}}
-bbo.index([{ id: "first", val: 1 }, null], "id"); // {first: {id: 'first', val: 1}}
-bbo.index([], "id"); // {}
-bbo.index([], null); // throws
-bbo.index({}, "id"); // throws
+const array = [
+  { id: "first", val: 1 },
+  { id: "second", val: 2 },
+];
+bbo.indexBy(array, "id"); // => {first: {id: 'first', val: 1}, second: {id: 'second', val: 2}}
+bbo.index([{ id: "first", val: 1 }, null], "id"); // => {first: {id: 'first', val: 1}}
+bbo.index([], "id"); // => {}
+bbo.index([], null); // => throws
+bbo.index({}, "id"); // => throws
 ```
 
 ## Other
