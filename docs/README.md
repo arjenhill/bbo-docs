@@ -37,6 +37,21 @@ setInterval(function () {
 }, 20);
 ```
 
+### trash
+
+`bbo.trash`
+
+A trash cache object, used to store the development of the need to use a variety of temporary variables
+
+```js
+bbo.trash["name"] = "xxxx";
+bbo.trash["end"] = new Date().getTime();
+bbo.trash["cache"] = {};
+
+bbo.trash.clear(); // All stored data will be cleared
+bbo.trash.log(); // All stored data will be printed
+```
+
 ### removeConsole
 
 `bbo.removeConsole(clear?)`
@@ -1053,42 +1068,32 @@ Return image Object or Data URLs.
 Converts the arguments object to an array object and slice it. first defalult is 0.
 
 ```js
-var args = bbo.args(arguments);
-var args = bbo.args(arguments, 3);
+function foo(a, b, c, d) {
+  return args(arguments);
+}
+foo(1, 2, 3, 4); // => [1, 2, 3, 4]
+foo(1, 2, 3, 4, '5'); // => [1, 2, 3, 4, "5"]
+
+function boo(a, b, c, d) {
+  return args(arguments, 1);
+}
+
+boo(1, 2, 3, 4, '5'); // => [2, 3, 4, "5"]
 ```
 
 ### noop
 
 `bbo.noop`
 
+noop() is empty function.
+
 A noop function
-
-```js
-var func = bbo.noop;
-```
-
-### trash
-
-`bbo.trash`
-
-A trash cache object, used to store the development of the need to use a variety of temporary variables
-
-```js
-bbo.trash["name"] = "xxxx";
-bbo.trash["end"] = new Date().getTime();
-bbo.trash["cache"] = {};
-
-bbo.trash.clear(); // All stored data will be cleared
-bbo.trash.log(); // All stored data will be printed
-```
 
 ### merge
 
 `bbo.merge(...objs)`
 
 Creates a new object from the combination of two or more objects.
-
-Use `Array.prototype.reduce()` combined with `Object.keys(obj)` to iterate over all objects and keys. Use `hasOwnProperty()` and `Array.prototype.concat()` to append values for keys existing in multiple objects.
 
 **example:**
 
@@ -1126,10 +1131,10 @@ Use a closure to call a stored key with stored arguments.
 
 ```js
 Promise.resolve([1, 2, 3])
-  .then(call("map", (x) => 2 * x))
+  .then(bbo.call("map", (x) => 2 * x))
   .then(console.log); // => [ 2, 4, 6 ]
 
-const map = call.bind(null, "map");
+const map = bbo.call.bind(null, "map");
 Promise.resolve([1, 2, 3])
   .then(map((x) => 2 * x))
   .then(console.log); // => [ 2, 4, 6 ]
@@ -2480,7 +2485,7 @@ let array = [
   { name: "n2", id: "11" },
 ];
 
-return bbo.uniqueFrom(array, "name"); // => [{ name: "n1", id: "1" },{ name: "n2", id: "11" },{ name: "n3", id: "12" }];
+bbo.uniqueFrom(array, "name"); // => [{ name: "n1", id: "1" },{ name: "n2", id: "11" },{ name: "n3", id: "12" }];
 ```
 
 ### random
