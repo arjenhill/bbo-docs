@@ -414,6 +414,13 @@ Triggers a specific event on a given element, optionally passing custom data.
 **example:**
 
 ```js
+bbo.trigger(document.getElementById('myId'), 'click');
+bbo.trigger(document.getElementById('myId'), 'click', 'MouseEvents');
+```
+
+**example:**
+
+```js
 bbo.trigger(element, event, eventType);
 ```
 
@@ -1164,14 +1171,15 @@ Deep copies objects and arrays , Deep clones all properties except functions.
 **example:**
 
 ```js
-var arr = [1, 2, 3];
-var subObj = { aa: 1 };
-var obj = { a: 3, b: 5, c: arr, d: subObj };
-var objClone = bbo.deepClone(obj);
+let arr = [1, 2, 3];
+let subObj = { aa: 1 };
+let obj = { a: 3, b: 5, c: arr, d: subObj };
+let objClone = bbo.deepClone(obj);
 arr.push(4);
 subObj.bb = 2;
-obj; // {a: 3, b: 5, c: [1, 2, 3, 4], d: {aa: 1}}
-objClone; // {a: 3, b: 5, c: [1, 2, 3], d: {aa: 1, bb: 2}}
+
+obj; // => {a: 3, b: 5, c: [1, 2, 3, 4], d: {aa: 1}}
+objClone; // => {a: 3, b: 5, c: [1, 2, 3], d: {aa: 1, bb: 2}}
 ```
 
 ### values
@@ -1183,7 +1191,7 @@ Return property values as an array
 **example:**
 
 ```js
-bbo.values({ a: 4, c: 8 }); // [4, 8]
+bbo.values({ a: 4, c: 8 }); // => [4, 8]
 bbo.values({ a: { aa: 2 }, b: { bb: 4 } }); // [{aa: 2}, {bb: 4}]
 bbo.values({}); // []
 bbo.values([1, 2, 3]); // [1, 2, 3]
@@ -1221,28 +1229,42 @@ Extend an object
 
 ```js
 var obj = {a: 3, b: 5};
-bbo.extend(obj, {a: 4, c: 8}); // {a: 4, b: 5, c: 8}
-obj; // {a: 4, b: 5, c: 8}
+bbo.extend(obj, {a: 4, c: 8}); // => {a: 4, b: 5, c: 8}
+obj; // => {a: 4, b: 5, c: 8}
 
 var obj = {a: 3, b: 5};
-bbo.extend({}, obj, {a: 4, c: 8}); // {a: 4, b: 5, c: 8}
-obj; // {a: 3, b: 5}
+bbo.extend({}, obj, {a: 4, c: 8}); // => {a: 4, b: 5, c: 8}
+obj; // => {a: 3, b: 5}
 
 var arr = [1, 2, 3];
 var obj = {a: 3, b: 5};
-bbo.extend(obj, {c: arr}); // {a: 3, b: 5, c: [1, 2, 3]}
+bbo.extend(obj, {c: arr}); // => {a: 3, b: 5, c: [1, 2, 3]}
 arr.push(4);
-obj; // {a: 3, b: 5, c: [1, 2, 3, 4]}
+obj; // => {a: 3, b: 5, c: [1, 2, 3, 4]}
 
 var arr = [1, 2, 3];
 var obj = {a: 3, b: 5};
-bbo.extend(true, obj, {c: arr}); // {a: 3, b: 5, c: [1, 2, 3]}
+bbo.extend(true, obj, {c: arr}); // => {a: 3, b: 5, c: [1, 2, 3]}
 arr.push(4);
-obj; // {a: 3, b: 5, c: [1, 2, 3]}
+obj; // => {a: 3, b: 5, c: [1, 2, 3]}
 
-bbo.extend({a: 4, b: 5}); // {a: 4, b: 5}
+bbo.extend({a: 4, b: 5}); // => {a: 4, b: 5}
 bbo.extend({a: 4, b: 5}, 3); {a: 4, b: 5}
 bbo.extend({a: 4, b: 5}, true); {a: 4, b: 5}
+```
+
+### flush
+
+Returns a copy of an array or object with null/undefined members removed
+
+`bbo.flush(object/array)`
+
+**example:**
+
+```js
+bbo.flush([1, undefined, 2, null, 3, NaN, 0]); // => [1, 2, 3, NaN, 0]
+bbo.flush([true, null, false, true, [null], undefined]); // => [true, false, true, [null]]
+bbo.flush({a: 2, b: null, c: 4, d: undefined}); // => {a: 2, c: 4}
 ```
 
 ### size
@@ -1611,10 +1633,8 @@ bbo.findIndex(users, function (o) {
 }); // => 0
 
 bbo.findIndex(users, { user: "fred", active: false }); // => 1
-
-bbo.findIndex(users, ["active", false]); // => 0
-
-bbo.findIndex(users, "active"); // => 2
+bbo.findIndex(users, ["active", false]); // => 1
+bbo.findIndex(users, "active"); // => -1
 ```
 
 ### find
@@ -1632,13 +1652,11 @@ var users = [
 
 bbo.find(users, function (o) {
   return o.age < 40;
-}); // => object for 'barney'
+}); // => { active: true, age: 36, user: 'barney' }
 
-bbo.find(users, { age: 1, active: true }); // => object for 'pebbles'
+bbo.find(users, { age: 1, active: true }); // => {"active": true, "age": 36, "user": "barney"}
 
-bbo.find(users, ["active", false]); // => object for 'fred'
-
-bbo.find(users, "active"); // => object for 'barney'
+bbo.find(users, { active: false }); // => {user: "fred", age: 40, active: false}
 ```
 
 ### toPath
