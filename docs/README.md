@@ -1295,7 +1295,7 @@ bbo.search("zonneveld", {
 bbo.search("3", { a: 3, b: 5, c: 7 }); // => 'a'
 ```
 
-## Lodash
+## mlodash
 
 ### getTag
 
