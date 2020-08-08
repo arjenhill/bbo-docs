@@ -815,12 +815,15 @@ bbo.delCookie("username");
 
 ### parseCookie
 
-`bbo.parseCookie(str)`
+`bbo.parseCookie(cookie)`
+
+Parse an Cookie and return an object of all cookie name-value pairs.
 
 **example:**
 
 ```js
-bbo.parseCookie(str);
+document.cookie = 'foo=bar; equation=E%3Dmc%5E2';
+bbo.parseCookie(document.cookie); // => { foo: 'bar', equation: 'E=mc^2' }
 ```
 
 ## Storage
