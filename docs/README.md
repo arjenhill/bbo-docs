@@ -696,16 +696,16 @@ Check if the current device is IphoneXmodel device.
 bbo.isIphoneXmodel();
 ````
 
-### mqqbrowser
+### isQQbrowser
 
-`bbo.mqqbrowser()`
+`bbo.isQQbrowser()`
 
 Check if the current device is mqqbrowser device.
 
 **example:**
 
 ```js
-bbo.mqqbrowser();
+bbo.isQQbrowser();
 ```
 
 ### isIE
@@ -717,7 +717,7 @@ Detect the current browser is Microsoft IE.
 **example:**
 
 ```js
-bbo.isIE();
+bbo.isIE(); // => false
 ```
 
 ### ieVersion
@@ -727,7 +727,14 @@ bbo.isIE();
 Check the IE browser version.
 
 ```js
-bbo.ieVersion();
+bbo.ieVersion(); // => '' or Number
+bbo.ieVersion(chrome); // => '';
+bbo.ieVersion(edge); // => 12;
+bbo.ieVersion(Edge12); // => 12;
+bbo.ieVersion(Edge13); //=> 13;
+bbo.ieVersion(IE10); // => 10;
+bbo.ieVersion(IE11); //=> 11;
+bbo.ieVersion(ie9); // => 9
 ```
 
 ## Cookie
