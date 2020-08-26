@@ -3097,7 +3097,7 @@ Instantiate a class object and can pass parameters, only support es5 and above.
 
 ```js
 var classs = [Dog, Cat, Goose, Elephant];
-var randomClass = bbo.randomFromArray(classs);
+var randomClass = bbo.random(classs);
 var animal = bbo.construct(randomClass, "animal", 300);
 console.log(animal.name);
 ```
