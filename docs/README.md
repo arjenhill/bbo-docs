@@ -3072,11 +3072,12 @@ A number of conditions to determine, like x == a || x == b || x == c ..., strict
 **example:**
 
 ```js
-if(bbo.judge(fileSuffix, ['.js','.jsx','.css','.less'], 'strict'){
-   console.log('This file is legal!');
-}
+const array = ['2', 'js', 'jsx', '.js', '.jsx', '.css', '.less'];
+const object = {};
+const loose = bbo.judge(2, array); // => true
+const strict = bbo.judge(2, array, true); // => false
+const error = bbo.judge(2, object); // => false
 ```
-
 ### paramsName
 
 Gets all the formal parameter names of a function.
