@@ -3,7 +3,7 @@ sidebarDepth: 2
 sidebar: auto
 ---
 
-# Document
+# bbo document
 
 > bbo is A utility library of zero dependencies for JavaScript.
 
@@ -1054,6 +1054,28 @@ bbo
 // hello world
 // [500 ms sleep]
 // hello world!
+```
+
+### retry
+
+Attempt to execute, return Promise instance or synchronous instance
+
+`bbo.retry(task, option)`
+
+```js
+function attempt() {
+  var rand = Math.random();
+  if (rand < 0.8) {
+    console.log('reject!');
+    throw 'err' + rand;
+  } else return rand;
+}
+
+var i = 0;
+bbo.retry(attempt, { retries: 3, timeout: 100, interval: 100 }).then(
+  (r) => console.log('resolve:', r),
+  (r) => console.log('reject:', r)
+);
 ```
 
 ## Image
