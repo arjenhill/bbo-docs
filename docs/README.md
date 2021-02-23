@@ -25,6 +25,8 @@ bbo.log(cookie, { color: "#fff", background: "#ff0000" });
 
 ### logs
 
+> npm package version <= 1.1.23
+
 `bbo.logs(onlyid&time, arg1, arg2, ...)`
 
 In setInterval or requestAnimationFrame functions, a fixed number of log is performed only.
@@ -38,6 +40,8 @@ setInterval(function () {
 ```
 
 ### trash
+
+> npm package version <= 1.1.23
 
 `bbo.trash`
 
@@ -53,6 +57,8 @@ bbo.trash.log(); // All stored data will be printed
 ```
 
 ### removeConsole
+
+> npm package version <= 1.1.23
 
 `bbo.removeConsole(clear?)`
 
@@ -219,6 +225,8 @@ bbo.stopPropagation(e);
 
 ### loadImages
 
+> npm package version <= 1.1.23
+
 `bbo.loadImages(options)`
 
 Asynchronous loading IMG file and only load once.
@@ -237,6 +245,8 @@ bbo.loadImages({
 
 ### loadjs
 
+> npm package version <= 1.1.23
+
 `bbo.loadjs(urls, idOrCallback?, callback?)`
 
 Asynchronous loading javascript script file and only load once.
@@ -251,6 +261,8 @@ bbo.loadjs(["./a.js", "./b.js", "./c.js"], callback);
 ```
 
 ### loadcss
+
+> npm package version <= 1.1.23
 
 `bbo.loadcss(url, callback)`
 
@@ -1082,17 +1094,23 @@ bbo.retry(attempt, { retries: 3, timeout: 100, interval: 100 }).then(
 
 ### checkImageSize
 
+> npm package version <= 1.1.23
+
 Check the image size，allow File Object or Data URLs.
 
 `bbo.checkImageSize( image , { enabledMaxSize: false, enabledNatural: false, ratio: 1 })`
 
 ### imageOptimization
 
+> npm package version <= 1.1.23
+
 Image optimization
 
 `js bbo.imageOptimization( image, quality = 0.9, { maxWidth = 1920, mimeType });`
 
 ### toDataUrl
+
+> npm package version <= 1.1.23
 
 Return image Object or Data URLs.
 
@@ -3126,6 +3144,8 @@ console.log(animal.name);
 ```
 
 ### eventEmitter
+
+> npm package version <= 1.1.23
 
 Can be used in the browser to help you subscribe and publish events.
 

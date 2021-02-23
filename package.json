@@ -1,6 +1,6 @@
 {
   "name": "bbo-docs",
-  "version": "1.1.21",
+  "version": "1.1.25",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,5 +8,8 @@
     "build": "vuepress build docs"
   },
   "author": "halldwang",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.8.2"
+  }
 }
